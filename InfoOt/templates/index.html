@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список работников</title>
+</head>
+<body>
+    {% for employ in employee %}
+    <a><p>{{employ.surname}} {{employ.name}} {{employ.patronym}} {{employ.profession}} {{employ.subdivision}}</p></a>
+    {% endfor %}
+</body>
+</html>
