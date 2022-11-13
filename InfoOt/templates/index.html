@@ -6,7 +6,7 @@
 </head>
 <body>
     {% for employ in employee %}
-    <a><p>{{employ.surname}} {{employ.name}} {{employ.patronym}} {{employ.profession}} {{employ.subdivision}}</p></a>
+        <p><a href="{% url 'profile_employee' employ.pk %}">{{employ.surname}} {{employ.name}} {{employ.patronym}} {{employ.profession}} {{employ.subdivision}}</a></p>
     {% endfor %}
 </body>
 </html>

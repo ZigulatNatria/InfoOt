@@ -1,4 +1,5 @@
 from django.db import models
+from PIL import Image #импорт из PILLOW для обращения к изображению
 
 # Create your models here.
 class Employee(models.Model):
@@ -10,6 +11,16 @@ class Employee(models.Model):
     subdivision = models.CharField(max_length=150)
     photo_employee = models.ImageField(null=True)
     profession = models.TextField()
+
+#Функция для преобразования загружаемой картинки к нужному размеру
+    def save(self):
+        super().save()
+        img = Image.open(self.photo_employee.path)
+
+        if img.height > 100 or img.width > 100:
+            output_size = (100, 100)
+            img.thumbnail(output_size)
+            img.save(self.photo_employee.path)
 
     def __str__(self):
         return '{}'.format(self.surname) + ' ' + '{}'.format(self.name) + ' ' + '{}'.format(self.patronym)
