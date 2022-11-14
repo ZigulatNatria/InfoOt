@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Employee, Passport
+from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph
 from django.views.generic import ListView
 
 # Create your views here.
@@ -11,8 +11,13 @@ class EmployeeListVew(ListView):
 
 
 def profile_employee(request, employee_id):
-    employee = Employee.objects.all()
-    passport = Passport.objects.all()
+    education = Education.objects.get(pk=employee_id)
+    passport = Passport.objects.get(pk=employee_id)
     current_profile = Employee.objects.get(pk=employee_id)
-    context = {'employee': employee, 'passport': passport, 'current_profile': current_profile}
+    certificate = Certificate.objects.get(pk=employee_id) # не работает по всем т.к. принимает id работника
+    psycho = Psycho.objects.get(pk=employee_id)
+    medicine = Medicine.objects.get(pk=employee_id)
+    context = {'education': education, 'passport': passport, 'current_profile': current_profile,
+               'certificate': certificate, 'psycho': psycho, 'medicine': medicine,
+               }
     return render(request, 'profile.html', context)

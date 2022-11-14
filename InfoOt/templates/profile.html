@@ -7,9 +7,19 @@
 <body>
     <p>{{current_profile.surname}} {{current_profile.name}} {{current_profile.patronym}}</p>
     <p><img src="{{MEDIA_URL}}{{ current_profile.photo_employee.url }}"></p>
-    <p>{{current_profile.profession}}</p>
-    <p>{{current_profile.subdivision}}</p>
-    <p>{{current_profile.birth_date}}</p>
-    <p>{{current_profile.phone}}</p>
+    <p>Должность: {{current_profile.profession}}</p>
+    <p>Структурное подразделение: {{current_profile.subdivision}}</p>
+    <p>дата рождения: {{current_profile.birth_date}}</p>
+    <p>телефон: {{current_profile.phone}}</p>
+    <p>Паспорт</p>
+    <p>серия: {{passport.series}}</p>
+    <p>номер: {{passport.number}}</p>
+    <p>дата выдачи: {{date_of_issue}}</p>
+    <p>выдан: {{passport.fms}}</p>
+    <p>прописка: {{passport.registration}}</p>
+    <p>Медицина</p>
+    <p>дата мед.осмотра {{medicine.date_medicine}}</p>
+    <p>Удостоверения</p>
+    <p>пункт {{certificate.name_certificate}}</p>
 </body>
 </html>
