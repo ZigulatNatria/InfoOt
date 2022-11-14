@@ -18,6 +18,7 @@
     <p>выдан: {{passport.fms}}</p>
     <p>прописка: {{passport.registration}}</p>
     <p>Медицина</p>
+    <p><a href="{% url 'medicine' medicine.pk %}">Посмотреть пункты</a></p>
     <p>дата мед.осмотра {{medicine.date_medicine}}</p>
     <p>Удостоверения</p>
     <p>пункт {{certificate.name_certificate}}</p>

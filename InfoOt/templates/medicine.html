@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список работников</title>
+</head>
+<body>
+    <p><img src="{{MEDIA_URL}}{{ medicine.photo_medicine.url }}"></p>
+    {% for med in medicineParagraph %}
+        <p>номер пункта {{med.number_paragraph}}</p>
+        <p>дата прохождения {{med.date_finish_paragraph}}</p>
+        <p>дата следующего осмотра {{med.date_end_paragraph}}</p>
+    {% endfor %}
+</body>
+</html>
