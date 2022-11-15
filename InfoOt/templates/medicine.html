@@ -5,7 +5,6 @@
     <title>Список работников</title>
 </head>
 <body>
-    <p><img src="{{MEDIA_URL}}{{ medicine.photo_medicine.url }}"></p>
     {% for med in medicineParagraph %}
         <p>номер пункта {{med.number_paragraph}}</p>
         <p>дата прохождения {{med.date_finish_paragraph}}</p>

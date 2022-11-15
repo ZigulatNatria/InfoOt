@@ -20,7 +20,6 @@
     <p>Медицина</p>
     <p><a href="{% url 'medicine' medicine.pk %}">Посмотреть пункты</a></p>
     <p>дата мед.осмотра {{medicine.date_medicine}}</p>
-    <p>Удостоверения</p>
-    <p>пункт {{certificate.name_certificate}}</p>
+    <p><a href="{% url 'certificate' current_profile.pk %}">Удостоверения</a></p>
 </body>
 </html>
