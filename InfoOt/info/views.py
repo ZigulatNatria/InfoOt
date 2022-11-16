@@ -11,13 +11,11 @@ class EmployeeListVew(ListView):
 
 
 def profile_employee(request, employee_id):
-    education = Education.objects.get(pk=employee_id)
-    passport = Passport.objects.get(pk=employee_id)
+    passport = Passport.objects.filter(employee=employee_id)
     current_profile = Employee.objects.get(pk=employee_id)
-    psycho = Psycho.objects.get(pk=employee_id)
-    medicine = Medicine.objects.get(employee=employee_id) #обращаемся к полю медицины через связанную модель Employee
-    context = {'education': education, 'passport': passport, 'current_profile': current_profile,
-               'certificate': certificate, 'psycho': psycho, 'medicine': medicine,
+    medicine = Medicine.objects.filter(employee=employee_id) #обращаемся к полю медицины через связанную модель Employee
+    context = {'passport': passport, 'current_profile': current_profile,
+               'certificate': certificate, 'medicine': medicine
                }
     return render(request, 'profile.html', context)
 
@@ -32,3 +30,15 @@ def certificate(request, employee_id):
     cer = Certificate.objects.filter(employee=employee_id)
     context = {'cer': cer}
     return render(request, 'certificate.html', context)
+
+
+def psycho(request, employee_id):
+    psycho = Psycho.objects.filter(employee=employee_id)
+    context = {'psycho': psycho}
+    return render(request, 'psycho.html', context)
+
+
+def education(request, employee_id):
+    education = Education.objects.filter(employee=employee_id)
+    context = {'education': education}
+    return render(request, 'education.html', context)

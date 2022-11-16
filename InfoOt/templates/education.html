@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список работников</title>
+</head>
+<body>
+
+    {% for ed in education %}
+        <p>Наименование {{ed.prof_name}}</p>
+        <p>Дата завершения учёбы {{ed.date_finish_education}}</p>
+    {% endfor %}
+</body>
+</html>
