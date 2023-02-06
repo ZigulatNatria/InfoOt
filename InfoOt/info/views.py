@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph
 from django.views.generic import ListView
+from django.utils import timezone
 
 # Create your views here.
 class EmployeeListVew(ListView):
@@ -27,7 +28,10 @@ def medicine(request, medicine_id):
 
 
 def certificate(request, employee_id):
+    now = timezone.now()
     cer = Certificate.objects.filter(employee=employee_id)
+    # for cert in cer:
+    #     time = cert.date_end_certificate - now.date
     context = {'cer': cer}
     return render(request, 'certificate.html', context)
 

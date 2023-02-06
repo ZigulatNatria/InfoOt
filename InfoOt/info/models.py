@@ -3,14 +3,14 @@ from PIL import Image #импорт из PILLOW для обращения к и�
 
 # Create your models here.
 class Employee(models.Model):
-    surname = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
-    patronym = models.CharField(max_length=100, null=True)
-    birth_date = models.DateField()
-    phone = models.IntegerField()
-    subdivision = models.CharField(max_length=150)
-    photo_employee = models.ImageField(null=True)
-    profession = models.TextField()
+    surname = models.CharField(max_length=100, verbose_name='Фамилия')
+    name = models.CharField(max_length=100, verbose_name='Имя')
+    patronym = models.CharField(max_length=100, verbose_name='Отчество', null=True, blank=True)
+    birth_date = models.DateField(verbose_name='Дата рождения')
+    phone = models.IntegerField(verbose_name='Телефон')
+    subdivision = models.CharField(max_length=150, verbose_name='Подразделение')
+    photo_employee = models.ImageField(verbose_name='Фото работника', null=True, blank=True)
+    profession = models.TextField(verbose_name='Профессия')
 
 #Функция для преобразования загружаемой картинки к нужному размеру
     def save(self):
@@ -31,12 +31,12 @@ class Employee(models.Model):
 
 
 class Passport(models.Model):
-    series = models.IntegerField()
-    number = models.IntegerField()
-    date_of_issue = models.DateField()
-    fms = models.TextField()
-    registration = models.TextField()
-    employee = models.OneToOneField(Employee, on_delete=models.CASCADE)
+    series = models.IntegerField(verbose_name='Серия')
+    number = models.IntegerField(verbose_name='Номер')
+    date_of_issue = models.DateField(verbose_name='Дата выдачи')
+    fms = models.TextField(verbose_name='Кем выдан')
+    registration = models.TextField(verbose_name='Регистрация')
+    employee = models.OneToOneField(Employee, on_delete=models.CASCADE, verbose_name='Работник')
 
     def __str__(self):
         return 'Паспорт' + ' ' + '{}'.format(self.employee)
@@ -47,10 +47,10 @@ class Passport(models.Model):
 
 
 class Education(models.Model):
-    prof_name = models.TextField()
-    date_finish_education = models.DateField()
-    photo_education = models.ImageField()
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    prof_name = models.TextField(verbose_name='Нзвание специальноости')
+    date_finish_education = models.DateField(verbose_name='Дата окончания уч.заведения')
+    photo_education = models.ImageField(verbose_name='Скан документа')
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Работник')
 
     def __str__(self):
         return 'Образование' + ' ' + '{}'.format(self.employee)
@@ -60,12 +60,13 @@ class Education(models.Model):
         verbose_name = 'Образования'
 
 
-class Certificate(models.Model):     #TODO добавить в модель поле для фото протокола
-    name_certificate = models.TextField()
-    date_finish_certificate = models.DateField()
-    date_end_certificate = models.DateField()
-    photo_certificate = models.ImageField()
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+class Certificate(models.Model):
+    name_certificate = models.TextField(verbose_name='Название обучения')
+    date_finish_certificate = models.DateField(verbose_name='Дата получения удостоверения')
+    date_end_certificate = models.DateField(verbose_name='Срок окончания действия удостоверения')
+    photo_certificate = models.ImageField(verbose_name='Скан удостоверения')
+    photo_protocol = models.ImageField(verbose_name='Скан протокола', null=True, blank=True)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Работник')
 
     def __str__(self):
         return 'Удостоверение ' + ' ' + '{}'.format(self.name_certificate) + ' ' + '{}'.format(self.employee)
@@ -76,10 +77,10 @@ class Certificate(models.Model):     #TODO добавить в модель по
 
 
 class Psycho(models.Model):
-    date_finish_psycho = models.DateField()
-    date_end_psycho = models.DateField()
-    photo_psycho = models.ImageField()
-    employee = models.OneToOneField(Employee, on_delete=models.CASCADE)
+    date_finish_psycho = models.DateField(verbose_name='Дата прохождения освидетельствования')
+    date_end_psycho = models.DateField(verbose_name='Срок действия освидетельствования')
+    photo_psycho = models.ImageField(verbose_name='Скан освидетельствования')
+    employee = models.OneToOneField(Employee, on_delete=models.CASCADE, verbose_name='Работник')
 
     def __str__(self):
         return 'Псих.освидетельствование' + ' ' + '{}'.format(self.employee)
@@ -90,9 +91,9 @@ class Psycho(models.Model):
 
 
 class Medicine(models.Model):
-    photo_medicine = models.ImageField()
-    date_medicine = models.DateField()
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    photo_medicine = models.ImageField(verbose_name='Скан мед.заключения')
+    date_medicine = models.DateField(verbose_name='Дата прохождения мед.комиссии')
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Работник')
 
     def __str__(self):
         return 'Мед.заключение' + ' ' + '{}'.format(self.employee)
@@ -103,10 +104,10 @@ class Medicine(models.Model):
 
 
 class MedicineParagraph(models.Model):
-    number_paragraph = models.IntegerField()    #TODO Переделать на float
-    date_finish_paragraph = models.DateField()
-    date_end_paragraph = models.DateField()
-    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+    number_paragraph = models.CharField(max_length=10, verbose_name='Пункт мед.осмотра')
+    date_finish_paragraph = models.DateField(verbose_name='Дата прохождения')
+    date_end_paragraph = models.DateField(verbose_name='Срок действия')
+    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE, verbose_name='Мед.заключение')
 
     def __str__(self):
         return 'Пункт' + ' ' + '{}'.format(self.number_paragraph) + ' ' + '{}'.format(self.medicine)

@@ -9,6 +9,7 @@
     {% for ed in education %}
         <p>Наименование {{ed.prof_name}}</p>
         <p>Дата завершения учёбы {{ed.date_finish_education}}</p>
+        <p>Удостоверение <img src="{{MEDIA_URL}}{{ ed.photo_education.url }}"></p>
     {% endfor %}
 </body>
 </html>
