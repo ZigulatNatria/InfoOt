@@ -8,9 +8,10 @@
 
     {% for c in cer %}
         <p>название {{c.name_certificate}}</p>
+        <p>срок {{c.date_end_certificate}}</p>
     {% endfor %}
-
-{{ time }}
-
+    {% for t in time %}
+{{ t }}
+{% endfor %}
 </body>
 </html>

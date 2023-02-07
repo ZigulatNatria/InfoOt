@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph
 from django.views.generic import ListView
 from django.utils import timezone
+import datetime
 
 # Create your views here.
 class EmployeeListVew(ListView):
@@ -28,11 +29,16 @@ def medicine(request, medicine_id):
 
 
 def certificate(request, employee_id):
-    now = timezone.now()
     cer = Certificate.objects.filter(employee=employee_id)
-    # for cert in cer:
-    #     time = cert.date_end_certificate - now.date
-    context = {'cer': cer}
+    # Для обработки всех значений поля date_end_certificate полученный кверисет пропускаем через цикл for
+    # создаём пустой список и в него добавляем полученные значения
+    # т.к. кверисет это коллекция объектов в цикле обращаемся к каждому объекту Certificate
+    time = []
+    for t in cer:
+        data = t.date_end_certificate
+        data_finish = data - datetime.date.today()  # в этой строке вычитаем текущую дату из полученной
+        time.append(data_finish)
+    context = {'cer': cer, 'time': time}
     return render(request, 'certificate.html', context)
 
 
