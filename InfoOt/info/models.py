@@ -1,5 +1,6 @@
 from django.db import models
 from PIL import Image #импорт из PILLOW для обращения к изображению
+import datetime
 
 # Create your models here.
 class Employee(models.Model):
@@ -74,6 +75,10 @@ class Certificate(models.Model):
     class Meta:
         verbose_name_plural = 'Удостоверение'
         verbose_name = 'Удостоверения'
+
+    # расчитываем колличество дней до окончания срока действия, берём дату окончания из модели и вычитаем текущую дату
+    def time(self):
+        return (self.date_end_certificate - datetime.date.today()).days
 
 
 class Psycho(models.Model):
