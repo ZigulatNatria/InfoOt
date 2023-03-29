@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Список работников</title>
-</head>
+{% extends 'base.html' %}
 <body>
+{% block content %}
+<div class="container">
+    <div class="row justify-content-start">
     {% for employ in employee %}
-        <p><a href="{% url 'profile_employee' employ.pk %}">{{employ.surname}} {{employ.name}} {{employ.patronym}} {{employ.profession}} {{employ.subdivision}}</a></p>
+        <div class="row justify-content-start">
+            <div class="col">
+                <a class="nav-link" href="{% url 'profile_employee' employ.pk %}">{{employ.surname}} {{employ.name}} {{employ.patronym}}</a>
+            </div>
+            <div class="col">
+                {{employ.profession}}
+            </div>
+            <div class="col">
+                {{employ.subdivision}}
+            </div>
+        </div>
     {% endfor %}
+</div>
+</div>
+{% endblock content %}
 </body>
 </html>

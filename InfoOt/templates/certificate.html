@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Список работников</title>
-</head>
+{% extends 'base.html' %}
 <body>
-
+{% block content %}
+<div class="container">
     {% for c in cer %}
         <p>название {{c.name_certificate}}</p>
         <p>срок {{c.date_end_certificate}}</p>
@@ -15,5 +13,7 @@
 {{ t }}
 {% endfor %}
 {{ td }}
+</div>
+{% endblock content %}
 </body>
 </html>

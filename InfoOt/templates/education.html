@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Список работников</title>
-</head>
+{% extends 'base.html' %}
 <body>
-
+{% block content %}
+<div class="container">
     {% for ed in education %}
         <p>Наименование {{ed.prof_name}}</p>
         <p>Дата завершения учёбы {{ed.date_finish_education}}</p>
         <p>Удостоверение <img src="{{MEDIA_URL}}{{ ed.photo_education.url }}"></p>
     {% endfor %}
+</div>
+{% endblock content %}
 </body>
 </html>

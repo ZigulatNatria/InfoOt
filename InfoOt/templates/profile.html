@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Список работников</title>
-</head>
+{% extends 'base.html' %}
 <body>
+{% block content %}
+<div class="container">
     <p>{{current_profile.surname}} {{current_profile.name}} {{current_profile.patronym}}</p>
     <p><img src="{{MEDIA_URL}}{{ current_profile.photo_employee.url }}"></p>
     <p>Должность: {{current_profile.profession}}</p>
@@ -26,5 +25,7 @@
     {% endfor %}
     <p><a href="{% url 'certificate' current_profile.pk %}">Удостоверения</a></p>
     <p><a href="{% url 'psycho' current_profile.pk %}">Псих.освидетельствование</a></p>
+</div>
+{% endblock content %}
 </body>
 </html>
