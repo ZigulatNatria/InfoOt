@@ -4,21 +4,32 @@
 <body>
 {% block content %}
 <div class="container">
-    <div class="row justify-content-start">
-    {% for employ in employee %}
-        <div class="row justify-content-start">
-            <div class="col">
-                <a class="nav-link" href="{% url 'profile_employee' employ.pk %}">{{employ.surname}} {{employ.name}} {{employ.patronym}}</a>
-            </div>
-            <div class="col">
-                {{employ.profession}}
-            </div>
-            <div class="col">
-                {{employ.subdivision}}
-            </div>
-        </div>
-    {% endfor %}
-</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Фото</th>
+          <th scope="col">ФИО</th>
+          <th scope="col">Дата рожд.</th>
+          <th scope="col">Телефон</th>
+          <th scope="col">Профессия</th>
+          <th scope="col">Подразделение</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for employ in employee %}
+        <tr>
+          <th scope="row">#</th>
+          <td><img src="{{MEDIA_URL}}{{ employ.photo_employee.url }}"></td>
+          <td><a class="nav-link" href="{% url 'profile_employee' employ.pk %}">{{employ.surname}} {{employ.name}} {{employ.patronym}}</a></td>
+          <td>{{employ.birth_date}}</td>
+          <td>{{employ.phone}}</td>
+          <td>{{employ.profession}}</td>
+          <td>{{employ.subdivision}}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
 </div>
 {% endblock content %}
 </body>
