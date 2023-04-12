@@ -4,20 +4,25 @@
 <body>
 {% block content %}
 <div class="container">
-    <p>{{current_profile.surname}} {{current_profile.name}} {{current_profile.patronym}}</p>
-    <p><img src="{{MEDIA_URL}}{{ current_profile.photo_employee.url }}"></p>
-    <p>Должность: {{current_profile.profession}}</p>
-    <p>Структурное подразделение: {{current_profile.subdivision}}</p>
-    <p>дата рождения: {{current_profile.birth_date}}</p>
-    <p>телефон: {{current_profile.phone}}</p>
-    <p>Паспорт</p>
-    {% for pass in passport %}
-    <p>серия: {{pass.series}}</p>
-    <p>номер: {{pass.number}}</p>
-    <p>дата выдачи: {{pass.date_of_issue}}</p>
-    <p>выдан: {{pass.fms}}</p>
-    <p>прописка: {{pass.registration}}</p>
-    {% endfor %}
+    <div class="row">
+        <div class="col-6">
+            <img src="{{MEDIA_URL}}{{ current_profile.photo_employee.url }}" style="width: 70%">
+        </div>
+        <div class="col-5">
+            <p>{{current_profile.surname}} {{current_profile.name}} {{current_profile.patronym}}</p>
+            <p>Должность: {{current_profile.profession}}</p>
+            <p>Структурное подразделение: {{current_profile.subdivision}}</p>
+            <p>дата рождения: {{current_profile.birth_date}}</p>
+            <p>телефон: {{current_profile.phone}}</p>
+            <p>Паспорт</p>
+            {% for pass in passport %}
+                <p>серия: {{pass.series}}</p>
+                <p>номер: {{pass.number}}</p>
+                <p>дата выдачи: {{pass.date_of_issue}}</p>
+                <p>выдан: {{pass.fms}}</p>
+                <p>прописка: {{pass.registration}}</p>
+            {% endfor %}
+        </div>
     <p><a href="{% url 'education' current_profile.pk %}">Образование</a></p>
     {% for med in medicine %}
     <p><a href="{% url 'medicine' med.pk %}">Медицина</a></p>

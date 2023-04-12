@@ -4,15 +4,38 @@
 <body>
 {% block content %}
 <div class="container">
-    {% for c in cer %}
-        <p>название {{c.name_certificate}}</p>
-        <p>срок {{c.date_end_certificate}}</p>
-        <p>осталось дней {{c.time}}</p>
-    {% endfor %}
-    {% for t in time %}
-{{ t }}
-{% endfor %}
-{{ td }}
+     <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Название</th>
+              <th scope="col">Получил</th>
+              <th scope="col">Срок действия</th>
+              <th scope="col">Удостоверение</th>
+              <th scope="col">Протокол</th>
+              <th scope="col">Осталось дней</th>
+            </tr>
+          </thead>
+         <tbody>
+            {% for c in cer %}
+                <tr>
+                    <td>{{c.name_certificate}}</td>
+                    <td>{{c.date_finish_certificate}}</td>
+                    <td>{{c.date_end_certificate}}</td>
+                    {% if c.certificate %}
+                        <td><a href="{{c.certificate.url}}" download="{{c.certificate.url}}">Скачать</a></p></td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+                    {% if c.protocol %}
+                        <td><a href="{{c.protocol.url}}" download="{{c.protocol.url}}">Скачать</a></p></td>
+                        {% else %}
+                        <td>-</td>
+                    {% endif %}
+                    <td>{{c.time}}</td>
+                </tr>
+            {% endfor %}
+         </tbody>
+     </table>
 </div>
 {% endblock content %}
 </body>

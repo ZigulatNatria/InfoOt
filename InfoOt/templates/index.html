@@ -7,7 +7,6 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Фото</th>
           <th scope="col">ФИО</th>
           <th scope="col">Дата рожд.</th>
@@ -19,8 +18,7 @@
       <tbody>
       {% for employ in employee %}
         <tr>
-          <th scope="row">#</th>
-          <td><img src="{{MEDIA_URL}}{{ employ.photo_employee.url }}"></td>
+          <th scope="row" style="width: 10%"><img src="{{MEDIA_URL}}{{employ.photo_employee.url}}" class="d-block w-100" style="" alt="..."></th>
           <td><a class="nav-link" href="{% url 'profile_employee' employ.pk %}">{{employ.surname}} {{employ.name}} {{employ.patronym}}</a></td>
           <td>{{employ.birth_date}}</td>
           <td>{{employ.phone}}</td>

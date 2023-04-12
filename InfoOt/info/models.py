@@ -14,14 +14,14 @@ class Employee(models.Model):
     profession = models.TextField(verbose_name='Профессия')
 
 #Функция для преобразования загружаемой картинки к нужному размеру
-    def save(self):
-        super().save()
-        img = Image.open(self.photo_employee.path)
-
-        if img.height > 100 or img.width > 100:
-            output_size = (100, 100)
-            img.thumbnail(output_size)
-            img.save(self.photo_employee.path)
+    # def save(self):
+    #     super().save()
+    #     img = Image.open(self.photo_employee.path)
+    #
+    #     if img.height > 100 or img.width > 100:
+    #         output_size = (100, 100)
+    #         img.thumbnail(output_size)
+    #         img.save(self.photo_employee.path)
 
     def __str__(self):
         return '{}'.format(self.surname) + ' ' + '{}'.format(self.name) + ' ' + '{}'.format(self.patronym)
@@ -65,8 +65,8 @@ class Certificate(models.Model):
     name_certificate = models.TextField(verbose_name='Название обучения')
     date_finish_certificate = models.DateField(verbose_name='Дата получения удостоверения')
     date_end_certificate = models.DateField(verbose_name='Срок окончания действия удостоверения')
-    photo_certificate = models.ImageField(verbose_name='Скан удостоверения')
-    photo_protocol = models.ImageField(verbose_name='Скан протокола', null=True, blank=True)
+    certificate = models.FileField(verbose_name='Скан удостоверения', upload_to='media', null=True, blank=True)
+    protocol = models.FileField(verbose_name='Скан протокола', upload_to='media', null=True, blank=True)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Работник')
 
     def __str__(self):
