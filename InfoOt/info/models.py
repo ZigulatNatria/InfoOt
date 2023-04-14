@@ -50,7 +50,7 @@ class Passport(models.Model):
 class Education(models.Model):
     prof_name = models.TextField(verbose_name='Нзвание специальноости')
     date_finish_education = models.DateField(verbose_name='Дата окончания уч.заведения')
-    photo_education = models.ImageField(verbose_name='Скан документа')
+    document_education = models.FileField(verbose_name='Скан документа', null=True, blank=True)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Работник')
 
     def __str__(self):

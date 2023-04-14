@@ -4,11 +4,28 @@
 <body>
 {% block content %}
 <div class="container">
+    <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Название</th>
+              <th scope="col">Дата завершения</th>
+              <th scope="col">Документ</th>
+            </tr>
+          </thead>
+         <tbody>
     {% for ed in education %}
-        <p>Наименование {{ed.prof_name}}</p>
-        <p>Дата завершения учёбы {{ed.date_finish_education}}</p>
-        <p>Удостоверение <img src="{{MEDIA_URL}}{{ ed.photo_education.url }}"></p>
+    <tr>
+        <td>{{ed.prof_name}}</td>
+        <td>{{ed.date_finish_education}}</td>
+        {% if ed.document_education %}
+            <td><a href="{{c.protocol.url}}" download="{{ed.document_education.url}}">Скачать</a></td>
+        {% else %}
+            <td>-</td>
+        {% endif %}
+    </tr>
     {% endfor %}
+         </tbody>
+    </table>
 </div>
 {% endblock content %}
 </body>
