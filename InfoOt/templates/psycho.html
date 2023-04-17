@@ -2,12 +2,26 @@
 <html lang="en">
 {% extends 'base.html' %}
 <body>
-{% block content %}
-<div class="container">
-    {% for psy in psycho %}
-        <p>дата освидетельствования {{psy.date_finish_psycho}}</p>
-    {% endfor %}
-</div>
-{% endblock content %}
+    {% block content %}
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Дата освидетельствования</th>
+                        <th scope="col">Дата следующего освидетельстования</th>
+                    </tr>
+                </thead>
+                     <tbody>
+                        {% for psy in psycho %}
+                        <tr>
+                            <td> {{psy.date_finish_psycho}}</td>
+                            <td> {{psy.date_end_psycho}}</td>
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+            </table>
+        </div>
+
+    {% endblock content %}
 </body>
 </html>

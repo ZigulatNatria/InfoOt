@@ -3,13 +3,26 @@
 {% extends 'base.html' %}
 <body>
 {% block content %}
-<div class="container">
-    {% for med in medicineParagraph %}
-        <p>номер пункта {{med.number_paragraph}}</p>
-        <p>дата прохождения {{med.date_finish_paragraph}}</p>
-        <p>дата следующего осмотра {{med.date_end_paragraph}}</p>
-    {% endfor %}
-</div>
+    <div class="container">
+        <table class="table">
+             <thead>
+                <tr>
+                  <th scope="col">Номер пункта</th>
+                  <th scope="col">Дата прохождения</th>
+                  <th scope="col">Дата следующего осмотра</th>
+                </tr>
+              </thead>
+             <tbody>
+                {% for med in medicineParagraph %}
+                    <tr>
+                        <td>{{med.number_paragraph}}</td>
+                        <td>{{med.date_finish_paragraph}}</td>
+                        <td>{{med.date_end_paragraph}}</td>
+                    </tr>
+                {% endfor %}
+             </tbody>
+         </table>
+    </div>
 {% endblock content %}
 </body>
 </html>
