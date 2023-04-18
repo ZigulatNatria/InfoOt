@@ -22,6 +22,9 @@
                 {% endfor %}
              </tbody>
          </table>
+        {% if medicine.document_medicine %}
+        <a href="{{medicine.document_medicine.url}}" download="{{medicine.document_medicine.url}}">Скачать заключение</a>
+        {% endif %}
     </div>
 {% endblock content %}
 </body>

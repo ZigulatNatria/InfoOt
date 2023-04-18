@@ -14,6 +14,7 @@
                     <p>Структурное подразделение: {{current_profile.subdivision}}</p>
                     <p>дата рождения: {{current_profile.birth_date}}</p>
                     <p>телефон: {{current_profile.phone}}</p>
+                    <p><a href="{% url 'employee_update' current_profile.pk %}">Редактировать</a></p>
                      <!-- Кнопка-триггер модального окна -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                       Паспортные данные
@@ -21,8 +22,7 @@
                 </div>
                 <p><a href="{% url 'education' current_profile.pk %}">Образование</a></p>
                 {% for med in medicine %}
-                <p><a href="{% url 'medicine' med.pk %}">Медицина</a></p>
-                <p>дата мед.осмотра {{med.date_medicine}}</p>
+                    <p><a href="{% url 'medicine' med.pk %}">Медицина</a></p>
                 {% endfor %}
                 <p><a href="{% url 'certificate' current_profile.pk %}">Удостоверения</a></p>
                 <p><a href="{% url 'psycho' current_profile.pk %}">Псих.освидетельствование</a></p>

@@ -9,6 +9,7 @@
                     <tr>
                         <th scope="col">Дата освидетельствования</th>
                         <th scope="col">Дата следующего освидетельстования</th>
+                        <th scope="col">Заключение</th>
                     </tr>
                 </thead>
                      <tbody>
@@ -16,12 +17,16 @@
                         <tr>
                             <td> {{psy.date_finish_psycho}}</td>
                             <td> {{psy.date_end_psycho}}</td>
+                            {% if psy.document_psycho %}
+                                <td> <a href="{{psy.document_psycho.url}}" download="{{psy.document_psycho.url}}">Скачать</a></td>
+                            {% else %}
+                                <td> - </td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                      </tbody>
             </table>
         </div>
-
     {% endblock content %}
 </body>
 </html>

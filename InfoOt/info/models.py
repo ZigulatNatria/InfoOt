@@ -13,6 +13,9 @@ class Employee(models.Model):
     photo_employee = models.ImageField(verbose_name='Фото работника', null=True, blank=True)
     profession = models.TextField(verbose_name='Профессия')
 
+    def get_absolute_url(self):
+        return f'/{self.id}'
+
 #Функция для преобразования загружаемой картинки к нужному размеру
     # def save(self):
     #     super().save()
@@ -84,7 +87,7 @@ class Certificate(models.Model):
 class Psycho(models.Model):
     date_finish_psycho = models.DateField(verbose_name='Дата прохождения освидетельствования')
     date_end_psycho = models.DateField(verbose_name='Срок действия освидетельствования')
-    photo_psycho = models.ImageField(verbose_name='Скан освидетельствования')
+    document_psycho = models.FileField(verbose_name='Скан заключения', null=True, blank=True)
     employee = models.OneToOneField(Employee, on_delete=models.CASCADE, verbose_name='Работник')
 
     def __str__(self):
@@ -96,7 +99,7 @@ class Psycho(models.Model):
 
 
 class Medicine(models.Model):
-    photo_medicine = models.ImageField(verbose_name='Скан мед.заключения')
+    document_medicine = models.FileField(verbose_name='Скан заключения', null=True, blank=True)
     date_medicine = models.DateField(verbose_name='Дата прохождения мед.комиссии')
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Работник')
 

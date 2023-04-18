@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
+from .forms import EmployeeAddForm
 from django.utils import timezone
 import datetime
 
@@ -10,6 +11,15 @@ class EmployeeListVew(ListView):
     context_object_name = 'employee'
     template_name = 'index.html'
     queryset = Employee.objects.all()
+
+
+class EmployeeUpdateView(UpdateView):
+    template_name = 'create.html'
+    form_class = EmployeeAddForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Employee.objects.get(pk=id)
 
 
 def profile_employee(request, employee_id):
@@ -23,6 +33,7 @@ def profile_employee(request, employee_id):
 
 
 def medicine(request, medicine_id):
+    medicine = Medicine.objects.get(id=medicine_id)
     medicineParagraph = MedicineParagraph.objects.filter(medicine=medicine_id) #обращемся к полю параграф через связанную модель медицины
     context = {'medicineParagraph': medicineParagraph, 'medicine': medicine}
     return render(request, 'medicine.html', context)

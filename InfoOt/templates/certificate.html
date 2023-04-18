@@ -22,12 +22,12 @@
                     <td>{{c.date_finish_certificate}}</td>
                     <td>{{c.date_end_certificate}}</td>
                     {% if c.certificate %}
-                        <td><a href="{{c.certificate.url}}" download="{{c.certificate.url}}">Скачать</a></p></td>
+                        <td><a href="{{c.certificate.url}}" download="{{c.certificate.url}}">Скачать</a></td>
                     {% else %}
                         <td>-</td>
                     {% endif %}
                     {% if c.protocol %}
-                        <td><a href="{{c.protocol.url}}" download="{{c.protocol.url}}">Скачать</a></p></td>
+                        <td><a href="{{c.protocol.url}}" download="{{c.protocol.url}}">Скачать</a></td>
                         {% else %}
                         <td>-</td>
                     {% endif %}
