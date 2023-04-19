@@ -63,6 +63,9 @@ class Education(models.Model):
         verbose_name_plural = 'Образование'
         verbose_name = 'Образования'
 
+    def get_absolute_url(self):
+        return f'/education/{self.employee.id}'
+
 
 class Certificate(models.Model):
     name_certificate = models.TextField(verbose_name='Название обучения')
@@ -82,6 +85,9 @@ class Certificate(models.Model):
     # расчитываем колличество дней до окончания срока действия, берём дату окончания из модели и вычитаем текущую дату
     def time(self):
         return (self.date_end_certificate - datetime.date.today()).days
+
+    def get_absolute_url(self):
+        return f'/certificate/{self.employee.id}'
 
 
 class Psycho(models.Model):
@@ -123,4 +129,7 @@ class MedicineParagraph(models.Model):
     class Meta:
         verbose_name_plural = 'Пункт мед.осмотра'
         verbose_name = 'Пункты мед.осмотра'
+
+    def get_absolute_url(self):
+        return f'/medicine/{self.medicine.id}'
 

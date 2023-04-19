@@ -10,6 +10,7 @@
               <th scope="col">Название</th>
               <th scope="col">Дата завершения</th>
               <th scope="col">Документ</th>
+              <th scope="col">Действие</th>
             </tr>
           </thead>
          <tbody>
@@ -18,10 +19,11 @@
         <td>{{ed.prof_name}}</td>
         <td>{{ed.date_finish_education}}</td>
         {% if ed.document_education %}
-            <td><a href="{{c.protocol.url}}" download="{{ed.document_education.url}}">Скачать</a></td>
+            <td><a href="{{ed.document_education.url}}" download="{{ed.document_education.url}}">Скачать</a></td>
         {% else %}
             <td>-</td>
         {% endif %}
+        <td><a class="btn btn-primary btn-sm" href="{% url 'education_update' ed.pk %}">Редактировать</a></td>
     </tr>
     {% endfor %}
          </tbody>

@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph
 from django.views.generic import ListView, UpdateView
-from .forms import EmployeeAddForm
+from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, MedicineParagraphAddForm
 from django.utils import timezone
 import datetime
 
-# Create your views here.
+
+"""Работник"""
 class EmployeeListVew(ListView):
     model = Employee
     context_object_name = 'employee'
@@ -39,6 +40,16 @@ def medicine(request, medicine_id):
     return render(request, 'medicine.html', context)
 
 
+class МedicineParagraphUpdateView(UpdateView):
+    template_name = 'create.html'
+    form_class = MedicineParagraphAddForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return MedicineParagraph.objects.get(pk=id)
+
+
+"""Обучение"""
 def certificate(request, employee_id):
     cer = Certificate.objects.filter(employee=employee_id)
     # Для обработки всех значений поля date_end_certificate полученный кверисет пропускаем через цикл for
@@ -53,13 +64,33 @@ def certificate(request, employee_id):
     return render(request, 'certificate.html', context)
 
 
+class CertificateUpdateView(UpdateView):
+    template_name = 'create.html'
+    form_class = CertificateAddForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Certificate.objects.get(pk=id)
+
+
+"""Психиатрия"""
 def psycho(request, employee_id):
     psycho = Psycho.objects.filter(employee=employee_id)
     context = {'psycho': psycho}
     return render(request, 'psycho.html', context)
 
 
+"""Образование"""
 def education(request, employee_id):
     education = Education.objects.filter(employee=employee_id)
     context = {'education': education}
     return render(request, 'education.html', context)
+
+
+class EducationUpdateView(UpdateView):
+    template_name = 'create.html'
+    form_class = EducationAddForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Education.objects.get(pk=id)

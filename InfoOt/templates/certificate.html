@@ -13,6 +13,7 @@
               <th scope="col">Удостоверение</th>
               <th scope="col">Протокол</th>
               <th scope="col">Осталось дней</th>
+              <th scope="col">Действие</th>
             </tr>
           </thead>
          <tbody>
@@ -32,6 +33,7 @@
                         <td>-</td>
                     {% endif %}
                     <td>{{c.time}}</td>
+                    <td><a class="btn btn-primary btn-sm" href="{% url 'certificate_update' c.pk %}">Редактировать</a></td>
                 </tr>
             {% endfor %}
          </tbody>

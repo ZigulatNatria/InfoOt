@@ -1,10 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 
-from .models import Employee
-
-
-
+from .models import Employee, Certificate, Education, MedicineParagraph
 
 
 class EmployeeAddForm(ModelForm):
@@ -25,4 +22,42 @@ class EmployeeAddForm(ModelForm):
             'subdivision',
             'photo_employee',
             'profession'
+        ]
+
+
+class CertificateAddForm(ModelForm):
+
+    class Meta:
+        model = Certificate
+        fields = [
+            'name_certificate',
+            'date_finish_certificate',
+            'date_end_certificate',
+            'certificate',
+            'protocol',
+            'employee'
+        ]
+
+
+class EducationAddForm(ModelForm):
+
+    class Meta:
+        model = Education
+        fields = [
+            'prof_name',
+            'date_finish_education',
+            'document_education',
+            'employee'
+        ]
+
+
+class MedicineParagraphAddForm(ModelForm):
+
+    class Meta:
+        model = MedicineParagraph
+        fields = [
+            'number_paragraph',
+            'date_finish_paragraph',
+            'date_end_paragraph',
+            'medicine'
         ]
