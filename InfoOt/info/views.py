@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView, UpdateView, CreateView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, MedicineParagraphAddForm
 from django.utils import timezone
 import datetime
@@ -21,6 +21,12 @@ class EmployeeUpdateView(UpdateView):
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
         return Employee.objects.get(pk=id)
+
+
+class EmployeeAddView(CreateView):
+    model = Employee
+    template_name = 'create.html'
+    form_class = EmployeeAddForm
 
 
 def profile_employee(request, employee_id):
