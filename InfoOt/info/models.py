@@ -49,6 +49,9 @@ class Passport(models.Model):
         verbose_name_plural = 'Паспорт'
         verbose_name = 'Паспорта'
 
+    def get_absolute_url(self):
+        return f'/{self.employee.id}'
+
 
 class Education(models.Model):
     prof_name = models.TextField(verbose_name='Нзвание специальноости')
@@ -115,6 +118,9 @@ class Medicine(models.Model):
     class Meta:
         verbose_name_plural = 'Мед.заключение'
         verbose_name = 'Мед.заключения'
+
+    def get_absolute_url(self):
+        return f'/medicine/{self.id}'
 
 
 class MedicineParagraph(models.Model):

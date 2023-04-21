@@ -20,11 +20,25 @@
                       Паспортные данные
                     </button>
                 </div>
-                <p><a href="{% url 'education' current_profile.pk %}">Образование</a></p>
-                {% for med in medicine %}
-                    <p><a href="{% url 'medicine' med.pk %}">Медицина</a></p>
-                {% endfor %}
-                <p><a href="{% url 'certificate' current_profile.pk %}">Удостоверения</a></p>
+                {% if education %}
+                    <p><a href="{% url 'education' current_profile.pk %}">Образование</a></p>
+                    {% else %}
+                        <a class="btn btn-primary btn-sm" href="{% url 'education_add' %}" style="width: 20%">Добавить образование</a>
+                {% endif %}
+
+                {% if medicine %}
+                    {% for med in medicine %}
+                        <p><a href="{% url 'medicine' med.pk %}">Медицина</a></p>
+                    {% endfor %}
+                    {% else %}
+                        <a class="btn btn-primary btn-sm" href="{% url 'medicine_add' %}" style="width: 20%">Добавить медицинское заключение</a>
+                {% endif %}
+
+                {% if certificate %}
+                    <p><a href="{% url 'certificate' current_profile.pk %}">Удостоверения</a></p>
+                    {% else %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'certificate_add' %}" style="width: 20%">Добавить удостоверение</a>
+                {% endif %}
                 <p><a href="{% url 'psycho' current_profile.pk %}">Псих.освидетельствование</a></p>
             </div>
         </div>
@@ -48,6 +62,13 @@
           {% endfor %}
       </div>
       <div class="modal-footer">
+          {% if passport %}
+                {% for pass in passport %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'passport_update' pass.id %}">Редактировать</a>
+                {% endfor %}
+                {% else %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'passport_add' %}">Добавить</a>
+          {% endif %}
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
       </div>
     </div>
