@@ -9,6 +9,7 @@
                     <tr>
                         <th scope="col">Дата освидетельствования</th>
                         <th scope="col">Дата следующего освидетельстования</th>
+                        <th scope="col">Дней до окончания действия</th>
                         <th scope="col">Заключение</th>
                     </tr>
                 </thead>
@@ -17,6 +18,7 @@
                         <tr>
                             <td> {{psy.date_finish_psycho}}</td>
                             <td> {{psy.date_end_psycho}}</td>
+                            <td> {{psy.time}}</td>
                             {% if psy.document_psycho %}
                                 <td> <a href="{{psy.document_psycho.url}}" download="{{psy.document_psycho.url}}">Скачать</a></td>
                             {% else %}
@@ -26,6 +28,7 @@
                         {% endfor %}
                      </tbody>
             </table>
+            <a class="btn btn-primary btn-sm" href="{% url 'psycho_add' %}">Добавить освидетельствование</a>
         </div>
     {% endblock content %}
 </body>

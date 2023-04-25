@@ -2,7 +2,7 @@ from django.urls import path
 from .views import EmployeeListVew, profile_employee, medicine,\
     certificate, psycho, education, EmployeeUpdateView, CertificateUpdateView, EducationUpdateView, \
     MedicineParagraphUpdateView, EmployeeAddView, PassportAddView, PassportUpdateView, MedicineAddView, \
-    MedicineParagraphAddView, EducationAddView, CertificateAddView
+    MedicineParagraphAddView, EducationAddView, CertificateAddView, PsychoAddView
 urlpatterns = [
     path('', EmployeeListVew.as_view(), name='employee'),
     path('<int:employee_id>/', profile_employee, name='profile_employee'),
@@ -23,4 +23,5 @@ urlpatterns = [
     path('paragraph_add/', MedicineParagraphAddView.as_view(), name='paragraph_add'),
     path('education_add/', EducationAddView.as_view(), name='education_add'),
     path('certificate_add/', CertificateAddView.as_view(), name='certificate_add'),
+    path('psycho_add/', PsychoAddView.as_view(), name='psycho_add'),
 ]

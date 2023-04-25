@@ -102,6 +102,13 @@ class Psycho(models.Model):
     def __str__(self):
         return 'Псих.освидетельствование' + ' ' + '{}'.format(self.employee)
 
+    # расчитываем колличество дней до окончания срока действия, берём дату окончания из модели и вычитаем текущую дату
+    def time(self):
+        return (self.date_end_psycho - datetime.date.today()).days
+
+    def get_absolute_url(self):
+        return f'/psycho/{self.employee.id}'
+
     class Meta:
         verbose_name_plural = 'Псих.освидетельстование'
         verbose_name = 'Псих.освидетельствования'
@@ -131,6 +138,10 @@ class MedicineParagraph(models.Model):
 
     def __str__(self):
         return 'Пункт' + ' ' + '{}'.format(self.number_paragraph) + ' ' + '{}'.format(self.medicine)
+
+    # расчитываем колличество дней до окончания срока действия, берём дату окончания из модели и вычитаем текущую дату
+    def time(self):
+        return (self.date_end_paragraph - datetime.date.today()).days
 
     class Meta:
         verbose_name_plural = 'Пункт мед.осмотра'

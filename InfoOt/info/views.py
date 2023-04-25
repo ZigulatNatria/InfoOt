@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph
 from django.views.generic import ListView, UpdateView, CreateView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, MedicineParagraphAddForm, \
-    PassportAddForm, MedicineAddForm
+    PassportAddForm, MedicineAddForm, PsychoAddForm
 from django.utils import timezone
 import datetime
 
@@ -146,3 +146,9 @@ class EducationAddView(CreateView):
     model = Education
     template_name = 'create.html'
     form_class = EducationAddForm
+
+
+class PsychoAddView(CreateView):
+    model = Psycho
+    template_name = 'create.html'
+    form_class = PsychoAddForm
