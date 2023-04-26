@@ -10,6 +10,7 @@
                   <th scope="col">Номер пункта</th>
                   <th scope="col">Дата прохождения</th>
                   <th scope="col">Дата следующего осмотра</th>
+                  <th scope="col">Осталось дней</th>
                   <th scope="col">Действие</th>
                 </tr>
               </thead>
@@ -19,6 +20,7 @@
                         <td>{{med.number_paragraph}}</td>
                         <td>{{med.date_finish_paragraph}}</td>
                         <td>{{med.date_end_paragraph}}</td>
+                        <td>{{med.time}}</td>
                         <td><a class="btn btn-primary btn-sm" href="{% url 'paragraph_update' med.pk %}">Редактировать</a></td>
                     </tr>
                 {% endfor %}
@@ -28,7 +30,6 @@
             <a href="{{medicine.document_medicine.url}}" download="{{medicine.document_medicine.url}}">Скачать заключение</a>
         {% endif %}
         <a class="btn btn-primary btn-sm" href="{% url 'paragraph_add' %}">Добавить пункт</a>
-    </div>
 {% endblock content %}
 </body>
 </html>
