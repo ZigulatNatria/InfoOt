@@ -5,6 +5,7 @@ from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, Medici
     PassportAddForm, MedicineAddForm, PsychoAddForm
 from django.utils import timezone
 import datetime
+from .tasks import certificate_created
 
 
 """Работник"""
@@ -117,6 +118,12 @@ class CertificateAddView(CreateView):
     model = Certificate
     template_name = 'create.html'
     form_class = CertificateAddForm
+
+#Для Celery
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        certificate_created.delay(id)
 
 
 """Психиатрия"""
