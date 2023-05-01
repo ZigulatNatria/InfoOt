@@ -1,6 +1,8 @@
 from celery import shared_task
 from django.core.mail import send_mail, EmailMultiAlternatives
 from .models import Certificate
+from InfoOt.celery import app
+from .service import send
 
 # @shared_task
 # def mailing_monday():
@@ -31,3 +33,7 @@ def certificate_created(certificate_id):
                        ['zigulatnatria@yandex.ru']
                        )
  return mail_sent
+
+@app.task
+def send_test_email(user_email):
+    send(user_email)

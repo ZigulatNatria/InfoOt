@@ -5,7 +5,10 @@ from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, Medici
     PassportAddForm, MedicineAddForm, PsychoAddForm
 from django.utils import timezone
 import datetime
-from .tasks import certificate_created
+
+#для Celery
+from .tasks import certificate_created, send_test_email
+from .service import send
 
 
 """Работник"""
@@ -121,9 +124,11 @@ class CertificateAddView(CreateView):
 
 #Для Celery
 
-    def get_object(self, **kwargs):
-        id = self.kwargs.get('pk')
-        certificate_created.delay(id)
+    def form_valid(self, form):
+        form.save()
+        # send('ZigulatNatria@yandex.ru')
+        send_test_email.delay('ZigulatNatria@yandex.ru')
+        return super().form_valid(form)
 
 
 """Психиатрия"""
