@@ -32,7 +32,13 @@
                         {% else %}
                         <td>-</td>
                     {% endif %}
-                    <td>{{c.time}}</td>
+                    {% if c.time < 0 %}
+                        <td style="color: red">{{c.time}}</td>
+                    {% elif c.time < 31 %}
+                        <td style="color: orange">{{c.time}}</td>
+                    {% else %}
+                        <td style="color: green">{{c.time}}</td>
+                    {% endif %}
                     <td><a class="btn btn-primary btn-sm" href="{% url 'certificate_update' c.pk %}">Редактировать</a></td>
                 </tr>
             {% endfor %}
