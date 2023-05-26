@@ -6,9 +6,10 @@ from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, Medici
 from django.utils import timezone
 import datetime
 
+"""Временно закрыто"""
 #для Celery
-from .tasks import certificate_created, send_test_email
-from .service import send
+# from .tasks import certificate_created, send_test_email
+# from .service import send
 
 #для PDF
 import io
@@ -130,13 +131,13 @@ class CertificateAddView(CreateView):
     template_name = 'create.html'
     form_class = CertificateAddForm
 
+"""Временно закрыто"""
 #Для Celery
-
-    def form_valid(self, form):
-        form.save()
-        # send('ZigulatNatria@yandex.ru')
-        send_test_email.delay('ZigulatNatria@yandex.ru')
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     form.save()
+    #     # send('ZigulatNatria@yandex.ru')
+    #     send_test_email.delay('ZigulatNatria@yandex.ru')
+    #     return super().form_valid(form)
 
 
 """Психиатрия"""
