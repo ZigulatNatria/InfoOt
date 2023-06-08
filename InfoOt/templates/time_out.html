@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+<body>
+{% block content %}
+<div class="container">
+     <table class="table">
+         {% if certificate %}
+          <thead>
+              <tr>
+                  <th scope="col">Просроченные удостоверения</th>
+              </tr>
+              <tr>
+                  <th>Название удостоверения</th>
+                  <th>Срок действия</th>
+                  <th>ФИО работника</th>
+              </tr>
+          </thead>
+         <tbody>
+            {% for c in certificate %}
+                <tr style="background-color: red">
+                    <td>{{c.name_certificate}}</td>
+                    <td>{{c.date_end_certificate}}</td>
+                    <td>{{c.employee}}</td>
+                    <td>{{c.status}}</td>
+                </tr>
+            {% endfor %}
+         </tbody>
+         {% endif %}
+         {% if certificate_month %}
+         <thead>
+            <tr>
+                <th scope="col">Истекает срок действия удостоверений</th>
+            </tr>
+            <tr>
+                <th>Название удостоверения</th>
+                <th>Срок действия</th>
+                <th>ФИО работника</th>
+            </tr>
+          </thead>
+         <tbody>
+            {% for c in certificate_month %}
+                <tr style="background-color: orange">
+                    <td>{{c.name_certificate}}</td>
+                    <td>{{c.date_end_certificate}}</td>
+                    <td>{{c.employee}}</td>
+                </tr>
+            {% endfor %}
+         </tbody>
+         {% endif %}
+     </table>
+</div>
+{% endblock content %}
+</body>
+</html>

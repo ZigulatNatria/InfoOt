@@ -6,6 +6,7 @@ from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, Medici
 from django.utils import timezone
 import datetime
 
+
 """Временно закрыто"""
 #для Celery
 # from .tasks import certificate_created, send_test_email
@@ -173,6 +174,25 @@ class PsychoAddView(CreateView):
     model = Psycho
     template_name = 'create.html'
     form_class = PsychoAddForm
+
+
+"""Информация о сроках"""
+def time_out(request):
+    month = datetime.date.today() + datetime.timedelta(days=30)
+
+    certificate = Certificate.objects.filter(date_end_certificate__lte=datetime.date.today())
+    certificate_month = Certificate.objects.filter(date_end_certificate__range=(datetime.date.today(), month))
+
+    medicine = MedicineParagraph.objects.filter(date_end_paragraph__lte=datetime.date.today())
+    medicine_month = MedicineParagraph.objects.filter(date_end_paragraph__range=(datetime.date.today(), month))
+    context = {
+        'certificate': certificate,
+        'certificate_month': certificate_month,
+        'medicine': medicine,
+        'medicine_month': medicine_month
+    }
+    return render(request, 'time_out.html', context)
+
 
 """PDF пробный запуск"""
 def some_view(request):
