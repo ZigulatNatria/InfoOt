@@ -48,6 +48,48 @@
             {% endfor %}
          </tbody>
          {% endif %}
+         {% if medicine %}
+          <thead>
+              <tr>
+                  <th scope="col">Просроченные медицинские осмотры</th>
+              </tr>
+              <tr>
+                  <th>Номер пункта</th>
+                  <th>Срок действия</th>
+                  <th>ФИО работника</th>
+              </tr>
+          </thead>
+         <tbody>
+            {% for m in medicine %}
+                <tr style="background-color: red">
+                    <td>{{m.number_paragraph}}</td>
+                    <td>{{m.date_end_paragraph}}</td>
+                    <td>{{m.medicine.employee}}</td>
+                </tr>
+            {% endfor %}
+         </tbody>
+         {% endif %}
+         {% if medicine_month %}
+          <thead>
+              <tr>
+                  <th scope="col">Истекает срок медицинского осмотра</th>
+              </tr>
+              <tr>
+                  <th>Номер пункта</th>
+                  <th>Срок действия</th>
+                  <th>ФИО работника</th>
+              </tr>
+          </thead>
+         <tbody>
+            {% for m in medicine_month %}
+                <tr style="background-color: red">
+                    <td>{{m.number_paragraph}}</td>
+                    <td>{{m.date_end_paragraph}}</td>
+                    <td>{{m.medicine.employee}}</td>
+                </tr>
+            {% endfor %}
+         </tbody>
+         {% endif %}
      </table>
 </div>
 {% endblock content %}
