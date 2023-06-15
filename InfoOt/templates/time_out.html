@@ -90,6 +90,48 @@
             {% endfor %}
          </tbody>
          {% endif %}
+         {% if psycho %}
+          <thead>
+              <tr>
+                  <th scope="col">Просроченные псих.освидетельствования</th>
+              </tr>
+              <tr>
+                  <th>Название документа</th>
+                  <th>ФИО работника</th>
+                  <th>Срок действия</th>
+              </tr>
+          </thead>
+         <tbody>
+            {% for p in psycho %}
+                <tr style="background-color: red">
+                    <td>Псих.освидетельствование</td>
+                    <td>{{p.employee}}</td>
+                    <td>{{p.date_end_psycho}}</td>
+                </tr>
+            {% endfor %}
+         </tbody>
+         {% endif %}
+         {% if psycho_month %}
+          <thead>
+              <tr>
+                  <th scope="col">Истекает срок псих.освидетельствования</th>
+              </tr>
+              <tr>
+                  <th>Название документа</th>
+                  <th>ФИО работника</th>
+                  <th>Срок действия</th>
+              </tr>
+          </thead>
+         <tbody>
+            {% for p in psycho_month %}
+                <tr style="background-color: red">
+                    <td>Псих.освидетельствование</td>
+                    <td>{{p.employee}}</td>
+                    <td>{{p.date_end_psycho}}</td>
+                </tr>
+            {% endfor %}
+         </tbody>
+         {% endif %}
      </table>
 </div>
 {% endblock content %}

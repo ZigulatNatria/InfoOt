@@ -185,11 +185,16 @@ def time_out(request):
 
     medicine = MedicineParagraph.objects.filter(date_end_paragraph__lte=datetime.date.today())
     medicine_month = MedicineParagraph.objects.filter(date_end_paragraph__range=(datetime.date.today(), month))
+
+    psycho = Psycho.objects.filter(date_end_psycho__lte=datetime.date.today())
+    psycho_month = Psycho.objects.filter(date_end_psycho__range=(datetime.date.today(), month))
     context = {
         'certificate': certificate,
         'certificate_month': certificate_month,
         'medicine': medicine,
-        'medicine_month': medicine_month
+        'medicine_month': medicine_month,
+        'psycho': psycho,
+        'psycho_month': psycho_month
     }
     return render(request, 'time_out.html', context)
 
