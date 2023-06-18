@@ -47,14 +47,18 @@ class EmployeeAddView(CreateView):
 def profile_employee(request, employee_id):
     education = Education.objects.filter(employee=employee_id)
     certificate = Certificate.objects.filter(employee=employee_id)
+    psycho = Psycho.objects.filter(employee=employee_id)
     passport = Passport.objects.filter(employee=employee_id)
     current_profile = Employee.objects.get(pk=employee_id)
     medicine = Medicine.objects.filter(employee=employee_id) #обращаемся к полю медицины через связанную модель Employee
+    # medicine_paragraph = MedicineParagraph.objects.filter(employee=medicine.id)
     context = {'passport': passport,
                'current_profile': current_profile,
                'certificate': certificate,
                'medicine': medicine,
-               'education': education
+               'education': education,
+               'psycho': psycho,
+               # 'medicine_paragraph': medicine_paragraph
                }
     return render(request, 'profile.html', context)
 

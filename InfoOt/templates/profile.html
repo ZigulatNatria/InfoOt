@@ -4,7 +4,7 @@
 <body>
     {% block content %}
         <div class="container">
-            <div class="row">
+            <div class="row" style="margin-bottom: 2rem">
                 <div class="col-6">
                     <img src="{{MEDIA_URL}}{{ current_profile.photo_employee.url }}" style="width: 70%">
                 </div>
@@ -20,26 +20,127 @@
                       Паспортные данные
                     </button>
                 </div>
-                {% if education %}
-                    <p><a href="{% url 'education' current_profile.pk %}">Образование</a></p>
-                    {% else %}
-                        <a class="btn btn-primary btn-sm" href="{% url 'education_add' %}" style="width: 20%">Добавить образование</a>
-                {% endif %}
-
-                {% if medicine %}
-                    {% for med in medicine %}
-                        <p><a href="{% url 'medicine' med.pk %}">Медицина</a></p>
-                    {% endfor %}
-                    {% else %}
-                        <a class="btn btn-primary btn-sm" href="{% url 'medicine_add' %}" style="width: 20%">Добавить медицинское заключение</a>
-                {% endif %}
-
-                {% if certificate %}
-                    <p><a href="{% url 'certificate' current_profile.pk %}">Удостоверения</a></p>
-                    {% else %}
-                    <a class="btn btn-primary btn-sm" href="{% url 'certificate_add' %}" style="width: 20%">Добавить удостоверение</a>
-                {% endif %}
-                <p><a href="{% url 'psycho' current_profile.pk %}">Псих.освидетельствование</a></p>
+            </div>
+            <div class="row">
+                <div class="list-group list-group-horizontal" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-education-list" data-bs-toggle="list" href="#list-education" role="tab" aria-controls="list-home">Образование</a>
+                    <a class="list-group-item list-group-item-action" id="list-medicine-list" data-bs-toggle="list" href="#list-medicine" role="tab" aria-controls="list-home">Мед.комиссия</a>
+                    <a class="list-group-item list-group-item-action" id="list-certificate-list" data-bs-toggle="list" href="#list-certificate" role="tab" aria-controls="list-home">Удостоверения</a>
+                    <a class="list-group-item list-group-item-action" id="list-psycho-list" data-bs-toggle="list" href="#list-psycho" role="tab" aria-controls="list-home">Псих.освидетельствование</a>
+                </div>
+                <div class="row">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="list-education" role="tabpanel" aria-labelledby="list-home-list">
+                            {% if education %}
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                           <th scope="col">Название</th>
+                                           <th scope="col">Дата завершения</th>
+                                           <th scope="col">Документ</th>
+                                           <th scope="col">Действие</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for ed in education %}
+                                        <tr>
+                                            <td>{{ed.prof_name}}</td>
+                                            <td>{{ed.date_finish_education}}</td>
+                                                {% if ed.document_education %}
+                                                    <td><a href="{{ed.document_education.url}}" download="{{ed.document_education.url}}">Скачать</a></td>
+                                                {% else %}
+                                                    <td>-</td>
+                                                {% endif %}
+                                            <td><a class="btn btn-primary btn-sm" href="{% url 'education_update' ed.pk %}">Редактировать</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                            </table>
+                            {% else %}
+                                <a class="btn btn-primary btn-sm" href="{% url 'education_add' %}" style="width: 20%">Добавить образование</a>
+                            {% endif %}
+                        </div>
+                        <div class="tab-pane fade show" id="list-medicine" role="tabpanel" aria-labelledby="list-home-list">
+                            тут должна быть информация о мед.осмотрах
+                        </div>
+                        <div class="tab-pane fade show" id="list-certificate" role="tabpanel" aria-labelledby="list-home-list">
+                            {% if certificate %}
+                             <table class="table">
+                                 <thead>
+                                     <tr>
+                                         <th scope="col">Название</th>
+                                         <th scope="col">Получил</th>
+                                         <th scope="col">Срок действия</th>
+                                         <th scope="col">Удостоверение</th>
+                                         <th scope="col">Протокол</th>
+                                         <th scope="col">Осталось дней</th>
+                                         <th scope="col">Действие</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                 {% for c in certificate %}
+                                     <tr>
+                                        <td>{{c.name_certificate}}</td>
+                                        <td>{{c.date_finish_certificate}}</td>
+                                        <td>{{c.date_end_certificate}}</td>
+                                        {% if c.certificate %}
+                                            <td><a href="{{c.certificate.url}}" download="{{c.certificate.url}}">Скачать</a></td>
+                                        {% else %}
+                                            <td>-</td>
+                                        {% endif %}
+                                        {% if c.protocol %}
+                                            <td><a href="{{c.protocol.url}}" download="{{c.protocol.url}}">Скачать</a></td>
+                                            {% else %}
+                                            <td>-</td>
+                                        {% endif %}
+                                        {% if c.time < 0 %}
+                                            <td style="color: red">{{c.time}}</td>
+                                        {% elif c.time < 31 %}
+                                            <td style="color: orange">{{c.time}}</td>
+                                        {% else %}
+                                            <td style="color: green">{{c.time}}</td>
+                                        {% endif %}
+                                        <td><a class="btn btn-primary btn-sm" href="{% url 'certificate_update' c.pk %}">Редактировать</a></td>
+                                     </tr>
+                                 {% endfor %}
+                                 </tbody>
+                             </table>
+                            {% else %}
+                                <a class="btn btn-primary btn-sm" href="{% url 'certificate_add' %}" style="width: 20%">Добавить удостоверение</a>
+                            {% endif %}
+                        </div>
+                        <div class="tab-pane fade show" id="list-psycho" role="tabpanel" aria-labelledby="list-home-list">
+                            {% if psycho %}
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Дата освидетельствования</th>
+                                        <th scope="col">Дата следующего освидетельстования</th>
+                                        <th scope="col">Дней до окончания действия</th>
+                                        <th scope="col">Заключение</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for psy in psycho %}
+                                    <tr>
+                                        <td> {{psy.date_finish_psycho}}</td>
+                                        <td> {{psy.date_end_psycho}}</td>
+                                        <td> {{psy.time}}</td>
+                                        {% if psy.document_psycho %}
+                                            <td> <a href="{{psy.document_psycho.url}}" download="{{psy.document_psycho.url}}">Скачать</a></td>
+                                        {% else %}
+                                            <td> - </td>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                                Добавить психосвидетельстование
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
