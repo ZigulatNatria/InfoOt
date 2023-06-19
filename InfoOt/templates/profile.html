@@ -38,7 +38,7 @@
                                            <th scope="col">Название</th>
                                            <th scope="col">Дата завершения</th>
                                            <th scope="col">Документ</th>
-                                           <th scope="col">Действие</th>
+                                           <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -47,11 +47,14 @@
                                             <td>{{ed.prof_name}}</td>
                                             <td>{{ed.date_finish_education}}</td>
                                                 {% if ed.document_education %}
-                                                    <td><a href="{{ed.document_education.url}}" download="{{ed.document_education.url}}">Скачать</a></td>
+                                                    <td><a href="{{ed.document_education.url}}" download="{{ed.document_education.url}}"><img src="/static/ico/download-48.png"></a>
+                                                    {% load static %}
+                                                        <a href="{% get_media_prefix %}{{ed.document_education}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                                    </td>
                                                 {% else %}
                                                     <td>-</td>
                                                 {% endif %}
-                                            <td><a class="btn btn-primary btn-sm" href="{% url 'education_update' ed.pk %}">Редактировать</a></td>
+                                            <td><a href="{% url 'education_update' ed.pk %}"><img src="/static/ico/edit-48.png"></a></td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -61,7 +64,33 @@
                             {% endif %}
                         </div>
                         <div class="tab-pane fade show" id="list-medicine" role="tabpanel" aria-labelledby="list-home-list">
-                            тут должна быть информация о мед.осмотрах
+                            <table class="table">
+                                 <thead>
+                                    <tr>
+                                      <th scope="col">Номер пункта</th>
+                                      <th scope="col">Дата прохождения</th>
+                                      <th scope="col">Дата следующего осмотра</th>
+                                      <th scope="col">Осталось дней</th>
+                                      <th scope="col"></th>
+                                    </tr>
+                                  </thead>
+                                 <tbody>
+                                    {% for med in medicine_paragraph %}
+                                        <tr>
+                                            <td>{{med.number_paragraph}}</td>
+                                            <td>{{med.date_finish_paragraph}}</td>
+                                            <td>{{med.date_end_paragraph}}</td>
+                                            <td>{{med.time}}</td>
+                                            <td><a href="{% url 'paragraph_update' med.pk %}"><img src="/static/ico/edit-48.png"></a></td>
+                                        </tr>
+                                    {% endfor %}
+                                 </tbody>
+                             </table>
+                            {% if medicine.document_medicine %}
+                                <a href="{{medicine.document_medicine.url}}" download="{{medicine.document_medicine.url}}"><img src="/static/ico/download-48.png"></a>
+                                {% load static %}
+                                    <a href="{% get_media_prefix %}{{medicine.document_medicine}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                            {% endif %}
                         </div>
                         <div class="tab-pane fade show" id="list-certificate" role="tabpanel" aria-labelledby="list-home-list">
                             {% if certificate %}
@@ -74,7 +103,7 @@
                                          <th scope="col">Удостоверение</th>
                                          <th scope="col">Протокол</th>
                                          <th scope="col">Осталось дней</th>
-                                         <th scope="col">Действие</th>
+                                         <th scope="col"></th>
                                      </tr>
                                  </thead>
                                  <tbody>
@@ -84,12 +113,18 @@
                                         <td>{{c.date_finish_certificate}}</td>
                                         <td>{{c.date_end_certificate}}</td>
                                         {% if c.certificate %}
-                                            <td><a href="{{c.certificate.url}}" download="{{c.certificate.url}}">Скачать</a></td>
+                                            <td><a href="{{c.certificate.url}}" download="{{c.certificate.url}}"><img src="/static/ico/download-48.png"></a>
+                                                {% load static %}
+                                                    <a href="{% get_media_prefix %}{{c.certificate}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            </td>
                                         {% else %}
                                             <td>-</td>
                                         {% endif %}
                                         {% if c.protocol %}
-                                            <td><a href="{{c.protocol.url}}" download="{{c.protocol.url}}">Скачать</a></td>
+                                            <td><a href="{{c.protocol.url}}" download="{{c.protocol.url}}"><img src="/static/ico/download-48.png"></a>
+                                                {% load static %}
+                                                    <a href="{% get_media_prefix %}{{c.protocol}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            </td>
                                             {% else %}
                                             <td>-</td>
                                         {% endif %}
@@ -100,11 +135,12 @@
                                         {% else %}
                                             <td style="color: green">{{c.time}}</td>
                                         {% endif %}
-                                        <td><a class="btn btn-primary btn-sm" href="{% url 'certificate_update' c.pk %}">Редактировать</a></td>
+                                        <td><a href="{% url 'certificate_update' c.pk %}"><img src="/static/ico/edit-48.png"></a></td>
                                      </tr>
                                  {% endfor %}
                                  </tbody>
                              </table>
+                             <a class="btn btn-primary btn-sm" href="{% url 'certificate_add' %}" style="width: 20%">Добавить удостоверение</a>
                             {% else %}
                                 <a class="btn btn-primary btn-sm" href="{% url 'certificate_add' %}" style="width: 20%">Добавить удостоверение</a>
                             {% endif %}
@@ -127,7 +163,10 @@
                                         <td> {{psy.date_end_psycho}}</td>
                                         <td> {{psy.time}}</td>
                                         {% if psy.document_psycho %}
-                                            <td> <a href="{{psy.document_psycho.url}}" download="{{psy.document_psycho.url}}">Скачать</a></td>
+                                            <td> <a href="{{psy.document_psycho.url}}" download="{{psy.document_psycho.url}}"><img src="/static/ico/download-48.png"></a>
+                                                {% load static %}
+                                                    <a href="{% get_media_prefix %}{{psy.document_psycho}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            </td>
                                         {% else %}
                                             <td> - </td>
                                         {% endif %}
