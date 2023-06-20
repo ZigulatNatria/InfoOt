@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph
-from django.views.generic import ListView, UpdateView, CreateView, View
+from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph, Subdivision
+from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, MedicineParagraphAddForm, \
     PassportAddForm, MedicineAddForm, PsychoAddForm
 from django.utils import timezone
@@ -22,11 +22,15 @@ from django.http import HttpResponse
 
 
 """Работник"""
-class EmployeeListVew(ListView):
-    model = Employee
-    context_object_name = 'employee'
-    template_name = 'index.html'
-    queryset = Employee.objects.all()
+class EmployeeView(TemplateView):
+    template_name = 'employee_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        set_subdivision_employee = {subdivision: subdivision.employee_set.all()
+                                    for subdivision in Subdivision.objects.all().prefetch_related('employee_set')}
+        context['all_employee_by_subdivision'] = set_subdivision_employee
+        return context
 
 
 class EmployeeUpdateView(UpdateView):
@@ -50,8 +54,13 @@ def profile_employee(request, employee_id):
     psycho = Psycho.objects.filter(employee=employee_id)
     passport = Passport.objects.filter(employee=employee_id)
     current_profile = Employee.objects.get(pk=employee_id)
-    medicine = Medicine.objects.get(employee=employee_id) #обращаемся к полю медицины через связанную модель Employee
-    medicine_paragraph = MedicineParagraph.objects.filter(medicine=medicine.id)
+    try:
+        medicine = Medicine.objects.get(employee=employee_id) #обращаемся к полю медицины через связанную модель Employee
+        medicine_paragraph = MedicineParagraph.objects.filter(medicine=medicine.id)
+    except Exception:
+        medicine = []
+        medicine_paragraph = []
+    # medicine_paragraph = MedicineParagraph.objects.filter(medicine=medicine.id)
     context = {'passport': passport,
                'current_profile': current_profile,
                'certificate': certificate,

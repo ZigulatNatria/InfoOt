@@ -16,8 +16,12 @@
         </tr>
       </thead>
       <tbody>
-      {% for employ in employee %}
         <tr>
+            {% for subdivision, employee in all_employee_by_subdivision.items %}
+                          {% if employee and subdivision %}
+                              <div class="h3 text-bold">{{ subdivision }}</div>
+                          {% endif %}
+            {% for employ in employee %}
           <th scope="row" style="width: 10%"><img src="{{MEDIA_URL}}{{employ.photo_employee.url}}" class="d-block w-100" style="" alt="..."></th>
           <td><a class="nav-link" href="{% url 'profile_employee' employ.pk %}">{{employ.surname}} {{employ.name}} {{employ.patronym}}</a></td>
           <td>{{employ.birth_date}}</td>
@@ -25,6 +29,7 @@
           <td>{{employ.profession}}</td>
           <td>{{employ.subdivision}}</td>
         </tr>
+      {% endfor %}
       {% endfor %}
       </tbody>
     </table>

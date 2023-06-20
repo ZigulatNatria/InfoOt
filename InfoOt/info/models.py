@@ -2,14 +2,25 @@ from django.db import models
 from PIL import Image #импорт из PILLOW для обращения к изображению
 import datetime
 
-# Create your models here.
+
+class Subdivision(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Подразделение')
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/{self.id}'
+
+
 class Employee(models.Model):
     surname = models.CharField(max_length=100, verbose_name='Фамилия')
     name = models.CharField(max_length=100, verbose_name='Имя')
     patronym = models.CharField(max_length=100, verbose_name='Отчество', null=True, blank=True)
     birth_date = models.DateField(verbose_name='Дата рождения')
     phone = models.IntegerField(verbose_name='Телефон')
-    subdivision = models.CharField(max_length=150, verbose_name='Подразделение')
+    subdivision = models.ForeignKey(Subdivision, verbose_name='Подразделение', on_delete=models.CASCADE, null=True, blank=True)
+    # subdivision = models.CharField(max_length=150, verbose_name='Подразделение', null=True, blank=True)
     photo_employee = models.ImageField(verbose_name='Фото работника', null=True, blank=True)
     profession = models.TextField(verbose_name='Профессия')
 
