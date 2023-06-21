@@ -20,7 +20,6 @@ class Employee(models.Model):
     birth_date = models.DateField(verbose_name='Дата рождения')
     phone = models.IntegerField(verbose_name='Телефон')
     subdivision = models.ForeignKey(Subdivision, verbose_name='Подразделение', on_delete=models.CASCADE, null=True, blank=True)
-    # subdivision = models.CharField(max_length=150, verbose_name='Подразделение', null=True, blank=True)
     photo_employee = models.ImageField(verbose_name='Фото работника', null=True, blank=True)
     profession = models.TextField(verbose_name='Профессия')
     supervisor = models.BooleanField(verbose_name='Рководитель', default=False)
