@@ -23,6 +23,7 @@ class Employee(models.Model):
     # subdivision = models.CharField(max_length=150, verbose_name='Подразделение', null=True, blank=True)
     photo_employee = models.ImageField(verbose_name='Фото работника', null=True, blank=True)
     profession = models.TextField(verbose_name='Профессия')
+    supervisor = models.BooleanField(verbose_name='Рководитель', default=False)
 
     def get_absolute_url(self):
         return f'/{self.id}'

@@ -21,7 +21,8 @@ class EmployeeAddForm(ModelForm):
             'phone',
             'subdivision',
             'photo_employee',
-            'profession'
+            'profession',
+            'supervisor'
         ]
 
 

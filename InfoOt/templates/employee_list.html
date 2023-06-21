@@ -16,17 +16,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
             {% for subdivision, employee in all_employee_by_subdivision.items %}
                           {% if employee and subdivision %}
-                              <div class="h3 text-bold">{{ subdivision }}</div>
+                                <tr>
+                                    <th colspan="3">{{ subdivision }}</th>
+                                </tr>
                           {% endif %}
             {% for employ in employee %}
+        <tr>
           <th scope="row" style="width: 10%"><img src="{{MEDIA_URL}}{{employ.photo_employee.url}}" class="d-block w-100" style="" alt="..."></th>
           <td><a class="nav-link" href="{% url 'profile_employee' employ.pk %}">{{employ.surname}} {{employ.name}} {{employ.patronym}}</a></td>
           <td>{{employ.birth_date}}</td>
           <td>{{employ.phone}}</td>
-          <td>{{employ.profession}}</td>
+            {% if employ.supervisor %}
+                <td style="background-color: #fff3cd">{{employ.profession}}</td>
+            {% else %}
+                <td>{{employ.profession}}</td>
+            {% endif %}
           <td>{{employ.subdivision}}</td>
         </tr>
       {% endfor %}
