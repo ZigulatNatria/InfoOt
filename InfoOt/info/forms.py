@@ -13,7 +13,9 @@ class EmployeeAddForm(ModelForm):
 
     class Meta:
         model = Employee
+        # fields = ('__all__')
         fields = [
+            'username',
             'surname',
             'name',
             'patronym',
@@ -22,7 +24,7 @@ class EmployeeAddForm(ModelForm):
             'subdivision',
             'photo_employee',
             'profession',
-            'supervisor'
+            'supervisor',
         ]
 
 

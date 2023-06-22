@@ -23,5 +23,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('info.urls')),
+    path('auth/', include('protect.urls')),
+    path('sign/', include('sign.urls'))
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # без этой настройки не будет отображения картинки

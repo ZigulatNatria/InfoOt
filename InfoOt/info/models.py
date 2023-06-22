@@ -1,9 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser, User
 from PIL import Image #импорт из PILLOW для обращения к изображению
 import datetime
+import uuid
 
 
 class Subdivision(models.Model):
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
     name = models.CharField(max_length=150, verbose_name='Подразделение')
 
     def __str__(self):
@@ -13,15 +16,16 @@ class Subdivision(models.Model):
         return f'/{self.id}'
 
 
-class Employee(models.Model):
-    surname = models.CharField(max_length=100, verbose_name='Фамилия')
-    name = models.CharField(max_length=100, verbose_name='Имя')
+class Employee(AbstractUser):
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
+    surname = models.CharField(max_length=100, verbose_name='Фамилия', null=True, blank=True)
+    name = models.CharField(max_length=100, verbose_name='Имя', null=True, blank=True)
     patronym = models.CharField(max_length=100, verbose_name='Отчество', null=True, blank=True)
-    birth_date = models.DateField(verbose_name='Дата рождения')
-    phone = models.IntegerField(verbose_name='Телефон')
+    birth_date = models.DateField(verbose_name='Дата рождения', null=True, blank=True)
+    phone = models.IntegerField(verbose_name='Телефон', null=True, blank=True)
     subdivision = models.ForeignKey(Subdivision, verbose_name='Подразделение', on_delete=models.CASCADE, null=True, blank=True)
     photo_employee = models.ImageField(verbose_name='Фото работника', null=True, blank=True)
-    profession = models.TextField(verbose_name='Профессия')
+    profession = models.TextField(verbose_name='Профессия', null=True, blank=True)
     supervisor = models.BooleanField(verbose_name='Рководитель', default=False)
 
     def get_absolute_url(self):
@@ -46,6 +50,7 @@ class Employee(models.Model):
 
 
 class Passport(models.Model):
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
     series = models.IntegerField(verbose_name='Серия')
     number = models.IntegerField(verbose_name='Номер')
     date_of_issue = models.DateField(verbose_name='Дата выдачи')
@@ -65,6 +70,7 @@ class Passport(models.Model):
 
 
 class Education(models.Model):
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
     prof_name = models.TextField(verbose_name='Нзвание специальноости')
     date_finish_education = models.DateField(verbose_name='Дата окончания уч.заведения')
     document_education = models.FileField(verbose_name='Скан документа', null=True, blank=True)
@@ -82,6 +88,7 @@ class Education(models.Model):
 
 
 class Certificate(models.Model):
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
     name_certificate = models.TextField(verbose_name='Название обучения')
     date_finish_certificate = models.DateField(verbose_name='Дата получения удостоверения')
     date_end_certificate = models.DateField(verbose_name='Срок окончания действия удостоверения')
@@ -105,6 +112,7 @@ class Certificate(models.Model):
 
 
 class Psycho(models.Model):
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
     date_finish_psycho = models.DateField(verbose_name='Дата прохождения освидетельствования')
     date_end_psycho = models.DateField(verbose_name='Срок действия освидетельствования')
     document_psycho = models.FileField(verbose_name='Скан заключения', null=True, blank=True)
@@ -126,6 +134,7 @@ class Psycho(models.Model):
 
 
 class Medicine(models.Model):
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
     document_medicine = models.FileField(verbose_name='Скан заключения', null=True, blank=True)
     date_medicine = models.DateField(verbose_name='Дата прохождения мед.комиссии')
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Работник')
@@ -142,6 +151,7 @@ class Medicine(models.Model):
 
 
 class MedicineParagraph(models.Model):
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
     number_paragraph = models.CharField(max_length=10, verbose_name='Пункт мед.осмотра')
     date_finish_paragraph = models.DateField(verbose_name='Дата прохождения')
     date_end_paragraph = models.DateField(verbose_name='Срок действия')
