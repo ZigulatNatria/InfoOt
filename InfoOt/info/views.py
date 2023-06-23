@@ -192,6 +192,21 @@ class PsychoAddView(CreateView):
 """Информация о сроках"""
 def time_out(request):
     month = datetime.date.today() + datetime.timedelta(days=30)
+    current_user = request.user
+    subdivision_current_user = current_user.subdivision
+    employee_in_subdivision = Employee.objects.filter(subdivision=subdivision_current_user)
+    set_subdivision_certificate = {employee: employee.certificate_set.filter(date_end_certificate__lte=datetime.date.today())
+                                   for employee in Employee.objects.filter(subdivision=subdivision_current_user).prefetch_related('certificate_set')}
+    set_subdivision_certificate_month = {
+        employee: employee.certificate_set.filter(date_end_certificate__range=(datetime.date.today(), month))
+        for employee in
+        Employee.objects.filter(subdivision=subdivision_current_user).prefetch_related('certificate_set')}
+
+    print(current_user)
+    print(subdivision_current_user)
+    # print(employee_in_subdivision)
+    print(set_subdivision_certificate)
+    print(set_subdivision_certificate_month)
 
     certificate = Certificate.objects.filter(date_end_certificate__lte=datetime.date.today())
     certificate_month = Certificate.objects.filter(date_end_certificate__range=(datetime.date.today(), month))
@@ -207,9 +222,11 @@ def time_out(request):
         'medicine': medicine,
         'medicine_month': medicine_month,
         'psycho': psycho,
-        'psycho_month': psycho_month
+        'psycho_month': psycho_month,
+        'set_subdivision_certificate': set_subdivision_certificate,
+        'set_subdivision_certificate_month': set_subdivision_certificate_month,
     }
-    return render(request, 'time_out.html', context)
+    return render(request, 'time_out_subdivision.html', context)
 
 
 """PDF пробный запуск"""
