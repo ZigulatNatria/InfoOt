@@ -21,9 +21,11 @@
                       <li class="nav-item">
                           <a class="nav-link active" aria-current="page" href="{% url 'employee_add' %}">Добавить работника</a>
                       </li>
-                      <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{% url 'time_out' %}">Просроченные удостоверения</a>
-                      </li>
+                      {% if request.user.supervisor %}
+                          <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="{% url 'time_out' %}">Просроченные удостоверения</a>
+                          </li>
+                      {% endif %}
                        <li class="nav-item">
                           <a class="nav-link active" aria-current="page" href="#">Треьтья вкладка</a>
                       </li>

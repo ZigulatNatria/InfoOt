@@ -84,7 +84,8 @@ class Education(models.Model):
         verbose_name = 'Образования'
 
     def get_absolute_url(self):
-        return f'/education/{self.employee.id}'
+        # return f'/education/{self.employee.id}'
+        return f'/{self.employee.id}'
 
 
 class Certificate(models.Model):
@@ -108,7 +109,7 @@ class Certificate(models.Model):
         return (self.date_end_certificate - datetime.date.today()).days
 
     def get_absolute_url(self):
-        return f'/certificate/{self.employee.id}'
+        return f'/{self.employee.id}'
 
 
 class Psycho(models.Model):
@@ -126,7 +127,7 @@ class Psycho(models.Model):
         return (self.date_end_psycho - datetime.date.today()).days
 
     def get_absolute_url(self):
-        return f'/psycho/{self.employee.id}'
+        return f'/{self.employee.id}'
 
     class Meta:
         verbose_name_plural = 'Псих.освидетельстование'
@@ -147,7 +148,7 @@ class Medicine(models.Model):
         verbose_name = 'Мед.заключения'
 
     def get_absolute_url(self):
-        return f'/medicine/{self.id}'
+        return f'/{self.employee.id}'
 
 
 class MedicineParagraph(models.Model):
@@ -169,5 +170,5 @@ class MedicineParagraph(models.Model):
         verbose_name = 'Пункты мед.осмотра'
 
     def get_absolute_url(self):
-        return f'/medicine/{self.medicine.id}'
+        return f'/{self.medicine.employee.id}'
 

@@ -3,7 +3,7 @@ from .views import profile_employee, medicine,\
     certificate, psycho, education, EmployeeUpdateView, CertificateUpdateView, EducationUpdateView, \
     MedicineParagraphUpdateView, EmployeeAddView, PassportAddView, PassportUpdateView, MedicineAddView, \
     MedicineParagraphAddView, EducationAddView, CertificateAddView, PsychoAddView, GeneratePdf, EmployeeView,\
-    some_view, index, time_out
+    PsychoUpdateView, some_view, index, time_out
 
 
 urlpatterns = [
@@ -19,6 +19,7 @@ urlpatterns = [
     path('education_update/<pk>/', EducationUpdateView.as_view(), name='education_update'),
     path('paragraph_update/<pk>/', MedicineParagraphUpdateView.as_view(), name='paragraph_update'),
     path('passport_update/<pk>/', PassportUpdateView.as_view(), name='passport_update'),
+    path('psycho_update/<pk>/', PsychoUpdateView.as_view(), name='psycho_update'),
     #Добавление
     path('employee_add/', EmployeeAddView.as_view(), name='employee_add'),
     path('passport_add/', PassportAddView.as_view(), name='passport_add'),

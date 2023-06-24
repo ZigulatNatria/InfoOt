@@ -161,6 +161,21 @@ def psycho(request, employee_id):
     return render(request, 'psycho.html', context)
 
 
+class PsychoAddView(CreateView):
+    model = Psycho
+    template_name = 'create.html'
+    form_class = PsychoAddForm
+
+
+class PsychoUpdateView(UpdateView):
+    template_name = 'create.html'
+    form_class = PsychoAddForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Psycho.objects.get(pk=id)
+
+
 """Образование"""
 def education(request, employee_id):
     education = Education.objects.filter(employee=employee_id)
@@ -181,12 +196,6 @@ class EducationAddView(CreateView):
     model = Education
     template_name = 'create.html'
     form_class = EducationAddForm
-
-
-class PsychoAddView(CreateView):
-    model = Psycho
-    template_name = 'create.html'
-    form_class = PsychoAddForm
 
 
 """Информация о сроках"""
