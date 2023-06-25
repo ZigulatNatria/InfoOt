@@ -161,7 +161,7 @@
                             {% endif %}
                         </div>
                         <div class="tab-pane fade show" id="list-psycho" role="tabpanel" aria-labelledby="list-home-list">
-                            {% if psycho %}
+                            {% if view.psycho %}
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -173,7 +173,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for psy in psycho %}
+                                    {% for psy in view.psycho %}
                                     <tr>
                                         <td> {{psy.date_finish_psycho}}</td>
                                         <td> {{psy.date_end_psycho}}</td>
@@ -210,7 +210,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
       <div class="modal-body">
-          {% for pass in passport %}
+          {% for pass in view.passport %}
             <p>серия: {{pass.series}}</p>
             <p>номер: {{pass.number}}</p>
             <p>дата выдачи: {{pass.date_of_issue}}</p>
@@ -219,8 +219,8 @@
           {% endfor %}
       </div>
       <div class="modal-footer">
-          {% if passport %}
-                {% for pass in passport %}
+          {% if view.passport %}
+                {% for pass in view.passport %}
                     <a class="btn btn-primary btn-sm" href="{% url 'passport_update' pass.id %}">Редактировать</a>
                 {% endfor %}
                 {% else %}

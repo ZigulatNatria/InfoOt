@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from info.models import Employee, Education, Medicine, MedicineParagraph, Certificate
+from info.models import Employee, Education, Medicine, MedicineParagraph, Certificate, Psycho, Passport
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -44,27 +44,10 @@ class IndexView(LoginRequiredMixin, TemplateView):
         certificate = Certificate.objects.filter(employee=self.employee_id())
         return certificate
 
+    def psycho(self):
+        psycho = Psycho.objects.filter(employee=self.employee_id())
+        return psycho
 
-    # def profile_employee(request, employee_id):
-    #     education = Education.objects.filter(employee=employee_id)
-    #     certificate = Certificate.objects.filter(employee=employee_id)
-    #     psycho = Psycho.objects.filter(employee=employee_id)
-    #     passport = Passport.objects.filter(employee=employee_id)
-    #     current_profile = Employee.objects.get(pk=employee_id)
-    #     try:
-    #         medicine = Medicine.objects.get(
-    #             employee=employee_id)  # обращаемся к полю медицины через связанную модель Employee
-    #         medicine_paragraph = MedicineParagraph.objects.filter(medicine=medicine.id)
-    #     except Exception:
-    #         medicine = []
-    #         medicine_paragraph = []
-    #
-    #     context = {'passport': passport,
-    #                'current_profile': current_profile,
-    #                'certificate': certificate,
-    #                'medicine': medicine,
-    #                'education': education,
-    #                'psycho': psycho,
-    #                'medicine_paragraph': medicine_paragraph
-    #                }
-    #     return render(request, 'profile.html', context)
+    def passport(self):
+        passport = Passport.objects.filter(employee=self.employee_id())
+        return passport
