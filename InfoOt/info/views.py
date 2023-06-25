@@ -145,6 +145,7 @@ class CertificateAddView(CreateView):
     template_name = 'create.html'
     form_class = CertificateAddForm
 
+
 """Временно закрыто"""
 #Для Celery
     # def form_valid(self, form):
