@@ -8,7 +8,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     </head>
     <body style="background-color: #f5fffa">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="margin-bottom: 1rem">
           <div class="container">
             <a class="navbar-brand" href="{% url 'employee' %}">
               <img src="/static/img/logo2.png" width="274" height="60" alt="" loading="lazy">
@@ -19,7 +19,7 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                       <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{% url 'employee_add' %}">Добавить работника</a>
+                          <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">Добавить работника</a>
                       </li>
                       {% if request.user.supervisor %}
                           <li class="nav-item">
@@ -28,6 +28,14 @@
                       {% endif %}
                        <li class="nav-item">
                           <a class="nav-link active" aria-current="page" href="#">Треьтья вкладка</a>
+                      </li>
+                  </ul>
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="justify-content: end">
+                      <li class="nav-item">
+                         <a class="nav-link active" aria-current="page" href="/auth/"> {{ user.surname }} {{ user.name }} </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link active" href="/sign/logout/">Выйти</a>
                       </li>
                   </ul>
               </div>

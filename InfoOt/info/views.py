@@ -3,6 +3,7 @@ from .models import Employee, Passport, Education, Certificate, Psycho, Medicine
 from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, MedicineParagraphAddForm, \
     PassportAddForm, MedicineAddForm, PsychoAddForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 import datetime
 
@@ -22,7 +23,7 @@ from django.http import HttpResponse
 
 
 """Работник"""
-class EmployeeView(TemplateView):
+class EmployeeView(LoginRequiredMixin, TemplateView):
     template_name = 'employee_list.html'
 
     def get_context_data(self, **kwargs):
@@ -33,7 +34,7 @@ class EmployeeView(TemplateView):
         return context
 
 
-class EmployeeUpdateView(UpdateView):
+class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'create.html'
     form_class = EmployeeAddForm
 
@@ -42,7 +43,7 @@ class EmployeeUpdateView(UpdateView):
         return Employee.objects.get(pk=id)
 
 
-class EmployeeAddView(CreateView):
+class EmployeeAddView(LoginRequiredMixin, CreateView):
     model = Employee
     template_name = 'create.html'
     form_class = EmployeeAddForm
