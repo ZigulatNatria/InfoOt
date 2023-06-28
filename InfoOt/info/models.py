@@ -16,6 +16,30 @@ class Subdivision(models.Model):
         return f'/{self.id}'
 
 
+class Profession(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Профессия')
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/{self.id}'
+
+
+class Sawc(models.Model):
+    name_profession = models.ForeignKey(Profession, verbose_name='Профессия', on_delete=models.CASCADE, null=True, blank=True)
+    name_subdivision = models.ForeignKey(Subdivision, verbose_name='Подразделение', on_delete=models.CASCADE, null=True, blank=True)
+    number_card = models.CharField(max_length=100, verbose_name='Номер карты СОУТ')
+    date_card = models.DateField(verbose_name='Дата карты СОУТ', null=True, blank=True)
+    document_sawc = models.FileField(verbose_name='Скан карты СОУТ', null=True, blank=True)
+
+    def __str__(self):
+        return '{}'.format(self.name_profession) + ' ' + '{}'.format(self.name_subdivision)
+
+    def get_absolute_url(self):
+        return f'/{self.id}'
+
+
 class Employee(AbstractUser):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
     surname = models.CharField(max_length=100, verbose_name='Фамилия', null=True, blank=True)
@@ -25,7 +49,8 @@ class Employee(AbstractUser):
     phone = models.IntegerField(verbose_name='Телефон', null=True, blank=True)
     subdivision = models.ForeignKey(Subdivision, verbose_name='Подразделение', on_delete=models.CASCADE, null=True, blank=True)
     photo_employee = models.ImageField(verbose_name='Фото работника', null=True, blank=True)
-    profession = models.TextField(verbose_name='Профессия', null=True, blank=True)
+    profession = models.ManyToManyField(Profession, verbose_name='Профессия')
+    sawc = models.ManyToManyField(Sawc, verbose_name='СОУТ')
     supervisor = models.BooleanField(verbose_name='Рководитель', default=False)
 
     def get_absolute_url(self):
