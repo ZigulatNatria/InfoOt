@@ -6,7 +6,9 @@
         <div class="container">
             <div class="row" style="margin-bottom: 2rem">
                 <div class="col-6">
-                    <img src="{{MEDIA_URL}}{{ view.employee.photo_employee.url }}" style="width: 70%">
+                    {% if view.employee.photo_employee %}
+                        <img src="{{MEDIA_URL}}{{ view.employee.photo_employee.url }}" style="width: 70%">
+                    {% endif %}
                 </div>
                 <div class="col-5">
                     <p>{{view.employee.surname}} {{view.employee.name}} {{view.employee.patronym}}</p>

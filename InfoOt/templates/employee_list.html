@@ -24,7 +24,11 @@
                           {% endif %}
             {% for employ in employee %}
         <tr>
-          <th scope="row" style="width: 10%"><img src="{{MEDIA_URL}}{{employ.photo_employee.url}}" class="d-block w-100" style="" alt="..."></th>
+            {% if employ.photo_employee %}
+                <th scope="row" style="width: 10%"><img src="{{MEDIA_URL}}{{employ.photo_employee.url}}" class="d-block w-100" style="" alt="..."></th>
+            {% else %}
+                <th>-</th>
+            {% endif %}
           <td><a class="nav-link" href="{% url 'profile_employee' employ.pk %}">{{employ.surname}} {{employ.name}} {{employ.patronym}}</a></td>
           <td>{{employ.birth_date}}</td>
           <td>{{employ.phone}}</td>
