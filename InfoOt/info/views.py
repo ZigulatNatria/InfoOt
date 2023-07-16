@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph, Subdivision
+from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph, Subdivision, Sawc
 from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, MedicineParagraphAddForm, \
     PassportAddForm, MedicineAddForm, PsychoAddForm
