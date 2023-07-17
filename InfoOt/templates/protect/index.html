@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-5">
                     <p>{{view.employee.surname}} {{view.employee.name}} {{view.employee.patronym}}</p>
-                    <p>Должность: {{view.employee.profession}}</p>
+                    <p>Должность: {{view.employee.profession.all|join:", "}}</p>
                     <p>Структурное подразделение: {{view.employee.subdivision}}</p>
                     <p>дата рождения: {{view.employee.birth_date}}</p>
                     <p>телефон: {{view.employee.phone}}</p>
@@ -21,6 +21,13 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                       Паспортные данные
                     </button>
+                    {% for sawc in view.employee.sawc.all %}
+                        {% if sawc.document_sawc %}
+                            Карта СОУТ <a href="{{sawc.document_sawc.url}}" download="{{sawc.document_sawc.url}}"><img src="/static/ico/download-48.png"></a>
+                                       {% load static %}
+                                       <a href="{% get_media_prefix %}{{sawc.document_sawc}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
             <div class="row">

@@ -1,7 +1,8 @@
 from django.forms import ModelForm
 from django import forms
 
-from .models import Employee, Certificate, Education, MedicineParagraph, Passport, Medicine, Psycho
+from .models import Employee, Certificate, Education, MedicineParagraph, Passport, \
+    Medicine, Psycho, Sawc
 
 
 class EmployeeAddForm(ModelForm):
@@ -100,4 +101,17 @@ class PsychoAddForm(ModelForm):
             'date_finish_psycho',
             'date_end_psycho',
             'employee'
+        ]
+
+
+class SawcAddForm(ModelForm):
+
+    class Meta:
+        model = Sawc
+        fields = [
+            'name_profession',
+            'name_subdivision',
+            'number_card',
+            'date_card',
+            'document_sawc',
         ]

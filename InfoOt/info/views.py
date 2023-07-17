@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph, Subdivision, Sawc
 from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, MedicineParagraphAddForm, \
-    PassportAddForm, MedicineAddForm, PsychoAddForm
+    PassportAddForm, MedicineAddForm, PsychoAddForm, SawcAddForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 import datetime
@@ -213,11 +213,11 @@ def time_out(request):
         for employee in
         Employee.objects.filter(subdivision=subdivision_current_user).prefetch_related('certificate_set')}
 
-    print(current_user)
-    print(subdivision_current_user)
-    # print(employee_in_subdivision)
-    print(set_subdivision_certificate)
-    print(set_subdivision_certificate_month)
+    # print(current_user)
+    # print(subdivision_current_user)
+    # # print(employee_in_subdivision)
+    # print(set_subdivision_certificate)
+    # print(set_subdivision_certificate_month)
 
     certificate = Certificate.objects.filter(date_end_certificate__lte=datetime.date.today())
     certificate_month = Certificate.objects.filter(date_end_certificate__range=(datetime.date.today(), month))
@@ -238,6 +238,13 @@ def time_out(request):
         'set_subdivision_certificate_month': set_subdivision_certificate_month,
     }
     return render(request, 'time_out_subdivision.html', context)
+
+
+"""СОУТ"""
+class SawcAddView(LoginRequiredMixin, CreateView):
+    model = Sawc
+    template_name = 'create.html'
+    form_class = SawcAddForm
 
 
 """PDF пробный запуск"""
