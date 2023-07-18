@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph, Subdivision, Sawc
-from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView
+from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView, DeleteView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, MedicineParagraphAddForm, \
-    PassportAddForm, MedicineAddForm, PsychoAddForm, SawcAddForm
+    PassportAddForm, MedicineAddForm, PsychoAddForm, SawcAddForm, SawcAddToEmployeeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 import datetime
@@ -73,14 +73,23 @@ def profile_employee(request, employee_id):
     return render(request, 'profile.html', context)
 
 
+class SawcAddToEmployee(LoginRequiredMixin, UpdateView):
+    template_name = 'create.html'
+    form_class = SawcAddToEmployeeForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Employee.objects.get(pk=id)
+
+
 """Паспорт"""
-class PassportAddView(CreateView):
+class PassportAddView(LoginRequiredMixin, CreateView):
     model = Passport
     template_name = 'create.html'
     form_class = PassportAddForm
 
 
-class PassportUpdateView(UpdateView):
+class PassportUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'create.html'
     form_class = PassportAddForm
 
@@ -88,7 +97,7 @@ class PassportUpdateView(UpdateView):
         id = self.kwargs.get('pk')
         return Passport.objects.get(pk=id)
 
-
+"""Медицина"""
 def medicine(request, medicine_id):
     medicine = Medicine.objects.get(id=medicine_id)
     medicineParagraph = MedicineParagraph.objects.filter(medicine=medicine_id) #обращемся к полю параграф через связанную модель медицины
@@ -96,7 +105,7 @@ def medicine(request, medicine_id):
     return render(request, 'medicine.html', context)
 
 
-class MedicineParagraphUpdateView(UpdateView):
+class MedicineParagraphUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'create.html'
     form_class = MedicineParagraphAddForm
 
@@ -105,13 +114,13 @@ class MedicineParagraphUpdateView(UpdateView):
         return MedicineParagraph.objects.get(pk=id)
 
 
-class MedicineAddView(CreateView):
+class MedicineAddView(LoginRequiredMixin, CreateView):
     model = Medicine
     template_name = 'create.html'
     form_class = MedicineAddForm
 
 
-class MedicineParagraphAddView(CreateView):
+class MedicineParagraphAddView(LoginRequiredMixin, CreateView):
     model = MedicineParagraph
     template_name = 'create.html'
     form_class = MedicineParagraphAddForm
@@ -132,7 +141,7 @@ def certificate(request, employee_id):
     return render(request, 'certificate.html', context)
 
 
-class CertificateUpdateView(UpdateView):
+class CertificateUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'create.html'
     form_class = CertificateAddForm
 
@@ -141,7 +150,7 @@ class CertificateUpdateView(UpdateView):
         return Certificate.objects.get(pk=id)
 
 
-class CertificateAddView(CreateView):
+class CertificateAddView(LoginRequiredMixin, CreateView):
     model = Certificate
     template_name = 'create.html'
     form_class = CertificateAddForm
@@ -163,13 +172,13 @@ def psycho(request, employee_id):
     return render(request, 'psycho.html', context)
 
 
-class PsychoAddView(CreateView):
+class PsychoAddView(LoginRequiredMixin, CreateView):
     model = Psycho
     template_name = 'create.html'
     form_class = PsychoAddForm
 
 
-class PsychoUpdateView(UpdateView):
+class PsychoUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'create.html'
     form_class = PsychoAddForm
 
@@ -185,7 +194,7 @@ def education(request, employee_id):
     return render(request, 'education.html', context)
 
 
-class EducationUpdateView(UpdateView):
+class EducationUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'create.html'
     form_class = EducationAddForm
 
@@ -194,7 +203,7 @@ class EducationUpdateView(UpdateView):
         return Education.objects.get(pk=id)
 
 
-class EducationAddView(CreateView):
+class EducationAddView(LoginRequiredMixin, CreateView):
     model = Education
     template_name = 'create.html'
     form_class = EducationAddForm
@@ -245,6 +254,28 @@ class SawcAddView(LoginRequiredMixin, CreateView):
     model = Sawc
     template_name = 'create.html'
     form_class = SawcAddForm
+
+
+class SawcListView(LoginRequiredMixin, ListView):
+    model = Sawc
+    template_name = 'sawc_list.html'
+    context_object_name = 'sawc_list'
+
+
+class SawcDelete(LoginRequiredMixin, DeleteView):
+    queryset = Sawc.objects.all()
+    context_object_name = 'sawc'
+    template_name = 'delete/sawc_delete.html'
+    success_url = '/sawc/'
+
+
+class SawcUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'create.html'
+    form_class = SawcAddForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Sawc.objects.get(pk=id)
 
 
 """PDF пробный запуск"""

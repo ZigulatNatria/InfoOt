@@ -18,20 +18,22 @@
                     <p>телефон: {{current_profile.phone}}</p>
                     <p><a href="{% url 'employee_update' current_profile.pk %}">Редактировать</a></p>
                      <!-- Кнопка-триггер модального окна -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-bottom: 5px">
                       Паспортные данные
                     </button>
-                    {% if current_profile.sawc %}
-                        {% for sawc in current_profile.sawc.all %}
-                            {% if sawc.document_sawc %}
-                                Карта СОУТ <a href="{{sawc.document_sawc.url}}" download="{{sawc.document_sawc.url}}"><img src="/static/ico/download-48.png"></a>
-                                           {% load static %}
-                                           <a href="{% get_media_prefix %}{{sawc.document_sawc}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
-                            {% endif %}
-                        {% endfor %}
-                    {% else %}
-                        <a class="btn btn-primary btn-sm" href="{% url 'sawc_add' %}" style="width: 20%">Добавить карту СОУТ</a>
-                    {% endif %}
+                    <p>
+                        {% if current_profile.sawc.all %}
+                            {% for sawc in current_profile.sawc.all %}
+                                {% if sawc.document_sawc %}
+                                    Карта СОУТ <a href="{{sawc.document_sawc.url}}" download="{{sawc.document_sawc.url}}"><img src="/static/ico/download-48.png"></a>
+                                               {% load static %}
+                                               <a href="{% get_media_prefix %}{{sawc.document_sawc}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <a class="btn btn-primary btn-sm" href="{% url 'sawc_add_to' current_profile.pk %}" style="">Добавить карту СОУТ</a>
+                        {% endif %}
+                    </p>
                 </div>
             </div>
             <div class="row">

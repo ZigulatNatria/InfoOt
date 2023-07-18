@@ -32,12 +32,16 @@ class Sawc(models.Model):
     number_card = models.CharField(max_length=100, verbose_name='Номер карты СОУТ')
     date_card = models.DateField(verbose_name='Дата карты СОУТ', null=True, blank=True)
     document_sawc = models.FileField(verbose_name='Скан карты СОУТ', null=True, blank=True)
+    date_add = models.DateField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['number_card']
 
     def __str__(self):
-        return '{}'.format(self.name_profession) + ' ' + '{}'.format(self.name_subdivision)
+        return '{}'.format(self.number_card) + ' ' + '{}'.format(self.name_profession) + ', ' + '{}'.format(self.name_subdivision)
 
     def get_absolute_url(self):
-        return f'/{self.id}'
+        return f'/sawc/'
 
 
 class Employee(AbstractUser):
@@ -50,7 +54,7 @@ class Employee(AbstractUser):
     subdivision = models.ForeignKey(Subdivision, verbose_name='Подразделение', on_delete=models.CASCADE, null=True, blank=True)
     photo_employee = models.ImageField(verbose_name='Фото работника', null=True, blank=True)
     profession = models.ManyToManyField(Profession, verbose_name='Профессия')
-    sawc = models.ManyToManyField(Sawc, verbose_name='СОУТ')
+    sawc = models.ManyToManyField(Sawc, verbose_name='СОУТ', blank=True)
     supervisor = models.BooleanField(verbose_name='Рководитель', default=False)
 
     def get_absolute_url(self):

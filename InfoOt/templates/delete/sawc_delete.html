@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+<body>
+    {% block content %}
+    <div class="container">
+        <div class="row">
+            <h3>Удалить карту?</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">№</th>
+                  <th scope="col">Рабочее место</th>
+                  <th scope="col">Подразделение</th>
+                  <th scope="col">Дата</th>
+                  <th scope="col">Файл</th>
+                </tr>
+              </thead>
+              <tbody>
+                   <tr>
+                     <td>{{ sawc.number_card }}</td>
+                     <td>{{ sawc.name_profession }}</td>
+                     <td>{{ sawc.name_subdivision }}</td>
+                     <td>{{ sawc.date_card }}</td>
+                     <td>
+                         {% load static %}
+                         <a href="{% get_media_prefix %}{{sawc.document_sawc}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                         <a href="{{sawc.document_sawc.url}}" download="{{sawc.document_sawc.url}}"><img src="/static/ico/download-48.png"></a>
+                     </td>
+                   </tr>
+              </tbody>
+            </table>
+            <form method="post" enctype="multipart/form-data" style="width: 40%;">
+                <div class="col-lg-5 align-items-center my-5">
+                    {% csrf_token %}
+                    <input class="tab" type="submit" value="Удалить">
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+</html>

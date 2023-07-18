@@ -3,11 +3,12 @@ from .views import profile_employee, medicine,\
     certificate, psycho, education, EmployeeUpdateView, CertificateUpdateView, EducationUpdateView, \
     MedicineParagraphUpdateView, EmployeeAddView, PassportAddView, PassportUpdateView, MedicineAddView, \
     MedicineParagraphAddView, EducationAddView, CertificateAddView, PsychoAddView, GeneratePdf, EmployeeView,\
-    PsychoUpdateView, SawcAddView, some_view, index, time_out
+    PsychoUpdateView, SawcAddView, SawcAddToEmployee, SawcListView, SawcDelete, SawcUpdateView, some_view, index, time_out
 
 
 urlpatterns = [
     path('', EmployeeView.as_view(), name='employee'),
+    path('sawc/', SawcListView.as_view(), name='sawc'),
     path('<int:employee_id>/', profile_employee, name='profile_employee'),
     path('medicine/<int:medicine_id>', medicine, name='medicine'),
     path('certificate/<int:employee_id>', certificate, name='certificate'),
@@ -20,6 +21,8 @@ urlpatterns = [
     path('paragraph_update/<pk>/', MedicineParagraphUpdateView.as_view(), name='paragraph_update'),
     path('passport_update/<pk>/', PassportUpdateView.as_view(), name='passport_update'),
     path('psycho_update/<pk>/', PsychoUpdateView.as_view(), name='psycho_update'),
+    path('sawc_add_to/<pk>', SawcAddToEmployee.as_view(), name='sawc_add_to'),
+    path('sawc_update/<pk>', SawcUpdateView.as_view(), name='sawc_update'),
     #Добавление
     path('employee_add/', EmployeeAddView.as_view(), name='employee_add'),
     path('passport_add/', PassportAddView.as_view(), name='passport_add'),
@@ -29,6 +32,8 @@ urlpatterns = [
     path('certificate_add/', CertificateAddView.as_view(), name='certificate_add'),
     path('psycho_add/', PsychoAddView.as_view(), name='psycho_add'),
     path('sawc_add/', SawcAddView.as_view(), name='sawc_add'),
+    #Удаление
+    path('sawc_delete/<pk>', SawcDelete.as_view(), name='sawc_delete'),
     #Срок
     path('time_out/', time_out, name='time_out'),
     #PDF

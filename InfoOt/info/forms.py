@@ -115,3 +115,12 @@ class SawcAddForm(ModelForm):
             'date_card',
             'document_sawc',
         ]
+
+
+class SawcAddToEmployeeForm(ModelForm):
+
+    class Meta:
+        model = Employee
+        fields = [
+            'sawc',
+        ]

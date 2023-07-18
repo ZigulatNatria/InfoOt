@@ -26,9 +26,15 @@
                               <a class="nav-link active" aria-current="page" href="{% url 'time_out' %}">Просроченные удостоверения</a>
                           </li>
                       {% endif %}
-                       <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="#">Треьтья вкладка</a>
-                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            СОУТ
+                          </a>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'sawc' %}">Список карт СОУТ</a></li>
+                            <li><a class="dropdown-item" href="{% url 'sawc_add' %}">Добавить карту СОУТ</a></li>
+                          </ul>
+                        </li>
                   </ul>
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="justify-content: end">
                       <li class="nav-item">
