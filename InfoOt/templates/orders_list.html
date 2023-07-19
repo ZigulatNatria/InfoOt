@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+<body>
+{% block content %}
+<div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">№</th>
+          <th scope="col">Название</th>
+          <th scope="col">Дата</th>
+          <th scope="col">Файл</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+           <tr>
+             <td>{{ order.number }}</td>
+             <td>{{ order.name }}</td>
+             <td>{{ order.date }}</td>
+             <td>
+                 {% if order.file %}
+                     {% load static %}
+                     <a href="{% get_media_prefix %}{{order.file}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                     <a href="{{order.file.url}}" download="{{order.file.url}}"><img src="/static/ico/download-48.png"></a>
+                     <a href="{% url 'order_update' order.id %}"><img src="/static/ico/edit-48.png"></a>
+                     <a href="{% url 'order_delete' order.id %}"><img src="/static/ico/delete-48.png"></a>
+                 {% endif %}
+             </td>
+           </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock content %}
+</body>
+</html>

@@ -9,6 +9,10 @@ class Subdivision(models.Model):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
     name = models.CharField(max_length=150, verbose_name='Подразделение')
 
+    class Meta:
+        verbose_name_plural = 'Подразделение'
+        verbose_name = 'Подразделения'
+
     def __str__(self):
         return self.name
 
@@ -18,6 +22,10 @@ class Subdivision(models.Model):
 
 class Profession(models.Model):
     name = models.CharField(max_length=150, verbose_name='Профессия')
+
+    class Meta:
+        verbose_name_plural = 'Профессия'
+        verbose_name = 'Профессии'
 
     def __str__(self):
         return self.name
@@ -35,7 +43,9 @@ class Sawc(models.Model):
     date_add = models.DateField(auto_now_add=True)
 
     class Meta:
-        ordering = ['number_card']
+        verbose_name_plural = 'Карты СОУТ'
+        verbose_name = 'Карта СОУТ'
+        ordering = ['-date_add']
 
     def __str__(self):
         return '{}'.format(self.number_card) + ' ' + '{}'.format(self.name_profession) + ', ' + '{}'.format(self.name_subdivision)
@@ -74,8 +84,8 @@ class Employee(AbstractUser):
         return '{}'.format(self.surname) + ' ' + '{}'.format(self.name) + ' ' + '{}'.format(self.patronym)
 
     class Meta:
-        verbose_name_plural = 'Работник'
-        verbose_name = 'Работники'
+        verbose_name_plural = 'Работники'
+        verbose_name = 'Работник'
 
 
 class Passport(models.Model):
@@ -91,8 +101,8 @@ class Passport(models.Model):
         return 'Паспорт' + ' ' + '{}'.format(self.employee)
 
     class Meta:
-        verbose_name_plural = 'Паспорт'
-        verbose_name = 'Паспорта'
+        verbose_name_plural = 'Паспорта'
+        verbose_name = 'Паспорт'
 
     def get_absolute_url(self):
         return f'/{self.employee.id}'
@@ -109,8 +119,8 @@ class Education(models.Model):
         return 'Образование' + ' ' + '{}'.format(self.employee)
 
     class Meta:
-        verbose_name_plural = 'Образование'
-        verbose_name = 'Образования'
+        verbose_name_plural = 'Образования'
+        verbose_name = 'Образование'
 
     def get_absolute_url(self):
         # return f'/education/{self.employee.id}'
@@ -130,8 +140,8 @@ class Certificate(models.Model):
         return 'Удостоверение ' + ' ' + '{}'.format(self.name_certificate) + ' ' + '{}'.format(self.employee)
 
     class Meta:
-        verbose_name_plural = 'Удостоверение'
-        verbose_name = 'Удостоверения'
+        verbose_name_plural = 'Удостоверения'
+        verbose_name = 'Удостоверение'
 
     # расчитываем колличество дней до окончания срока действия, берём дату окончания из модели и вычитаем текущую дату
     def time(self):
@@ -159,8 +169,8 @@ class Psycho(models.Model):
         return f'/{self.employee.id}'
 
     class Meta:
-        verbose_name_plural = 'Псих.освидетельстование'
-        verbose_name = 'Псих.освидетельствования'
+        verbose_name_plural = 'Псих.освидетельстования'
+        verbose_name = 'Псих.освидетельствование'
 
 
 class Medicine(models.Model):
@@ -173,8 +183,8 @@ class Medicine(models.Model):
         return 'Мед.заключение' + ' ' + '{}'.format(self.employee)
 
     class Meta:
-        verbose_name_plural = 'Мед.заключение'
-        verbose_name = 'Мед.заключения'
+        verbose_name_plural = 'Мед.заключения'
+        verbose_name = 'Мед.заключение'
 
     def get_absolute_url(self):
         return f'/{self.employee.id}'
@@ -195,9 +205,28 @@ class MedicineParagraph(models.Model):
         return (self.date_end_paragraph - datetime.date.today()).days
 
     class Meta:
-        verbose_name_plural = 'Пункт мед.осмотра'
-        verbose_name = 'Пункты мед.осмотра'
+        verbose_name_plural = 'Пункты мед.осмотра'
+        verbose_name = 'Пункт мед.осмотра'
 
     def get_absolute_url(self):
         return f'/{self.medicine.employee.id}'
+
+
+class Order(models.Model):
+    name = models.CharField(max_length=250, verbose_name='Название приказа')
+    number = models.CharField(max_length=10, verbose_name='Номер приказа')
+    date = models.DateField(verbose_name='Дата приказа')
+    file = models.FileField(verbose_name='Скан приказа', upload_to='media')
+    employees = models.ManyToManyField(Employee, verbose_name='Работники в приказе')
+    date_add = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'Приказы'
+        verbose_name = 'Приказ'
+
+    def __str__(self):
+        return '{}'.format(self.number) + ' ' + '{}'.format(self.name)
+
+    def get_absolute_url(self):
+        return f'/orders/'
 

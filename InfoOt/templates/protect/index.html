@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-{% extends 'base.html' %}
 <html lang="en">
+{% extends 'base.html' %}
 <body>
     {% block content %}
         <div class="container">
@@ -11,6 +11,7 @@
                     {% endif %}
                 </div>
                 <div class="col-5">
+                    <!-- Информация оработнике -->
                     <p>{{view.employee.surname}} {{view.employee.name}} {{view.employee.patronym}}</p>
                     <p>Должность: {{view.employee.profession.all|join:", "}}</p>
                     <p>Структурное подразделение: {{view.employee.subdivision}}</p>
@@ -21,6 +22,7 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                       Паспортные данные
                     </button>
+                    <!-- информация о СОУТ -->
                     <p>
                         {% for sawc in view.employee.sawc.all %}
                             {% if sawc.document_sawc %}
@@ -40,14 +42,17 @@
                     background-color: #FFB673;
                     border-color:#FFB673;;
                 </style>
+                <!-- Панель вкладок -->
                 <div class="list-group list-group-horizontal" id="list-tab" role="tablist" style="margin-bottom: 1rem">
                     <a class="list-group-item list-group-item-action active" id="list-education-list" data-bs-toggle="list" href="#list-education" role="tab" aria-controls="list-home" style="border-radius: 20px 5px 0px 0px">Образование</a>
                     <a class="list-group-item list-group-item-action" id="list-medicine-list" data-bs-toggle="list" href="#list-medicine" role="tab" aria-controls="list-home" style="border-radius: 20px 5px 0px 0px">Мед.комиссия</a>
                     <a class="list-group-item list-group-item-action" id="list-certificate-list" data-bs-toggle="list" href="#list-certificate" role="tab" aria-controls="list-home" style="border-radius: 20px 5px 0px 0px">Удостоверения</a>
                     <a class="list-group-item list-group-item-action" id="list-psycho-list" data-bs-toggle="list" href="#list-psycho" role="tab" aria-controls="list-home" style="border-radius: 20px 5px 0px 0px">Псих.освидетельствование</a>
+                    <a class="list-group-item list-group-item-action" id="list-orders-list" data-bs-toggle="list" href="#list-orders" role="tab" aria-controls="list-home" style="border-radius: 20px 5px 0px 0px">Приказы</a>
                 </div>
                 <div class="row">
                     <div class="tab-content" id="nav-tabContent">
+                        <!-- Вкладка образование -->
                         <div class="tab-pane fade show active" id="list-education" role="tabpanel" aria-labelledby="list-home-list">
                             {% if view.education %}
                                 <table class="table">
@@ -82,6 +87,7 @@
                                 <a class="btn btn-primary btn-sm" href="{% url 'education_add' %}" style="width: 20%">Добавить образование</a>
                             {% endif %}
                         </div>
+                        <!-- Вкладка медицинских осмотров -->
                         <div class="tab-pane fade show" id="list-medicine" role="tabpanel" aria-labelledby="list-home-list">
                             {% if view.medicine %}
                                 <table class="table">
@@ -101,21 +107,20 @@
                                                 <td>{{med.date_finish_paragraph}}</td>
                                                 <td>{{med.date_end_paragraph}}</td>
                                                 <td>{{med.time}}</td>
-                                                <td><a href="{% url 'paragraph_update' med.pk %}"><img src="/static/ico/edit-48.png"></a></td>
                                             </tr>
                                         {% endfor %}
                                      </tbody>
                                  </table>
-                                    <a class="btn btn-primary btn-sm" href="{% url 'paragraph_add' %}" style="width: 20%">Добавить пункт мед.осмотра</a>
                                 {% if view.medicine.document_medicine %}
                                     <a href="{{view.medicine.document_medicine.url}}" download="{{view.medicine.document_medicine.url}}"><img src="/static/ico/download-48.png"></a>
                                     {% load static %}
                                         <a href="{% get_media_prefix %}{{view.medicine.document_medicine}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
                                 {% endif %}
                             {% else %}
-                                <a class="btn btn-primary btn-sm" href="{% url 'medicine_add' %}" style="width: 20%">Добавить мед.заключение</a>
+                                У Вас нет разультатов медицинского осмотра
                             {% endif %}
                         </div>
+                        <!-- Вкладка удостоверений -->
                         <div class="tab-pane fade show" id="list-certificate" role="tabpanel" aria-labelledby="list-home-list">
                             {% if view.certificate %}
                              <table class="table">
@@ -164,11 +169,11 @@
                                  {% endfor %}
                                  </tbody>
                              </table>
-                             <a class="btn btn-primary btn-sm" href="{% url 'certificate_add' %}" style="width: 20%">Добавить удостоверение</a>
                             {% else %}
-                                <a class="btn btn-primary btn-sm" href="{% url 'certificate_add' %}" style="width: 20%">Добавить удостоверение</a>
+                                У Вас нет удостоверений
                             {% endif %}
                         </div>
+                        <!-- Вкладка психиатрического освидетельствования -->
                         <div class="tab-pane fade show" id="list-psycho" role="tabpanel" aria-labelledby="list-home-list">
                             {% if view.psycho %}
                             <table class="table">
@@ -186,7 +191,13 @@
                                     <tr>
                                         <td> {{psy.date_finish_psycho}}</td>
                                         <td> {{psy.date_end_psycho}}</td>
-                                        <td> {{psy.time}}</td>
+                                        {% if psy.time < 0 %}
+                                                <td style="color: red">{{psy.time}}</td>
+                                            {% elif c.time < 31 %}
+                                                <td style="color: orange">{{psy.time}}</td>
+                                            {% else %}
+                                                <td style="color: green">{{psy.time}}</td>
+                                            {% endif %}
                                         {% if psy.document_psycho %}
                                             <td> <a href="{{psy.document_psycho.url}}" download="{{psy.document_psycho.url}}"><img src="/static/ico/download-48.png"></a>
                                                 {% load static %}
@@ -195,13 +206,48 @@
                                         {% else %}
                                             <td> - </td>
                                         {% endif %}
-                                        <td><a href="{% url 'psycho_update' psy.pk %}"><img src="/static/ico/edit-48.png"></a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
                             {% else %}
-                                <a class="btn btn-primary btn-sm" href="{% url 'psycho_add' %}" style="width: 20%">Добавить псих.заключение</a>
+                                У Вас нет результатов психиатрического освидетельствования
+                            {% endif %}
+                        </div>
+                        <!-- Вкладка приказов -->
+                        <div class="tab-pane fade show" id="list-orders" role="tabpanel" aria-labelledby="list-home-list">
+                            {% if view.orders %}
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Номер приказа</th>
+                                        <th scope="col">Название приказа</th>
+                                        <th scope="col">Дата</th>
+                                        <th scope="col">Приказ</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in view.orders %}
+                                    <tr>
+                                        <td> {{order.number}}</td>
+                                        <td> {{order.name}}</td>
+                                        <td> {{order.date}}</td>
+                                        {% if order.file %}
+                                            <td>
+                                                <a href="{{order.file.url}}" download="{{order.file.url}}"><img src="/static/ico/download-48.png"></a>
+                                                {% load static %}
+                                                <a href="{% get_media_prefix %}{{order.file}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            </td>
+                                        {% else %}
+                                            <td> - </td>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                                Нет приказов с упоминанием Вас
                             {% endif %}
                         </div>
                     </div>

@@ -1,8 +1,11 @@
 from django.shortcuts import render
-from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, MedicineParagraph, Subdivision, Sawc
-from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView, DeleteView
-from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, MedicineParagraphAddForm, \
-    PassportAddForm, MedicineAddForm, PsychoAddForm, SawcAddForm, SawcAddToEmployeeForm
+from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, \
+    MedicineParagraph, Subdivision, Sawc, Order
+from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView, \
+    DeleteView
+from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, \
+    MedicineParagraphAddForm, PassportAddForm, MedicineAddForm, PsychoAddForm, \
+    SawcAddForm, SawcAddToEmployeeForm, OrderAddForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 import datetime
@@ -54,6 +57,7 @@ def profile_employee(request, employee_id):
     certificate = Certificate.objects.filter(employee=employee_id)
     psycho = Psycho.objects.filter(employee=employee_id)
     passport = Passport.objects.filter(employee=employee_id)
+    orders = Order.objects.filter(employees=employee_id)
     current_profile = Employee.objects.get(pk=employee_id)
     try:
         medicine = Medicine.objects.get(employee=employee_id) #обращаемся к полю медицины через связанную модель Employee
@@ -68,7 +72,8 @@ def profile_employee(request, employee_id):
                'medicine': medicine,
                'education': education,
                'psycho': psycho,
-               'medicine_paragraph': medicine_paragraph
+               'medicine_paragraph': medicine_paragraph,
+               'orders': orders,
                }
     return render(request, 'profile.html', context)
 
@@ -276,6 +281,35 @@ class SawcUpdateView(LoginRequiredMixin, UpdateView):
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
         return Sawc.objects.get(pk=id)
+
+
+"""Приказы"""
+class OrderListView(LoginRequiredMixin, ListView):
+    model = Order
+    template_name = 'orders_list.html'
+    context_object_name = 'orders'
+
+
+class OrderAddView(LoginRequiredMixin, CreateView):
+    model = Order
+    template_name = 'create.html'
+    form_class = OrderAddForm
+
+
+class OrderUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'create.html'
+    form_class = OrderAddForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Order.objects.get(pk=id)
+
+
+class OrderDeleteView(LoginRequiredMixin, DeleteView):
+    queryset = Order.objects.all()
+    context_object_name = 'order'
+    template_name = 'delete/order_delete.html'
+    success_url = '/orders/'
 
 
 """PDF пробный запуск"""

@@ -25,8 +25,8 @@
                  {% load static %}
                  <a href="{% get_media_prefix %}{{sawc.document_sawc}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
                  <a href="{{sawc.document_sawc.url}}" download="{{sawc.document_sawc.url}}"><img src="/static/ico/download-48.png"></a>
-                 <a href="{% url 'sawc_delete' sawc.id %}"><img src="/static/ico/delete-48.png"></a>
                  <a href="{% url 'sawc_update' sawc.id %}"><img src="/static/ico/edit-48.png"></a>
+                 <a href="{% url 'sawc_delete' sawc.id %}"><img src="/static/ico/delete-48.png"></a>
              </td>
            </tr>
         {% endfor %}
