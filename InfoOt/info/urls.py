@@ -4,13 +4,15 @@ from .views import profile_employee, medicine,\
     MedicineParagraphUpdateView, EmployeeAddView, PassportAddView, PassportUpdateView, MedicineAddView, \
     MedicineParagraphAddView, EducationAddView, CertificateAddView, PsychoAddView, GeneratePdf, EmployeeView,\
     PsychoUpdateView, SawcAddView, SawcAddToEmployee, SawcListView, SawcDelete, SawcUpdateView, OrderListView, \
-    OrderAddView, OrderUpdateView, OrderDeleteView, some_view, index, time_out
+    OrderAddView, OrderUpdateView, OrderDeleteView, InstructionListView, InstructionCreateView, InstructionUpdateView,\
+    InstructionDeleteView, some_view, index, time_out
 
 
 urlpatterns = [
     path('', EmployeeView.as_view(), name='employee'),
     path('sawc/', SawcListView.as_view(), name='sawc'),
     path('orders/', OrderListView.as_view(), name='orders'),
+    path('instructions/', InstructionListView.as_view(), name='instructions'),
     path('<int:employee_id>/', profile_employee, name='profile_employee'),
     path('medicine/<int:medicine_id>', medicine, name='medicine'),
     path('certificate/<int:employee_id>', certificate, name='certificate'),
@@ -26,6 +28,7 @@ urlpatterns = [
     path('sawc_add_to/<pk>', SawcAddToEmployee.as_view(), name='sawc_add_to'),
     path('sawc_update/<pk>', SawcUpdateView.as_view(), name='sawc_update'),
     path('order_update/<pk>', OrderUpdateView.as_view(), name='order_update'),
+    path('instruction_update/<pk>', InstructionUpdateView.as_view(), name='instruction_update'),
     #Добавление
     path('employee_add/', EmployeeAddView.as_view(), name='employee_add'),
     path('passport_add/', PassportAddView.as_view(), name='passport_add'),
@@ -36,9 +39,11 @@ urlpatterns = [
     path('psycho_add/', PsychoAddView.as_view(), name='psycho_add'),
     path('sawc_add/', SawcAddView.as_view(), name='sawc_add'),
     path('order_add/', OrderAddView.as_view(), name='order_add'),
+    path('instruction_add/', InstructionCreateView.as_view(), name='instruction_add'),
     #Удаление
     path('sawc_delete/<pk>', SawcDelete.as_view(), name='sawc_delete'),
     path('order_delete/<pk>', OrderDeleteView.as_view(), name='order_delete'),
+    path('instruction_delete/<pk>', InstructionDeleteView.as_view(), name='instruction_delete'),
     #Срок
     path('time_out/', time_out, name='time_out'),
     #PDF

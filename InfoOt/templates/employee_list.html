@@ -33,7 +33,7 @@
           <td>{{employ.birth_date}}</td>
           <td>{{employ.phone}}</td>
             {% if employ.supervisor %}
-                <td style="background-color: #fff3cd">{{employ.profession.all|join:", " }}</td>
+                <td style="background-color: #fff3cd">{{employ.profession.name }}</td>
             {% else %}
                 <td>{{employ.profession.all|join:", " }}</td>
             {% endif %}

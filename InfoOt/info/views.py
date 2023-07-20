@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, \
-    MedicineParagraph, Subdivision, Sawc, Order
+    MedicineParagraph, Subdivision, Sawc, Order, Instruction
 from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView, \
     DeleteView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, \
     MedicineParagraphAddForm, PassportAddForm, MedicineAddForm, PsychoAddForm, \
-    SawcAddForm, SawcAddToEmployeeForm, OrderAddForm
+    SawcAddForm, SawcAddToEmployeeForm, OrderAddForm, InstructionFormAdd
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 import datetime
@@ -59,6 +59,9 @@ def profile_employee(request, employee_id):
     passport = Passport.objects.filter(employee=employee_id)
     orders = Order.objects.filter(employees=employee_id)
     current_profile = Employee.objects.get(pk=employee_id)
+    current_profession = current_profile.profession #TODO сделать выборку инструкций по профессии и по имени
+    print(current_profession)
+
     try:
         medicine = Medicine.objects.get(employee=employee_id) #обращаемся к полю медицины через связанную модель Employee
         medicine_paragraph = MedicineParagraph.objects.filter(medicine=medicine.id)
@@ -310,6 +313,35 @@ class OrderDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = 'order'
     template_name = 'delete/order_delete.html'
     success_url = '/orders/'
+
+
+"""Инструкции"""
+class InstructionListView(LoginRequiredMixin, ListView):
+    model = Instruction
+    context_object_name = 'instructions'
+    template_name = 'instruction_list.html'
+
+
+class InstructionCreateView(LoginRequiredMixin, CreateView):
+    model = Instruction
+    template_name = 'create.html'
+    form_class = InstructionFormAdd
+
+
+class InstructionUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'create.html'
+    form_class = InstructionFormAdd
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Instruction.objects.get(pk=id)
+
+
+class InstructionDeleteView(LoginRequiredMixin, DeleteView):
+    queryset = Instruction.objects.all()
+    context_object_name = 'instruction'
+    template_name = 'delete/instruction_delete.html'
+    success_url = '/instructions/'
 
 
 """PDF пробный запуск"""

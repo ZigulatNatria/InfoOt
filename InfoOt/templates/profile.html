@@ -13,7 +13,7 @@
                 <div class="col-5">
                     <!-- Информация оработнике -->
                     <p>{{current_profile.surname}} {{current_profile.name}} {{current_profile.patronym}}</p>
-                    <p>Должность: {{current_profile.profession.all|join:", "}}</p>
+                    <p>Должность: {{current_profile.profession.name}}</p>
                     <p>Структурное подразделение: {{current_profile.subdivision}}</p>
                     <p>дата рождения: {{current_profile.birth_date}}</p>
                     <p>телефон: {{current_profile.phone}}</p>

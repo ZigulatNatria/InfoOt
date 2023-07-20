@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django import forms
 
 from .models import Employee, Certificate, Education, MedicineParagraph, Passport, \
-    Medicine, Psycho, Sawc, Order
+    Medicine, Psycho, Sawc, Order, Instruction
 
 
 class EmployeeAddForm(ModelForm):
@@ -136,4 +136,19 @@ class OrderAddForm(ModelForm):
             'date',
             'file',
             'employees',
+        ]
+
+
+class InstructionFormAdd(ModelForm):
+
+    class Meta:
+        model = Instruction
+        fields = [
+            'number',
+            'name',
+            'date',
+            'date_end',
+            'file',
+            'profession',
+            'employee',
         ]

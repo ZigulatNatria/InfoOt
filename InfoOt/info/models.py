@@ -63,7 +63,8 @@ class Employee(AbstractUser):
     phone = models.IntegerField(verbose_name='Телефон', null=True, blank=True)
     subdivision = models.ForeignKey(Subdivision, verbose_name='Подразделение', on_delete=models.CASCADE, null=True, blank=True)
     photo_employee = models.ImageField(verbose_name='Фото работника', null=True, blank=True)
-    profession = models.ManyToManyField(Profession, verbose_name='Профессия')
+    # profession = models.ManyToManyField(Profession, verbose_name='Профессия', blank=True)
+    profession = models.ForeignKey(Profession, verbose_name='Профессия', on_delete=models.CASCADE, null=True, blank=True)
     sawc = models.ManyToManyField(Sawc, verbose_name='СОУТ', blank=True)
     supervisor = models.BooleanField(verbose_name='Рководитель', default=False)
 
@@ -229,4 +230,25 @@ class Order(models.Model):
 
     def get_absolute_url(self):
         return f'/orders/'
+
+
+class Instruction(models.Model):
+    number = models.CharField(max_length=10, verbose_name='Номер инструкции')
+    name = models.CharField(max_length=250, verbose_name='Название инструкции')
+    date = models.DateField(verbose_name='Дата утверждения инструкции')
+    date_end = models.DateField(verbose_name='Срок действия')
+    file = models.FileField(verbose_name='Скан инструкции', upload_to='instruction')
+    profession = models.ManyToManyField(Profession, verbose_name='Профессия', blank=True)
+    employee = models.ManyToManyField(Employee, verbose_name='Работник', blank=True)
+    date_add = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'Инструкции'
+        verbose_name = 'Инструкция'
+
+    def __str__(self):
+        return '{}'.format(self.number) + ' ' + '{}'.format(self.name)
+
+    def get_absolute_url(self):
+        return f'/instructions/'
 

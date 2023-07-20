@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+<body>
+    {% block content %}
+    <div class="container">
+        <div class="row">
+            <h3>Удалить инструкцию?</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">№</th>
+                  <th scope="col">Название</th>
+                  <th scope="col">Дата</th>
+                  <th scope="col">Срок действия</th>
+                  <th scope="col">Файл</th>
+                </tr>
+              </thead>
+              <tbody>
+                   <tr>
+                     <td>{{ instruction.number }}</td>
+                     <td>{{ instruction.name }}</td>
+                     <td>{{ instruction.date }}</td>
+                     <td>{{ instruction.date_end }}</td>
+                     <td>
+                         {% load static %}
+                         <a href="{% get_media_prefix %}{{instruction.file}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                         <a href="{{instruction.file.url}}" download="{{instruction.file.url}}"><img src="/static/ico/download-48.png"></a>
+                     </td>
+                   </tr>
+              </tbody>
+            </table>
+            <form method="post" enctype="multipart/form-data" style="width: 40%;">
+                <div class="col-lg-5 align-items-center my-5">
+                    {% csrf_token %}
+                    <input class="tab" type="submit" value="Удалить">
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+</html>
