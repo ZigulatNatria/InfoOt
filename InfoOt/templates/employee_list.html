@@ -33,9 +33,9 @@
           <td>{{employ.birth_date}}</td>
           <td>{{employ.phone}}</td>
             {% if employ.supervisor %}
-                <td style="background-color: #fff3cd">{{employ.profession.name }}</td>
+                <td style="background-color: #fff3cd">{{employ.profession.name}}</td>
             {% else %}
-                <td>{{employ.profession.all|join:", " }}</td>
+                <td>{{employ.profession.name}}</td>
             {% endif %}
           <td>{{employ.subdivision}}</td>
         </tr>

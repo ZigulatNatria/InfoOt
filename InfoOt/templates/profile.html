@@ -53,7 +53,9 @@
                     <a class="list-group-item list-group-item-action" id="list-certificate-list" data-bs-toggle="list" href="#list-certificate" role="tab" aria-controls="list-home" style="border-radius: 20px 5px 0px 0px">Удостоверения</a>
                     <a class="list-group-item list-group-item-action" id="list-psycho-list" data-bs-toggle="list" href="#list-psycho" role="tab" aria-controls="list-home" style="border-radius: 20px 5px 0px 0px">Псих.освидетельствование</a>
                     <a class="list-group-item list-group-item-action" id="list-orders-list" data-bs-toggle="list" href="#list-orders" role="tab" aria-controls="list-home" style="border-radius: 20px 5px 0px 0px">Приказы</a>
+                    <a class="list-group-item list-group-item-action" id="list-instruction-list" data-bs-toggle="list" href="#list-instruction" role="tab" aria-controls="list-home" style="border-radius: 20px 5px 0px 0px">Инструкции ОТ</a>
                 </div>
+
                 <div class="row">
                     <div class="tab-content" id="nav-tabContent">
                         <!-- Вкладка образование -->
@@ -256,6 +258,59 @@
                             </table>
                             {% else %}
                                 Нет приказов с упоминанием работника {{current_profile.surname}} {{current_profile.name}} {{current_profile.patronym}}
+                            {% endif %}
+                        </div>
+                        <!-- Вкладка инструкций -->
+                        <div class="tab-pane fade show" id="list-instruction" role="tabpanel" aria-labelledby="list-home-list">
+                            {% if instruction_profession or instruction_employee %}
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Номер инструкции</th>
+                                        <th scope="col">Название инструкции</th>
+                                        <th scope="col">Дата</th>
+                                        <th scope="col">Срок действия</th>
+                                        <th scope="col">Инструкция</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for instruction_p in instruction_profession %}
+                                    <tr>
+                                        <td> {{instruction_p.number}}</td>
+                                        <td> {{instruction_p.name}}</td>
+                                        <td> {{instruction_p.date}}</td>
+                                        <td> {{instruction_p.date_end}}</td>
+                                        {% if instruction_p.file %}
+                                            <td> <a href="{{instruction_p.file.url}}" download="{{instruction_p.file.url}}"><img src="/static/ico/download-48.png"></a>
+                                                {% load static %}
+                                                    <a href="{% get_media_prefix %}{{instruction_p.file}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            </td>
+                                        {% else %}
+                                            <td> - </td>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                    {% for instruction_e in instruction_employee %}
+                                    <tr>
+                                        <td> {{instruction_e.number}}</td>
+                                        <td> {{instruction_e.name}}</td>
+                                        <td> {{instruction_e.date}}</td>
+                                        <td> {{instruction_e.date_end}}</td>
+                                        {% if instruction_e.file %}
+                                            <td> <a href="{{instruction_e.file.url}}" download="{{instruction_e.file.url}}"><img src="/static/ico/download-48.png"></a>
+                                                {% load static %}
+                                                    <a href="{% get_media_prefix %}{{instruction_e.file}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            </td>
+                                        {% else %}
+                                            <td> - </td>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                                Нет инструкций по ОТ для работника {{current_profile.surname}} {{current_profile.name}} {{current_profile.patronym}}
                             {% endif %}
                         </div>
                     </div>

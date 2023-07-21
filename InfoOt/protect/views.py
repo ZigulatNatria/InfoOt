@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from info.models import Employee, Education, Medicine, MedicineParagraph, Certificate, Psycho, Passport, Order
+from info.models import Employee, Education, Medicine, MedicineParagraph, Certificate, Psycho, Passport, Order, \
+    Instruction
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -55,3 +56,16 @@ class IndexView(LoginRequiredMixin, TemplateView):
     def orders(self):
         orders = Order.objects.filter(employees=self.employee_id())
         return orders
+
+    def profession(self):
+        current_profession = self.employee().profession
+        return current_profession
+
+    def instruction_profession(self):
+        instruction_profession = Instruction.objects.filter(profession=self.profession())
+        return instruction_profession
+
+    def instruction_employee(self):
+        instruction_employee = Instruction.objects.filter(employee=self.employee())
+        return instruction_employee
+

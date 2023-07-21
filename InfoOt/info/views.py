@@ -59,8 +59,9 @@ def profile_employee(request, employee_id):
     passport = Passport.objects.filter(employee=employee_id)
     orders = Order.objects.filter(employees=employee_id)
     current_profile = Employee.objects.get(pk=employee_id)
-    current_profession = current_profile.profession #TODO сделать выборку инструкций по профессии и по имени
-    print(current_profession)
+    current_profession = current_profile.profession
+    instruction_profession = Instruction.objects.filter(profession=current_profession)
+    instruction_employee = Instruction.objects.filter(employee=current_profile)
 
     try:
         medicine = Medicine.objects.get(employee=employee_id) #обращаемся к полю медицины через связанную модель Employee
@@ -77,6 +78,8 @@ def profile_employee(request, employee_id):
                'psycho': psycho,
                'medicine_paragraph': medicine_paragraph,
                'orders': orders,
+               'instruction_profession': instruction_profession,
+               'instruction_employee': instruction_employee,
                }
     return render(request, 'profile.html', context)
 
