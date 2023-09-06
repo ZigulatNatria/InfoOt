@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, \
-    MedicineParagraph, Subdivision, Sawc, Order, Instruction
+    MedicineParagraph, Subdivision, Sawc, Order, Instruction, FamiliarizationInstruction
 from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView, \
     DeleteView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, \

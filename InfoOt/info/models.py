@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, User
+from InfoOt.settings import AUTH_USER_MODEL
 from PIL import Image #импорт из PILLOW для обращения к изображению
 import datetime
 import uuid
@@ -251,4 +252,21 @@ class Instruction(models.Model):
 
     def get_absolute_url(self):
         return f'/instructions/'
+
+
+class FamiliarizationInstruction(models.Model):
+    user = models.ForeignKey('Employee', related_name='работник', on_delete=models.CASCADE) # непонятная фигня 'auth.User' почему так работает
+    instruction = models.ForeignKey(Instruction, related_name='инструкция', on_delete=models.CASCADE)
+    created = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'ознакомлен'
+        verbose_name_plural = 'ознакомленные'
+        indexes = [
+            models.Index(fields=['-created']),
+        ]
+        ordering = ['-created']
+
+    def __str__(self):
+        return f'{self.user} ознакомлен с {self.instruction}'
 
