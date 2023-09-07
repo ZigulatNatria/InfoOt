@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, \
     MedicineParagraph, Subdivision, Sawc, Order, Instruction, FamiliarizationInstruction
 from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView, \
@@ -62,7 +62,7 @@ def profile_employee(request, employee_id):
     current_profession = current_profile.profession
     instruction_profession = Instruction.objects.filter(profession=current_profession)
     instruction_employee = Instruction.objects.filter(employee=current_profile)
-
+        
     try:
         medicine = Medicine.objects.get(employee=employee_id) #обращаемся к полю медицины через связанную модель Employee
         medicine_paragraph = MedicineParagraph.objects.filter(medicine=medicine.id)
@@ -82,6 +82,14 @@ def profile_employee(request, employee_id):
                'instruction_employee': instruction_employee,
                }
     return render(request, 'profile.html', context)
+
+
+def add_familiarization_instruction(request):
+    user = request.user
+    instruction = Instruction.objects.get(pk=request.POST['id_inst'])
+    familiarization = FamiliarizationInstruction(user=user, instruction=instruction)
+    familiarization.save()
+    return redirect(f'/auth/')
 
 
 class SawcAddToEmployee(LoginRequiredMixin, UpdateView):
