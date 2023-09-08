@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+<body>
+{% block content %}
+<div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Работник</th>
+          <th scope="col">Дата ознакомления</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for reference in view.list.ref_list %}
+           <tr>
+             <td>{{ reference }}</td>
+             <td>{{ reference.created }}</td>
+           </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock content %}
+</body>
+</html>

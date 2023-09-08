@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, \
     MedicineParagraph, Subdivision, Sawc, Order, Instruction, FamiliarizationInstruction
 from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView, \
-    DeleteView
+    DeleteView, DetailView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, \
     MedicineParagraphAddForm, PassportAddForm, MedicineAddForm, PsychoAddForm, \
     SawcAddForm, SawcAddToEmployeeForm, OrderAddForm, InstructionFormAdd
@@ -353,6 +353,28 @@ class InstructionDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = 'instruction'
     template_name = 'delete/instruction_delete.html'
     success_url = '/instructions/'
+
+
+class InstructionReferenceList(DetailView):
+    template_name = 'instruction_reference_list.html'
+    context_object_name = 'instruction'
+    queryset = Instruction.objects.all()
+
+    def list(self, **kwargs):
+        instruction = self.get_object()
+        instruction_reference_list = FamiliarizationInstruction.objects.filter(instruction=instruction.id)
+        print(instruction.id)
+        print(instruction_reference_list)
+        ref_list = []            #TODO доработать список заменить на словарь!!!!!!!!!!!!!!!!
+        for i in instruction_reference_list:
+            usernam = i.user
+            ref_list.append(usernam)
+        print(ref_list)
+        context = {
+            'instruction_reference_list': instruction_reference_list,
+            'ref_list': ref_list,
+        }
+        return context
 
 
 """PDF пробный запуск"""
