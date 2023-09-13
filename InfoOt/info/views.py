@@ -7,6 +7,9 @@ from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, \
     MedicineParagraphAddForm, PassportAddForm, MedicineAddForm, PsychoAddForm, \
     SawcAddForm, SawcAddToEmployeeForm, OrderAddForm, InstructionFormAdd
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 import datetime
 
@@ -90,6 +93,25 @@ def add_familiarization_instruction(request):
     familiarization = FamiliarizationInstruction(user=user, instruction=instruction)
     familiarization.save()
     return redirect(f'/auth/')
+
+#TODO доделать запрос на подписку (URL и жаба скрипт)
+@require_POST
+@login_required
+def user_follow(request):
+    instruction_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if instruction_id and action:
+        try:
+            instruction = Instruction.objects.get(id=instruction_id)
+            if action == 'follow':
+                FamiliarizationInstruction.objects.get_or_create(user=request.user, instruction=instruction)
+            else:
+                FamiliarizationInstruction.objects.filter(user=request.user, instruction=instruction).delete()
+            return JsonResponse({'status': 'ok'})
+        except Employee.DoesNotExist:
+            return JsonResponse({'status': 'error'})
+    return JsonResponse({'status': 'error'})
+
 
 
 class SawcAddToEmployee(LoginRequiredMixin, UpdateView):
