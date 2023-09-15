@@ -4,6 +4,7 @@
 <body>
 {% block content %}
 <div class="container">
+    Лист ознакомления работников с инструкцией {{ instruction }}
     <table class="table">
       <thead>
         <tr>
@@ -12,9 +13,9 @@
         </tr>
       </thead>
       <tbody>
-        {% for reference in view.list.ref_list %}
+        {% for reference in view.list.instruction_reference_list %}
            <tr>
-             <td>{{ reference }}</td>
+             <td>{{ reference.user }}</td>
              <td>{{ reference.created }}</td>
            </tr>
         {% endfor %}

@@ -385,16 +385,9 @@ class InstructionReferenceList(DetailView):
     def list(self, **kwargs):
         instruction = self.get_object()
         instruction_reference_list = FamiliarizationInstruction.objects.filter(instruction=instruction.id)
-        print(instruction.id)
-        print(instruction_reference_list)
-        ref_list = []            #TODO доработать список заменить на словарь!!!!!!!!!!!!!!!!
-        for i in instruction_reference_list:
-            usernam = i.user
-            ref_list.append(usernam)
-        print(ref_list)
         context = {
             'instruction_reference_list': instruction_reference_list,
-            'ref_list': ref_list,
+            'instruction': instruction
         }
         return context
 
