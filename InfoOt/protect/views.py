@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from info.models import Employee, Education, Medicine, MedicineParagraph, Certificate, Psycho, Passport, Order, \
-    Instruction
+    Instruction, FamiliarizationInstruction
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -68,4 +68,12 @@ class IndexView(LoginRequiredMixin, TemplateView):
     def instruction_employee(self):
         instruction_employee = Instruction.objects.filter(employee=self.employee())
         return instruction_employee
+
+    """допинать проверку инструкций"""
+    def familiarization_instuctions(self):
+        instruction_familiarization = FamiliarizationInstruction.objects.filter(user=self.employee())
+        for i in instruction_familiarization:
+            print(i.instruction)
+
+        return instruction_familiarization
 
