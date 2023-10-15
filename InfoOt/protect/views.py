@@ -69,11 +69,12 @@ class IndexView(LoginRequiredMixin, TemplateView):
         instruction_employee = Instruction.objects.filter(employee=self.employee())
         return instruction_employee
 
-    """допинать проверку инструкций"""
-    def familiarization_instuctions(self):
-        instruction_familiarization = FamiliarizationInstruction.objects.filter(user=self.employee())
+    def familiarization_instructions(self):
+        instruction_familiarization = FamiliarizationInstruction.objects.prefetch_related('instruction').\
+            filter(user=self.employee())     # Фильтруем по полю user и проверяем на соответствие поля instruction
+        list_inst = []
         for i in instruction_familiarization:
-            print(i.instruction)
+            list_inst.append(i.instruction)
 
-        return instruction_familiarization
+        return list_inst
 

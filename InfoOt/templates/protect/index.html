@@ -280,6 +280,9 @@
                                             <td> - </td>
                                         {% endif %}
                                         <td>
+                                            {% if instruction_p in view.familiarization_instructions %}
+                                               Ознакомлен
+                                            {% else %}
                                             <form action="{% url 'add_f_inst' %}" method="post" style="text-align: right">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="id_inst" value={{instruction_p.id}}>
@@ -287,6 +290,7 @@
                                                         Ознакомиться
                                                 </button>
                                             </form>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -305,13 +309,17 @@
                                             <td> - </td>
                                         {% endif %}
                                         <td>
-                                            <form action="{% url 'add_f_inst' %}" method="post" style="text-align: right">
+                                            {% if instruction_e in view.familiarization_instructions %}
+                                               Ознакомлен
+                                            {% else %}
+                                             <form action="{% url 'add_f_inst' %}" method="post" style="text-align: right">
                                                     {% csrf_token %}
                                                     <input type="hidden" name="id_inst" value={{instruction_e.id}}>
                                                     <button type="submit" class="btn" style="background-color: #fff0; border: #fff0; padding-right:0">
                                                             Ознакомиться
                                                     </button>
                                             </form>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                     {% endfor %}
