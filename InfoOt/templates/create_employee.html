@@ -8,7 +8,14 @@
             <div class="col-5">
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{form.as_p}}
+                    {% for item in form%}
+                        <p>
+                            <span style="color: gray">
+                                {{ item.label_tag }}
+                            </span>
+                            {{ item }}
+                        </p>
+                    {% endfor %}
                     <input class="btn btn-primary btn-sm" type="submit" value="Сохранить">
                 </form>
             </div>

@@ -41,7 +41,7 @@ class EmployeeView(LoginRequiredMixin, TemplateView):
 
 
 class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'create.html'
+    template_name = 'create_employee.html'
     form_class = EmployeeAddForm
 
     def get_object(self, **kwargs):
@@ -51,7 +51,7 @@ class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
 
 class EmployeeAddView(LoginRequiredMixin, CreateView):
     model = Employee
-    template_name = 'create.html'
+    template_name = 'create_employee.html'
     form_class = EmployeeAddForm
 
 

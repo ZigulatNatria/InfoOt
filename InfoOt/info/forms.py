@@ -28,6 +28,41 @@ class EmployeeAddForm(ModelForm):
             'supervisor',
         ]
 
+        widgets = {
+            'username': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Username',
+                }
+            ),
+
+            'surname': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Фамилия',
+                }
+            ),
+
+            'patronym': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Имя',
+                }
+            ),
+
+            'name': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Отчество',
+                }
+            ),
+        }
+
+
 
 class CertificateAddForm(ModelForm):
 

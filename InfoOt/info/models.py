@@ -61,7 +61,7 @@ class Employee(AbstractUser):
     name = models.CharField(max_length=100, verbose_name='Имя', null=True, blank=True)
     patronym = models.CharField(max_length=100, verbose_name='Отчество', null=True, blank=True)
     birth_date = models.DateField(verbose_name='Дата рождения', null=True, blank=True)
-    phone = models.IntegerField(verbose_name='Телефон', null=True, blank=True)
+    phone = models.BigIntegerField(verbose_name='Телефон', null=True, blank=True)
     subdivision = models.ForeignKey(Subdivision, verbose_name='Подразделение', on_delete=models.CASCADE, null=True, blank=True)
     photo_employee = models.ImageField(verbose_name='Фото работника', null=True, blank=True)
     # profession = models.ManyToManyField(Profession, verbose_name='Профессия', blank=True)
