@@ -60,6 +60,46 @@ class EmployeeAddForm(ModelForm):
                     "placeholder": 'Отчество',
                 }
             ),
+
+            'phone': forms.NumberInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Телефон',
+                }
+            ),
+
+            'birth_date': forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Дата рождения',
+                }
+            ),
+
+            'photo_employee': forms.ClearableFileInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Фото работника',
+                }
+            ),
+
+            'subdivision': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Подразделение',
+                }
+            ),
+
+            'profession': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Подразделение',
+                }
+            ),
         }
 
 
