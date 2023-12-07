@@ -3,14 +3,35 @@
 {% block content %}
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-4">
-                <h2> Регистрация </h2>
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <input type="submit" value="Продолжить">
-                </form>
-            </div>
+            <h2> Регистрация </h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col formMobile">
+                        <div style="margin-bottom: 0.25rem">{{ form.username }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.surname }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.name }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.patronym }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.birth_date }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.phone }}</div>
+                    </div>
+                    <div class="col formMobile">
+                        <div style="margin-bottom: 0.25rem">{{ form.subdivision.label_tag }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.subdivision }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.photo_employee }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.profession.label_tag }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.profession }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.supervision }}</div>
+                    </div>
+                    <div class="col formMobile">
+                        <div style="margin-bottom: 0.25rem">{{ form.password1.label_tag }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.password1 }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.password2.label_tag }}</div>
+                        <div style="margin-bottom: 0.25rem">{{ form.password2 }}</div>
+                    </div>
+                </div>
+                <input type="submit" value="Продолжить">
+            </form>
         </div>
     </div>
 {% endblock %}

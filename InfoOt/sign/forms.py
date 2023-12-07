@@ -23,3 +23,93 @@ class UserAddForm(UserCreationForm):
             'password1',
             'password2',
         ]
+
+        widgets = {
+            'username': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Username',
+                }
+            ),
+
+            'surname': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Фамилия',
+                }
+            ),
+
+            'patronym': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Отчество',
+                }
+            ),
+
+            'name': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Имя',
+                }
+            ),
+
+            'phone': forms.NumberInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Телефон',
+                }
+            ),
+
+            'birth_date': forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Дата рождения',
+                }
+            ),
+
+            'photo_employee': forms.ClearableFileInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Фото работника',
+                }
+            ),
+
+            'subdivision': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Подразделение',
+                }
+            ),
+
+            'profession': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Подразделение',
+                }
+            ),
+
+            # 'password1': forms.PasswordInput(
+            #     attrs={
+            #         "class": "form-control",
+            #         "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+            #         "placeholder": 'Пароль',
+            #     }
+            # ),
+            #
+            # 'password2': forms.PasswordInput(
+            #     attrs={
+            #         "class": "form-control",
+            #         "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+            #         "placeholder": 'Подтверждение пароля',
+            #     }
+            # ),
+        }
