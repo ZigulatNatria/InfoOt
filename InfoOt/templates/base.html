@@ -9,11 +9,11 @@
         {% load static %}
         <link href="{% static 'media_query/styles.css' %}" rel="stylesheet" />
     </head>
-    <body style="background-color: #f5fffa">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="padding-bottom: 0">
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container">
             <a class="navbar-brand" href="{% url 'employee' %}">
-              <img src="/static/img/logo2.png" width="274" height="60" alt="" loading="lazy">
+              <img src="/static/img/logo2.png" width="260" height="60" alt="" loading="lazy">
             </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
                   <span class="navbar-toggler-icon"></span>
@@ -69,10 +69,12 @@
         </nav>
         {% block content %}
         {% endblock content %}
-        <nav class="navbar sticky-bottom bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#"></a>
-            </div>
-        </nav>
+        <footer class="py-2 bg-body-tertiary" style="position: fixed; width: 100vw; bottom: 0;">
+            <nav class="navbar sticky-bottom bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#"></a>
+                </div>
+            </nav>
+        </footer>
     </body>
 </html>

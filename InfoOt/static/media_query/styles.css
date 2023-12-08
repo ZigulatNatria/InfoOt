@@ -1,6 +1,23 @@
-@media screen and (min-width: 0px) and (max-width: 765px)
-{
+@media screen and (min-width: 0px) and (max-width: 765px){
+
   .formMobile {
         min-width: 100vw !important;
   }
+
+  .hiddenMobile {
+        display: none !important;
+  }
+
+  .elementMobile {
+        min-width: 100%;
+        max-width: 100%;
+  }
  }
+
+
+@media screen and (min-width: 766px) {
+
+  .hiddenDesktop {
+        display: none !important;
+  }
+}

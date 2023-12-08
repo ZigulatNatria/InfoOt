@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+<body>
+{% block content %}
+<div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Фото</th>
+          <th scope="col">ФИО</th>
+          <th scope="col">Дата рожд.</th>
+          <th scope="col">Телефон</th>
+          <th scope="col">Профессия</th>
+          <th scope="col">Подразделение</th>
+        </tr>
+      </thead>
+      <tbody>
+            {% for subdivision, employee in all_employee_by_subdivision.items %}
+                          {% if employee and subdivision %}
+                                <tr>
+                                    <th colspan="3">{{ subdivision }}</th>
+                                </tr>
+                          {% endif %}
+            {% for employ in employee %}
+        <tr>
+            {% if employ.photo_employee %}
+                <th scope="row" style="width: 10%"><img src="{{MEDIA_URL}}{{employ.photo_employee.url}}" class="d-block w-100" style="" alt="..."></th>
+            {% else %}
+                <th>-</th>
+            {% endif %}
+          <td><a class="nav-link" href="{% url 'profile_employee' employ.pk %}">{{employ.surname}} {{employ.name}} {{employ.patronym}}</a></td>
+          <td>{{employ.birth_date}}</td>
+          <td>{{employ.phone}}</td>
+            {% if employ.supervisor %}
+                <td style="background-color: #fff3cd">{{employ.profession.name}}</td>
+            {% else %}
+                <td>{{employ.profession.name}}</td>
+            {% endif %}
+          <td>{{employ.subdivision}}</td>
+        </tr>
+      {% endfor %}
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock content %}
+</body>
+</html>

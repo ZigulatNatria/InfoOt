@@ -4,13 +4,13 @@
 <body>
     {% block content %}
         <div class="container">
-            <div class="row" style="margin-bottom: 2rem;">
-                <div class="col" style="margin-top: 1rem">
+            <div class="row" style="margin-bottom: 2rem">
+                <div class="col-6">
                     {% if current_profile.photo_employee %}
-                        <img class="elementMobile" src="{{MEDIA_URL}}{{ current_profile.photo_employee.url }}" style="width: 100%">
+                        <img src="{{MEDIA_URL}}{{ current_profile.photo_employee.url }}" style="width: 70%">
                     {% endif %}
                 </div>
-                <div class="col elementMobile" style="margin-top: 1rem">
+                <div class="col-5">
                     <!-- Информация оработнике -->
                     <p>{{current_profile.surname}} {{current_profile.name}} {{current_profile.patronym}}</p>
                     <p>Должность: {{current_profile.profession.name}}</p>
@@ -38,7 +38,7 @@
                     </p>
                 </div>
             </div>
-            <div class="row hiddenMobile">
+            <div class="row">
                 <style>
                     .list-group-item.active {
                     z-index: 2;
@@ -56,7 +56,7 @@
                     <a class="list-group-item list-group-item-action" id="list-instruction-list" data-bs-toggle="list" href="#list-instruction" role="tab" aria-controls="list-home" style="border-radius: 20px 5px 0px 0px">Инструкции ОТ</a>
                 </div>
 
-                <div class="row" style="margin-bottom: 5rem">
+                <div class="row">
                     <div class="tab-content" id="nav-tabContent">
                         <!-- Вкладка образование -->
                         <div class="tab-pane fade show active" id="list-education" role="tabpanel" aria-labelledby="list-home-list">
@@ -315,81 +315,8 @@
                         </div>
                     </div>
                 </div>
-            </div> <!-- Хвост то строки со вкладками для desktop -->
-            <!-- Аккордеон для мобильной версии с информацией -->
-            <div class="accordion hiddenDesktop" id="accordionExample" style="--bs-accordion-border-color: none; margin-bottom: 5rem">
-                 <div class="accordion-item" style="margin-bottom: 0.25rem;">
-                     <h2 class="accordion-header">
-                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_1" aria-expanded="false" aria-controls="collapse_1">
-                            Образование
-                         </button>
-                     </h2>
-                     <div id="collapse_1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                         <div class="accordion-body">
-                             {% if education %}
-                                {% for ed in education %}
-                                    <div class="row">{{ed.prof_name}}</div>
-                                    <div class="row"> дата: {{ed.date_finish_education}}</div>
-                                    <div class="row" style="margin-bottom: 1rem">
-                                        {% if ed.document_education %}
-                                            <div class="col">
-                                                <a href="{{ed.document_education.url}}" download="{{ed.document_education.url}}"><img src="/static/ico/download-48.png"></a>
-                                            </div>
-                                            {% load static %}
-                                            <div class="col">
-                                                <a href="{% get_media_prefix %}{{ed.document_education}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
-                                            </div>
-                                        {% else %}
-                                            -
-                                        {% endif %}
-                                        <div class="col">
-                                            <a href="{% url 'education_update' ed.pk %}"><img src="/static/ico/edit-48.png"></a>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                                <a class="btn" href="{% url 'education_add' %}" style="background-color: #B0C4DE">Добавить образование</a>
-                            {% else %}
-                                <a class="btn" href="{% url 'education_add' %}" style="background-color: #B0C4DE">Добавить образование</a>
-                            {% endif %}
-                         </div>
-                     </div>
-                 </div>
-                 <div class="accordion-item">
-                     <h2 class="accordion-header">
-                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSecond" aria-expanded="false" aria-controls="collapseOne">
-                            Мед.комиссия
-                         </button>
-                    </h2>
-                    <div id="collapseSecond" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            {% if medicine %}
-                                {% for med in medicine_paragraph %}
-                                    <div class="row">
-                                        п {{med.number_paragraph}}
-                                        от {{med.date_finish_paragraph}}
-                                    </div>
-                                    <div class="row">
-                                        до {{med.date_end_paragraph}}
-                                        дней {{med.time}}
-                                    </div>
-                                    <div class="row">
-                                        <a href="{% url 'paragraph_update' med.pk %}"><img src="/static/ico/edit-48.png"></a>
-                                    </div>
-                                {% endfor %}
-                                    <a class="btn" href="{% url 'paragraph_add' %}" style="background-color: #B0C4DE">Добавить пункт</a>
-                                {% if medicine.document_medicine %}
-                                    <a href="{{medicine.document_medicine.url}}" download="{{medicine.document_medicine.url}}"><img src="/static/ico/download-48.png"></a>
-                                    {% load static %}
-                                        <a href="{% get_media_prefix %}{{medicine.document_medicine}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
-                                {% endif %}
-                            {% else %}
-                                <a class="btn" href="{% url 'medicine_add' %}" style="background-color: #B0C4DE">Добавить мед.заключение</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div> <!-- Хвост от контейнера -->
+        </div>
 
 
 <!-- Модальное окно -->
