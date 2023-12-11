@@ -129,6 +129,40 @@ class EducationAddForm(ModelForm):
             'employee'
         ]
 
+        widgets = {
+            'prof_name': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Название обучения',
+                }
+            ),
+
+            'date_finish_education': forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Дата обучения',
+                }
+            ),
+
+            'document_education': forms.ClearableFileInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Документ об образовании',
+                }
+            ),
+
+            'employee': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Работник',
+                }
+            ),
+        }
+
 
 class MedicineParagraphAddForm(ModelForm):
 
@@ -140,6 +174,40 @@ class MedicineParagraphAddForm(ModelForm):
             'date_end_paragraph',
             'medicine'
         ]
+
+        widgets = {
+            'number_paragraph': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Номер пункта',
+                }
+            ),
+
+            'date_finish_paragraph': forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Дата осмотра',
+                }
+            ),
+
+            'date_end_paragraph': forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Срок действия',
+                }
+            ),
+
+            'medicine': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Заключение',
+                }
+            ),
+        }
 
 
 class PassportAddForm(ModelForm):
@@ -165,6 +233,32 @@ class MedicineAddForm(ModelForm):
             'date_medicine',
             'employee'
         ]
+
+        widgets = {
+            'document_medicine': forms.ClearableFileInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Заключение',
+                }
+            ),
+
+            'date_medicine': forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Дата заключения',
+                }
+            ),
+
+            'employee': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Работник',
+                }
+            ),
+    }
 
 
 class PsychoAddForm(ModelForm):

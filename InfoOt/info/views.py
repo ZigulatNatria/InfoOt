@@ -157,13 +157,13 @@ class MedicineParagraphUpdateView(LoginRequiredMixin, UpdateView):
 
 class MedicineAddView(LoginRequiredMixin, CreateView):
     model = Medicine
-    template_name = 'create.html'
+    template_name = 'create_medicine.html'
     form_class = MedicineAddForm
 
 
 class MedicineParagraphAddView(LoginRequiredMixin, CreateView):
     model = MedicineParagraph
-    template_name = 'create.html'
+    template_name = 'create_medicine_paragraph.html'
     form_class = MedicineParagraphAddForm
 
 
@@ -236,7 +236,7 @@ def education(request, employee_id):
 
 
 class EducationUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'create.html'
+    template_name = 'create_education.html'
     form_class = EducationAddForm
 
     def get_object(self, **kwargs):
@@ -246,7 +246,7 @@ class EducationUpdateView(LoginRequiredMixin, UpdateView):
 
 class EducationAddView(LoginRequiredMixin, CreateView):
     model = Education
-    template_name = 'create.html'
+    template_name = 'create_education.html'
     form_class = EducationAddForm
 
 
