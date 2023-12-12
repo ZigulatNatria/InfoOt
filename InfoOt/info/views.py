@@ -54,7 +54,7 @@ class EmployeeAddView(LoginRequiredMixin, CreateView):
     template_name = 'create_employee.html'
     form_class = EmployeeAddForm
 
-
+@login_required
 def profile_employee(request, employee_id):
     education = Education.objects.filter(employee=employee_id)
     certificate = Certificate.objects.filter(employee=employee_id)
@@ -87,12 +87,14 @@ def profile_employee(request, employee_id):
     return render(request, 'profile.html', context)
 
 
+@login_required
 def add_familiarization_instruction(request):
     user = request.user
     instruction = Instruction.objects.get(pk=request.POST['id_inst'])
     familiarization = FamiliarizationInstruction(user=user, instruction=instruction)
     familiarization.save()
     return redirect(f'/auth/')
+
 
 #TODO доделать запрос на подписку (URL и жаба скрипт)
 @require_POST
@@ -111,7 +113,6 @@ def user_follow(request):
         except Employee.DoesNotExist:
             return JsonResponse({'status': 'error'})
     return JsonResponse({'status': 'error'})
-
 
 
 class SawcAddToEmployee(LoginRequiredMixin, UpdateView):
@@ -138,7 +139,9 @@ class PassportUpdateView(LoginRequiredMixin, UpdateView):
         id = self.kwargs.get('pk')
         return Passport.objects.get(pk=id)
 
+
 """Медицина"""
+@login_required
 def medicine(request, medicine_id):
     medicine = Medicine.objects.get(id=medicine_id)
     medicineParagraph = MedicineParagraph.objects.filter(medicine=medicine_id) #обращемся к полю параграф через связанную модель медицины
@@ -157,17 +160,18 @@ class MedicineParagraphUpdateView(LoginRequiredMixin, UpdateView):
 
 class MedicineAddView(LoginRequiredMixin, CreateView):
     model = Medicine
-    template_name = 'create_medicine.html'
+    template_name = 'create_new.html'
     form_class = MedicineAddForm
 
 
 class MedicineParagraphAddView(LoginRequiredMixin, CreateView):
     model = MedicineParagraph
-    template_name = 'create_medicine_paragraph.html'
+    template_name = 'create_new.html'
     form_class = MedicineParagraphAddForm
 
 
 """Обучение"""
+@login_required
 def certificate(request, employee_id):
     cer = Certificate.objects.filter(employee=employee_id)
     # Для обработки всех значений поля date_end_certificate полученный кверисет пропускаем через цикл for
@@ -183,7 +187,7 @@ def certificate(request, employee_id):
 
 
 class CertificateUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'create.html'
+    template_name = 'create_new.html'
     form_class = CertificateAddForm
 
     def get_object(self, **kwargs):
@@ -193,7 +197,7 @@ class CertificateUpdateView(LoginRequiredMixin, UpdateView):
 
 class CertificateAddView(LoginRequiredMixin, CreateView):
     model = Certificate
-    template_name = 'create.html'
+    template_name = 'create_new.html'
     form_class = CertificateAddForm
 
 
@@ -207,6 +211,7 @@ class CertificateAddView(LoginRequiredMixin, CreateView):
 
 
 """Психиатрия"""
+@login_required
 def psycho(request, employee_id):
     psycho = Psycho.objects.filter(employee=employee_id)
     context = {'psycho': psycho}
@@ -215,12 +220,12 @@ def psycho(request, employee_id):
 
 class PsychoAddView(LoginRequiredMixin, CreateView):
     model = Psycho
-    template_name = 'create.html'
+    template_name = 'create_new.html'
     form_class = PsychoAddForm
 
 
 class PsychoUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'create.html'
+    template_name = 'create_new.html'
     form_class = PsychoAddForm
 
     def get_object(self, **kwargs):
@@ -229,6 +234,7 @@ class PsychoUpdateView(LoginRequiredMixin, UpdateView):
 
 
 """Образование"""
+@login_required
 def education(request, employee_id):
     education = Education.objects.filter(employee=employee_id)
     context = {'education': education}
@@ -236,7 +242,7 @@ def education(request, employee_id):
 
 
 class EducationUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'create_education.html'
+    template_name = 'create_new.html'
     form_class = EducationAddForm
 
     def get_object(self, **kwargs):
@@ -246,11 +252,12 @@ class EducationUpdateView(LoginRequiredMixin, UpdateView):
 
 class EducationAddView(LoginRequiredMixin, CreateView):
     model = Education
-    template_name = 'create_education.html'
+    template_name = 'create_new.html'
     form_class = EducationAddForm
 
 
 """Информация о сроках"""
+@login_required
 def time_out(request):
     month = datetime.date.today() + datetime.timedelta(days=30)
     current_user = request.user
@@ -377,7 +384,7 @@ class InstructionDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/instructions/'
 
 
-class InstructionReferenceList(DetailView):
+class InstructionReferenceList(LoginRequiredMixin, DetailView):
     template_name = 'instruction_reference_list.html'
     context_object_name = 'instruction'
     queryset = Instruction.objects.all()

@@ -103,7 +103,6 @@ class EmployeeAddForm(ModelForm):
         }
 
 
-
 class CertificateAddForm(ModelForm):
 
     class Meta:
@@ -116,6 +115,56 @@ class CertificateAddForm(ModelForm):
             'protocol',
             'employee'
         ]
+
+        widgets = {
+            'name_certificate': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Название обучения',
+                }
+            ),
+
+            'date_finish_certificate': forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Дата обучения',
+                }
+            ),
+
+            'date_end_certificate': forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Срок действия',
+                }
+            ),
+
+            'certificate': forms.ClearableFileInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Удостоверение',
+                }
+            ),
+
+            'protocol': forms.ClearableFileInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Протокол',
+                }
+            ),
+
+            'employee': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Работник',
+                }
+            ),
+        }
 
 
 class EducationAddForm(ModelForm):
@@ -271,6 +320,40 @@ class PsychoAddForm(ModelForm):
             'date_end_psycho',
             'employee'
         ]
+
+        widgets = {
+            'document_psycho': forms.ClearableFileInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Заключение',
+                }
+            ),
+
+            'date_finish_psycho': forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Дата заключения',
+                }
+            ),
+
+            'date_end_psycho': forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Срок действия',
+                }
+            ),
+
+            'employee': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Работник',
+                }
+            ),
+        }
 
 
 class SawcAddForm(ModelForm):
