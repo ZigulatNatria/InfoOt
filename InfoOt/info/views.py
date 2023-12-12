@@ -300,7 +300,7 @@ def time_out(request):
 """СОУТ"""
 class SawcAddView(LoginRequiredMixin, CreateView):
     model = Sawc
-    template_name = 'create.html'
+    template_name = 'create_new.html'
     form_class = SawcAddForm
 
 
@@ -318,7 +318,7 @@ class SawcDelete(LoginRequiredMixin, DeleteView):
 
 
 class SawcUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'create.html'
+    template_name = 'create_new.html'
     form_class = SawcAddForm
 
     def get_object(self, **kwargs):

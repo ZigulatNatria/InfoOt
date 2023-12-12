@@ -368,6 +368,48 @@ class SawcAddForm(ModelForm):
             'document_sawc',
         ]
 
+        widgets = {
+            'name_profession': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Профессия',
+                }
+            ),
+
+            'name_subdivision': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Подразделение',
+                }
+            ),
+
+            'number_card': forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Номер карты',
+                }
+            ),
+
+            'date_card': forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Дата карты СОУТ',
+                }
+            ),
+
+            'document_sawc': forms.ClearableFileInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Карта СОУТ',
+                }
+            ),
+        }
+
 
 class SawcAddToEmployeeForm(ModelForm):
 
@@ -376,6 +418,16 @@ class SawcAddToEmployeeForm(ModelForm):
         fields = [
             'sawc',
         ]
+
+        widgets = {
+            'sawc': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Карта СОУТ',
+                }
+            ),
+        }
 
 
 class OrderAddForm(ModelForm):
