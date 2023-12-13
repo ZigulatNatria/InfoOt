@@ -5,12 +5,12 @@
     {% block content %}
         <div class="container">
             <div class="row" style="margin-bottom: 2rem">
-                <div class="col-6">
+                <div class="col">
                     {% if view.employee.photo_employee %}
-                        <img src="{{MEDIA_URL}}{{ view.employee.photo_employee.url }}" style="width: 70%">
+                        <img src="{{MEDIA_URL}}{{ view.employee.photo_employee.url }}" style="width: 100%">
                     {% endif %}
                 </div>
-                <div class="col-5">
+                <div class="col elementMobile" style="margin-top: 1rem">
                     <!-- Информация оработнике -->
                     <p>{{view.employee.surname}} {{view.employee.name}} {{view.employee.patronym}}</p>
                     <p>Должность: {{view.employee.profession.name}}</p>
@@ -19,7 +19,7 @@
                     <p>телефон: {{view.employee.phone}}</p>
                     <p><a href="{% url 'employee_update' view.employee.pk %}">Редактировать</a></p>
                      <!-- Кнопка-триггер модального окна -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-bottom: 5px; background-color: #B0C4DE">
                       Паспортные данные
                     </button>
                     <!-- информация о СОУТ -->
@@ -34,7 +34,7 @@
                     </p>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hiddenMobile" style="margin-bottom: 5rem">
                 <style>
                     .list-group-item.active {
                     z-index: 2;
@@ -83,9 +83,8 @@
                                     {% endfor %}
                                     </tbody>
                             </table>
-                            <a class="btn btn-primary btn-sm" href="{% url 'education_add' %}" style="width: 20%">Добавить образование</a>
                             {% else %}
-                                <a class="btn btn-primary btn-sm" href="{% url 'education_add' %}" style="width: 20%">Добавить образование</a>
+                                Нет данных о Вашем образовании
                             {% endif %}
                         </div>
                         <!-- Вкладка медицинских осмотров -->
@@ -118,7 +117,7 @@
                                         <a href="{% get_media_prefix %}{{view.medicine.document_medicine}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
                                 {% endif %}
                             {% else %}
-                                У Вас нет разультатов медицинского осмотра
+                                У Вас нет результатов медицинского осмотра
                             {% endif %}
                         </div>
                         <!-- Вкладка удостоверений -->
@@ -332,7 +331,364 @@
                     </div>
                 </div>
             </div>
-        </div>
+            <!-- Аккордеон для мобильной версии -->
+            <div class="accordion hiddenDesktop" id="accordionExample" style="--bs-accordion-border-color: none; margin-bottom: 5rem">
+                 <div class="accordion-item" style="margin-bottom: 0.25rem;">
+                     <h2 class="accordion-header">
+                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_1" aria-expanded="false" aria-controls="collapse_1"
+                         style="
+                                --bs-accordion-active-bg: #5b7dab;
+                                --bs-accordion-btn-focus-border-color: #5b7dab;
+                                --bs-accordion-btn-focus-box-shadow: #ff9900;
+                                --bs-accordion-btn-active-icon-color: #000000;
+                                --bs-accordion-btn-bg: #8ca9cf;
+                                --bs-accordion-border-color: none;
+                                color: #000000;
+                               ">
+                            Образование
+                         </button>
+                     </h2>
+                     <div id="collapse_1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                         <div class="accordion-body">
+                             {% if view.education %}
+                                {% for ed in view.education %}
+                                    <div class="row">{{ed.prof_name}}</div>
+                                    <div class="row"> дата: {{ed.date_finish_education}}</div>
+                                    <div class="row" style="margin-bottom: 1rem">
+                                        {% if ed.document_education %}
+                                            <div class="col">
+                                                <a href="{{ed.document_education.url}}" download="{{ed.document_education.url}}"><img src="/static/ico/download-48.png"></a>
+                                            </div>
+                                            {% load static %}
+                                            <div class="col">
+                                                <a href="{% get_media_prefix %}{{ed.document_education}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            </div>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                        <div class="col">
+                                            <a href="{% url 'education_update' ed.pk %}"><img src="/static/ico/edit-48.png"></a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                Нет данных о Вашем образовании
+                            {% endif %}
+                         </div>
+                     </div>
+                 </div>
+                 <div class="accordion-item" style="margin-bottom: 0.25rem;">
+                     <h2 class="accordion-header">
+                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_2" aria-expanded="false" aria-controls="collapse_2"
+                         style="
+                                --bs-accordion-active-bg: #5b7dab;
+                                --bs-accordion-btn-focus-border-color: #5b7dab;
+                                --bs-accordion-btn-focus-box-shadow: #ff9900;
+                                --bs-accordion-btn-active-icon-color: #000000;
+                                --bs-accordion-btn-bg: #8ca9cf;
+                                --bs-accordion-border-color: none;
+                                color: #000000;
+                               ">
+                            Мед.комиссия
+                         </button>
+                    </h2>
+                    <div id="collapse_2" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% if view.medicine %}
+                                {% for med in view.medicine_paragraph %}
+                                    <div class="row">
+                                        п {{med.number_paragraph}}
+                                        от {{med.date_finish_paragraph}}
+                                    </div>
+                                    <div class="row">
+                                        до {{med.date_end_paragraph}}
+                                        дней {{med.time}}
+                                    </div>
+                                    <div class="row">
+                                        <a href="{% url 'paragraph_update' med.pk %}"><img src="/static/ico/edit-48.png"></a>
+                                    </div>
+                                {% endfor %}
+                                {% if view.medicine.document_medicine %}
+                                    <a href="{{medicine.document_medicine.url}}" download="{{medicine.document_medicine.url}}"><img src="/static/ico/download-48.png"></a>
+                                    {% load static %}
+                                        <a href="{% get_media_prefix %}{{medicine.document_medicine}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                {% endif %}
+                            {% else %}
+                                У Вас нет результатов медицинского осмотра
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item" style="margin-bottom: 0.25rem;">
+                     <h2 class="accordion-header">
+                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_3" aria-expanded="false" aria-controls="collapse_3"
+                         style="
+                                --bs-accordion-active-bg: #5b7dab;
+                                --bs-accordion-btn-focus-border-color: #5b7dab;
+                                --bs-accordion-btn-focus-box-shadow: #ff9900;
+                                --bs-accordion-btn-active-icon-color: #000000;
+                                --bs-accordion-btn-bg: #8ca9cf;
+                                --bs-accordion-border-color: none;
+                                color: #000000;
+                               ">
+                            Удостоверения
+                         </button>
+                    </h2>
+                    <div id="collapse_3" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% if view.certificate %}
+                                {% for c in view.certificate %}
+                                    <div class="row">
+                                        {{c.name_certificate}}
+                                    </div>
+                                    <div class="row">
+                                        от {{c.date_finish_certificate}}
+                                        до {{c.date_end_certificate}}
+                                    </div>
+                                    <div class="row" style="align-items: center;">
+                                        {% if c.certificate %}
+                                            <div class="col">
+                                                Удостоверение
+                                            </div>
+                                            <div class="col">
+                                                <a href="{{c.certificate.url}}" download="{{c.certificate.url}}"><img src="/static/ico/download-48.png"></a>
+                                                {% load static %}
+                                                <a href="{% get_media_prefix %}{{c.certificate}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            </div>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </div>
+                                    <div class="row" style="align-items: center;">
+                                        {% if c.protocol %}
+                                            <div class="col">
+                                                Протокол
+                                            </div>
+                                            <div class="col">
+                                                <a href="{{c.protocol.url}}" download="{{c.protocol.url}}"><img src="/static/ico/download-48.png"></a>
+                                                {% load static %}
+                                                <a href="{% get_media_prefix %}{{c.protocol}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            </div>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </div>
+                                    <div class="row" style="align-items: center;">
+                                        <div class="col" style="white-space: nowrap">
+                                            Дней осталось:
+                                        </div>
+                                        <div class="col">
+                                            {% if c.time < 0 %}
+                                                <span style="color: red">{{c.time}}</span>
+                                            {% elif c.time < 31 %}
+                                                <span style="color: orange">{{c.time}}</span>
+                                            {% else %}
+                                                <span style="color: green">{{c.time}}</span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col">
+                                            <a href="{% url 'certificate_update' c.pk %}"><img src="/static/ico/edit-48.png"></a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                У Вас нет удостоверений
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item" style="margin-bottom: 0.25rem;">
+                     <h2 class="accordion-header">
+                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_4" aria-expanded="false" aria-controls="collapse_4"
+                         style="
+                                --bs-accordion-active-bg: #5b7dab;
+                                --bs-accordion-btn-focus-border-color: #5b7dab;
+                                --bs-accordion-btn-focus-box-shadow: #ff9900;
+                                --bs-accordion-btn-active-icon-color: #000000;
+                                --bs-accordion-btn-bg: #8ca9cf;
+                                --bs-accordion-border-color: none;
+                                color: #000000;
+                               ">
+                            Псих.освидетельствование
+                         </button>
+                    </h2>
+                    <div id="collapse_4" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% if view.psycho %}
+                                {% for psy in view.psycho %}
+                                    <div class="row">
+                                        от {{psy.date_finish_psycho}}
+                                        до {{psy.date_end_psycho}}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">Осталось дней:</div>
+                                        <div class="col">
+                                            {% if psy.time < 0 %}
+                                                <span style="color: red">{{psy.time}}</span>
+                                            {% elif c.time < 31 %}
+                                                <span style="color: orange">{{psy.time}}</span>
+                                            {% else %}
+                                                <span style="color: green">{{psy.time}}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                        {% if psy.document_psycho %}
+                                            <a href="{{psy.document_psycho.url}}" download="{{psy.document_psycho.url}}"><img src="/static/ico/download-48.png"></a>
+                                            {% load static %}
+                                            <a href="{% get_media_prefix %}{{psy.document_psycho}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    <a href="{% url 'psycho_update' psy.id %}"><img src="/static/ico/edit-48.png"></a>
+                                {% endfor %}
+                            {% else %}
+                                У Вас нет результатов психиатрического освидетельствования
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item" style="margin-bottom: 0.25rem;">
+                     <h2 class="accordion-header">
+                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_5" aria-expanded="false" aria-controls="collapse_5"
+                         style="
+                                --bs-accordion-active-bg: #5b7dab;
+                                --bs-accordion-btn-focus-border-color: #5b7dab;
+                                --bs-accordion-btn-focus-box-shadow: #ff9900;
+                                --bs-accordion-btn-active-icon-color: #000000;
+                                --bs-accordion-btn-bg: #8ca9cf;
+                                --bs-accordion-border-color: none;
+                                color: #000000;
+                               ">
+                            Приказы
+                         </button>
+                    </h2>
+                    <div id="collapse_5" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% if view.orders %}
+                                {% for order in view.orders %}
+                                    <div class="row">
+                                        Приказ № {{order.number}}
+                                        от {{order.date}}
+                                    </div>
+                                    <div class="row">
+                                        {{order.name}}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            {% if order.file %}
+                                                <a href="{{order.file.url}}" download="{{order.file.url}}"><img src="/static/ico/download-48.png"></a>
+                                                {% load static %}
+                                                <a href="{% get_media_prefix %}{{order.file}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                Нет приказов с упоминанием Вас
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item" style="margin-bottom: 0.25rem;">
+                     <h2 class="accordion-header">
+                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_6" aria-expanded="false" aria-controls="collapse_6"
+                         style="
+                                --bs-accordion-active-bg: #5b7dab;
+                                --bs-accordion-btn-focus-border-color: #5b7dab;
+                                --bs-accordion-btn-focus-box-shadow: #ff9900;
+                                --bs-accordion-btn-active-icon-color: #000000;
+                                --bs-accordion-btn-bg: #8ca9cf;
+                                --bs-accordion-border-color: none;
+                                color: #000000;
+                               ">
+                            Инструкции ОТ
+                         </button>
+                    </h2>
+                    <div id="collapse_6" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% if view.instruction_profession or view.instruction_employee %}
+                                {% for instruction_p in view.instruction_profession %}
+                                    <div class="row">
+                                        {{instruction_p.name}}
+                                    </div>
+                                    <div class="row">
+                                        №{{instruction_p.number}}
+                                        от {{instruction_p.date}}
+                                    </div>
+                                    <div class="row">
+                                        до {{instruction_p.date_end}}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            {% if instruction_p.file %}
+                                                <a href="{{instruction_p.file.url}}" download="{{instruction_p.file.url}}"><img src="/static/ico/download-48.png"></a>
+                                                    {% load static %}
+                                                <a href="{% get_media_prefix %}{{instruction_p.file}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        {% if instruction_p in view.familiarization_instructions %}
+                                               Ознакомлен
+                                            {% else %}
+                                            <form action="{% url 'add_f_inst' %}" method="post" style="text-align: right">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id_inst" value={{instruction_p.id}}>
+                                                <button type="submit" class="btn" style="background-color: #fff0; border: #fff0; padding-right:0">
+                                                        Ознакомиться
+                                                </button>
+                                            </form>
+                                            {% endif %}
+                                    </div>
+                                {% endfor %}
+                                {% for instruction_e in view.instruction_employee %}
+                                    <div class="row">
+                                        {{instruction_e.name}}
+                                    </div>
+                                    <div class="row">
+                                        № {{instruction_e.number}}
+                                        от {{instruction_e.date}}
+                                    </div>
+                                    <div class="row">
+                                        до {{instruction_e.date_end}}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            {% if instruction_e.file %}
+                                                <a href="{{instruction_e.file.url}}" download="{{instruction_e.file.url}}"><img src="/static/ico/download-48.png"></a>
+                                                    {% load static %}
+                                                <a href="{% get_media_prefix %}{{instruction_e.file}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        {% if instruction_e in view.familiarization_instructions %}
+                                               Ознакомлен
+                                            {% else %}
+                                             <form action="{% url 'add_f_inst' %}" method="post" style="text-align: right">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id_inst" value={{instruction_e.id}}>
+                                                <button type="submit" class="btn" style="background-color: #fff0; border: #fff0; padding-right:0">
+                                                        Ознакомиться
+                                                </button>
+                                            </form>
+                                            {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                Для Вас нет инструкций по ОТ
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- Хвост контейнера -->
 
 
 <!-- Модальное окно -->

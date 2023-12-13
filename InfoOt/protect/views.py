@@ -35,8 +35,8 @@ class IndexView(LoginRequiredMixin, TemplateView):
 
     def medicine_paragraph(self):
         try:
-            medicine = self.medicine
-            medicine_paragraph = MedicineParagraph.objects.filter(medicine=medicine.id)
+            medicine = self.medicine().id
+            medicine_paragraph = MedicineParagraph.objects.filter(medicine=medicine)
         except Exception:
             medicine_paragraph = []
         return medicine_paragraph
