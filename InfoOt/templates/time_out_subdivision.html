@@ -5,7 +5,7 @@
 {% block content %}
 {% if request.user.supervisor %}
 <div class="container">
-     <table class="table">
+     <table class="table hiddenMobile" style="margin-bottom: 5rem">
           <thead>
               <tr>
                   <th>Название удостоверения</th>
@@ -124,6 +124,46 @@
          </tbody>
          {% endif %}
      </table>
+    <div class="hiddenDesktop">
+        {% for employee, certificate in set_subdivision_certificate.items %}
+            {% if employee and certificate %}
+                {% for c in certificate %}
+                    <div class="row" style="background-color: #f506066e; margin-bottom: 0.25rem">
+                        <div class="col">
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                {{c.name_certificate}}
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Срок действия: {{c.date_end_certificate}}
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Работник: {{c.employee}}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        {% for employee, certificate in set_subdivision_certificate_month.items %}
+            {% if employee and certificate %}
+                {% for c in certificate %}
+                    <div class="row" style="background-color: #ffa50078; margin-bottom: 0.25rem">
+                        <div class="col">
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                {{c.name_certificate}}
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Срок действия: {{c.date_end_certificate}}
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Работник: {{c.employee}}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
 </div>
 {% endif %}
 {% endblock content %}
