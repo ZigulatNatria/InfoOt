@@ -2,10 +2,10 @@ from django.urls import path
 from .views import profile_employee, medicine,\
     certificate, psycho, education, EmployeeUpdateView, CertificateUpdateView, EducationUpdateView, \
     MedicineParagraphUpdateView, EmployeeAddView, PassportAddView, PassportUpdateView, MedicineAddView, \
-    MedicineParagraphAddView, EducationAddView, CertificateAddView, PsychoAddView, GeneratePdf, EmployeeView,\
+    MedicineParagraphAddView, EducationAddView, CertificateAddView, PsychoAddView, EmployeeView,\
     PsychoUpdateView, SawcAddView, SawcAddToEmployee, SawcListView, SawcDelete, SawcUpdateView, OrderListView, \
     OrderAddView, OrderUpdateView, OrderDeleteView, InstructionListView, InstructionCreateView, InstructionUpdateView,\
-    InstructionDeleteView, some_view, index, time_out, add_familiarization_instruction, InstructionReferenceList
+    InstructionDeleteView, time_out, add_familiarization_instruction, InstructionReferenceList
 
 
 urlpatterns = [
@@ -50,7 +50,7 @@ urlpatterns = [
     path('add_f_inst/', add_familiarization_instruction, name='add_f_inst'),
     path('ref_inst/<pk>', InstructionReferenceList.as_view(), name='ref_inst'),
     #PDF
-    path('pdf/', GeneratePdf.as_view(), name='pdf'),
-    path('pdf2/', some_view, name='pdf2'),
-    path('pdf3/', index, name='pdf3'),
+    # path('pdf/', GeneratePdf.as_view(), name='pdf'),
+    # path('pdf2/', some_view, name='pdf2'),
+    # path('pdf3/', index, name='pdf3'),
 ]
