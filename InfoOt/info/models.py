@@ -57,6 +57,7 @@ class Sawc(models.Model):
 
 class Employee(AbstractUser):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
+    username = models.EmailField(verbose_name='Email', unique=True)
     surname = models.CharField(max_length=100, verbose_name='Фамилия', null=True, blank=True)
     name = models.CharField(max_length=100, verbose_name='Имя', null=True, blank=True)
     patronym = models.CharField(max_length=100, verbose_name='Отчество', null=True, blank=True)
@@ -182,7 +183,8 @@ class Medicine(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Работник')
 
     def __str__(self):
-        return 'Мед.заключение' + ' ' + '{}'.format(self.employee)
+        # return 'Мед.заключение' + ' ' + '{}'.format(self.employee)
+        return '{}'.format(self.employee) + ' ' + 'Мед.заключение'
 
     class Meta:
         verbose_name_plural = 'Мед.заключения'

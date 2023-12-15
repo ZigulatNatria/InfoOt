@@ -29,11 +29,11 @@ class EmployeeAddForm(ModelForm):
         ]
 
         widgets = {
-            'username': forms.TextInput(
+            'username': forms.EmailInput(
                 attrs={
                     "class": "form-control",
                     "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
-                    "placeholder": 'Username',
+                    "placeholder": 'Email',
                 }
             ),
 

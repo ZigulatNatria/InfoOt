@@ -8,6 +8,8 @@
                 <div class="col" style="margin-top: 1rem">
                     {% if current_profile.photo_employee %}
                         <img class="elementMobile" src="{{MEDIA_URL}}{{ current_profile.photo_employee.url }}" style="width: 100%">
+                    {% else %}
+                        <img src="/static/img/no_photo.png" style="width: 100%">
                     {% endif %}
                 </div>
                 <div class="col elementMobile" style="margin-top: 1rem">

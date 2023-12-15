@@ -29,7 +29,9 @@
             {% if employ.photo_employee %}
                 <th scope="row" style="width: 10%"><img src="{{MEDIA_URL}}{{employ.photo_employee.url}}" class="d-block w-100" style="" alt="..."></th>
             {% else %}
-                <th>-</th>
+                <th scope="row" style="width: 10%">
+                    <img src="/static/img/no_photo.png" class="d-block w-100">
+                </th>
             {% endif %}
           <td><a class="nav-link" href="{% url 'profile_employee' employ.pk %}">{{employ.surname}} {{employ.name}} {{employ.patronym}}</a></td>
           <td>{{employ.birth_date}}</td>
@@ -53,7 +55,7 @@
                     {% if employ.photo_employee %}
                         <img src="{{MEDIA_URL}}{{employ.photo_employee.url}}" class="d-block w-100" style="border-radius: 10%;" alt="...">
                     {% else %}
-                        нет фото
+                        <img src="/static/img/no_photo.png" class="d-block w-100" style="border-radius: 10%;">
                     {% endif %}
                 </div>
                 <div class="col">
