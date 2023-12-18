@@ -5,7 +5,7 @@
     {% block content %}
         <div class="container">
             <div class="row" style="margin-bottom: 2rem">
-                <div class="col">
+                <div class="col elementMobile" style="margin-top: 1rem; min-width: 20vw; max-width: 20vw;">
                     {% if view.employee.photo_employee %}
                         <img src="{{MEDIA_URL}}{{ view.employee.photo_employee.url }}" style="width: 100%">
                     {% else %}
