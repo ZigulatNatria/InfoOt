@@ -13,7 +13,7 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container">
             <a class="navbar-brand" href="{% url 'employee' %}">
-              <img src="/static/img/logo2.png" width="260" height="60" alt="" loading="lazy">
+              <img src="/static/img/logo.png" alt="" loading="lazy">
             </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
                   <span class="navbar-toggler-icon"></span>
@@ -23,7 +23,7 @@
                       <li class="nav-item">
                           <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">Добавить работника</a>
                       </li>
-                      {% if request.user.supervisor %}
+                      {% if request.user.supervisor or admin_user%}
                           <li class="nav-item">
                               <a class="nav-link active" aria-current="page" href="{% url 'time_out' %}">Просроченные удостоверения</a>
                           </li>

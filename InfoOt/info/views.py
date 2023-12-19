@@ -187,7 +187,7 @@ def certificate(request, employee_id):
 
 
 class CertificateUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'create_new.html'
+    template_name = 'create_certificate.html'
     form_class = CertificateAddForm
 
     def get_object(self, **kwargs):
@@ -197,7 +197,7 @@ class CertificateUpdateView(LoginRequiredMixin, UpdateView):
 
 class CertificateAddView(LoginRequiredMixin, CreateView):
     model = Certificate
-    template_name = 'create_new.html'
+    template_name = 'create_certificate.html'
     form_class = CertificateAddForm
 
 
