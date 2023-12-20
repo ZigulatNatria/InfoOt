@@ -7,10 +7,10 @@
 <div class="container">
      <table class="table hiddenMobile" style="margin-bottom: 5rem">
           <thead>
-              <tr>
-                  <th>Название удостоверения</th>
-                  <th>Срок действия</th>
-                  <th>ФИО работника</th>
+              <tr style="font-style: italic">
+                  <th style="font-weight: normal">Название удостоверения</th>
+                  <th style="font-weight: normal">Срок действия</th>
+                  <th style="font-weight: normal">ФИО работника</th>
               </tr>
           </thead>
          <tbody>
@@ -42,17 +42,17 @@
          {% if medicine %}
           <thead>
               <tr>
-                  <th scope="col">Просроченные медицинские осмотры</th>
+                  <th scope="col" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Просроченные медицинские осмотры</th>
               </tr>
-              <tr>
-                  <th>Номер пункта</th>
-                  <th>Срок действия</th>
-                  <th>ФИО работника</th>
+               <tr style="font-style: italic">
+                  <th style="font-weight: normal">Номер пункта</th>
+                  <th style="font-weight: normal">Срок действия</th>
+                  <th style="font-weight: normal">ФИО работника</th>
               </tr>
           </thead>
          <tbody>
             {% for m in medicine %}
-                <tr style="background-color: red">
+                <tr style="background-color: #f506066e">
                     <td>{{m.number_paragraph}}</td>
                     <td>{{m.date_end_paragraph}}</td>
                     <td>{{m.medicine.employee}}</td>
@@ -63,17 +63,17 @@
          {% if medicine_month %}
           <thead>
               <tr>
-                  <th scope="col">Истекает срок медицинского осмотра</th>
+                  <th scope="col" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Истекает срок медицинского осмотра</th>
               </tr>
-              <tr>
-                  <th>Номер пункта</th>
-                  <th>Срок действия</th>
-                  <th>ФИО работника</th>
+              <tr style="font-style: italic">
+                  <th style="font-weight: normal">Номер пункта</th>
+                  <th style="font-weight: normal">Срок действия</th>
+                  <th style="font-weight: normal">ФИО работника</th>
               </tr>
           </thead>
          <tbody>
             {% for m in medicine_month %}
-                <tr style="background-color: red">
+                <tr style="background-color: #ffa50078">
                     <td>{{m.number_paragraph}}</td>
                     <td>{{m.date_end_paragraph}}</td>
                     <td>{{m.medicine.employee}}</td>
@@ -84,17 +84,17 @@
          {% if psycho %}
           <thead>
               <tr>
-                  <th scope="col">Просроченные псих.освидетельствования</th>
+                  <th scope="col" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Просроченные псих.освидетельствования</th>
               </tr>
-              <tr>
-                  <th>Название документа</th>
-                  <th>ФИО работника</th>
-                  <th>Срок действия</th>
+              <tr style="font-style: italic">
+                  <th style="font-weight: normal">Название документа</th>
+                  <th style="font-weight: normal">ФИО работника</th>
+                  <th style="font-weight: normal">Срок действия</th>
               </tr>
           </thead>
          <tbody>
             {% for p in psycho %}
-                <tr style="background-color: red">
+                <tr style="background-color: #f506066e">
                     <td>Псих.освидетельствование</td>
                     <td>{{p.employee}}</td>
                     <td>{{p.date_end_psycho}}</td>
@@ -105,17 +105,17 @@
          {% if psycho_month %}
           <thead>
               <tr>
-                  <th scope="col">Истекает срок псих.освидетельствования</th>
+                  <th scope="col" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Истекает срок псих.освидетельствования</th>
               </tr>
-              <tr>
-                  <th>Название документа</th>
-                  <th>ФИО работника</th>
-                  <th>Срок действия</th>
+              <tr style="font-style: italic">
+                  <th style="font-weight: normal">Название документа</th>
+                  <th style="font-weight: normal">ФИО работника</th>
+                  <th style="font-weight: normal">Срок действия</th>
               </tr>
           </thead>
          <tbody>
             {% for p in psycho_month %}
-                <tr style="background-color: red">
+                <tr style="background-color: #ffa50078">
                     <td>Псих.освидетельствование</td>
                     <td>{{p.employee}}</td>
                     <td>{{p.date_end_psycho}}</td>

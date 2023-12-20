@@ -5,7 +5,7 @@ from .views import profile_employee, medicine,\
     MedicineParagraphAddView, EducationAddView, CertificateAddView, PsychoAddView, EmployeeView,\
     PsychoUpdateView, SawcAddView, SawcAddToEmployee, SawcListView, SawcDelete, SawcUpdateView, OrderListView, \
     OrderAddView, OrderUpdateView, OrderDeleteView, InstructionListView, InstructionCreateView, InstructionUpdateView,\
-    InstructionDeleteView, time_out, add_familiarization_instruction, InstructionReferenceList
+    InstructionDeleteView, time_out, time_out_for_admin, add_familiarization_instruction, InstructionReferenceList
 
 
 urlpatterns = [
@@ -46,6 +46,7 @@ urlpatterns = [
     path('instruction_delete/<pk>', InstructionDeleteView.as_view(), name='instruction_delete'),
     #Срок
     path('time_out/', time_out, name='time_out'),
+    path('time_out_for_admin/', time_out_for_admin, name='time_out_for_admin'),
     #Ознакомление
     path('add_f_inst/', add_familiarization_instruction, name='add_f_inst'),
     path('ref_inst/<pk>', InstructionReferenceList.as_view(), name='ref_inst'),

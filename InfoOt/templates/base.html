@@ -23,9 +23,13 @@
                       <li class="nav-item">
                           <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">Добавить работника</a>
                       </li>
-                      {% if request.user.supervisor or admin_user%}
+                      {% if request.user.supervisor or admin_user %}
                           <li class="nav-item">
-                              <a class="nav-link active" aria-current="page" href="{% url 'time_out' %}">Просроченные удостоверения</a>
+                              {% if admin_user %}
+                                <a class="nav-link active" aria-current="page" href="{% url 'time_out_for_admin' %}">Просроченные удостоверения</a>
+                              {% else %}
+                                <a class="nav-link active" aria-current="page" href="{% url 'time_out' %}">Просроченные удостоверения</a>
+                              {% endif %}
                           </li>
                       {% endif %}
                       <li class="nav-item dropdown">
