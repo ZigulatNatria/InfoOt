@@ -114,7 +114,13 @@
                                                 <td>{{med.number_paragraph}}</td>
                                                 <td>{{med.date_finish_paragraph}}</td>
                                                 <td>{{med.date_end_paragraph}}</td>
-                                                <td>{{med.time}}</td>
+                                                {% if med.time < 0 %}
+                                                    <td style="color: red">{{med.time}}</td>
+                                                {% elif med.time < 31 %}
+                                                    <td style="color: orange">{{med.time}}</td>
+                                                {% else %}
+                                                    <td style="color: green">{{med.time}}</td>
+                                                {% endif %}
                                                 <td><a href="{% url 'paragraph_update' med.pk %}"><img src="/static/ico/edit-48.png"></a></td>
                                             </tr>
                                         {% endfor %}
