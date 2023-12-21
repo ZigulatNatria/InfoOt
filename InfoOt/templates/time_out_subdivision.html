@@ -7,6 +7,9 @@
 <div class="container">
      <table class="table hiddenMobile" style="margin-bottom: 5rem">
           <thead>
+              <tr>
+                  <th scope="col" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Удостоверения</th>
+              </tr>
               <tr style="font-style: italic">
                   <th style="font-weight: normal">Название удостоверения</th>
                   <th style="font-weight: normal">Срок действия</th>
@@ -39,10 +42,9 @@
          </tbody>
          {% endif %}
          {% endfor %}
-         {% if medicine %}
           <thead>
               <tr>
-                  <th scope="col" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Просроченные медицинские осмотры</th>
+                  <th scope="col" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Медицинские осмотры</th>
               </tr>
                <tr style="font-style: italic">
                   <th style="font-weight: normal">Номер пункта</th>
@@ -51,6 +53,7 @@
               </tr>
           </thead>
          <tbody>
+         {% if medicine %}
             {% for m in medicine %}
                 <tr style="background-color: #f506066e">
                     <td>{{m.number_paragraph}}</td>
@@ -61,16 +64,6 @@
          </tbody>
          {% endif %}
          {% if medicine_month %}
-          <thead>
-              <tr>
-                  <th scope="col" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Истекает срок медицинского осмотра</th>
-              </tr>
-              <tr style="font-style: italic">
-                  <th style="font-weight: normal">Номер пункта</th>
-                  <th style="font-weight: normal">Срок действия</th>
-                  <th style="font-weight: normal">ФИО работника</th>
-              </tr>
-          </thead>
          <tbody>
             {% for m in medicine_month %}
                 <tr style="background-color: #ffa50078">
@@ -81,10 +74,9 @@
             {% endfor %}
          </tbody>
          {% endif %}
-         {% if psycho %}
           <thead>
               <tr>
-                  <th scope="col" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Просроченные псих.освидетельствования</th>
+                  <th scope="col" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Псих.освидетельствования</th>
               </tr>
               <tr style="font-style: italic">
                   <th style="font-weight: normal">Название документа</th>
@@ -93,38 +85,35 @@
               </tr>
           </thead>
          <tbody>
-            {% for p in psycho %}
-                <tr style="background-color: #f506066e">
-                    <td>Псих.освидетельствование</td>
-                    <td>{{p.employee}}</td>
-                    <td>{{p.date_end_psycho}}</td>
-                </tr>
-            {% endfor %}
+         {% for employee, psycho in set_subdivision_psycho.items %}
+            {% if employee and psycho %}
+                {% for p in psycho %}
+                    <tr style="background-color: #f506066e">
+                        <td>Псих.освидетельствование</td>
+                        <td>{{p.employee}}</td>
+                        <td>{{p.date_end_psycho}}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+         {% endfor %}
          </tbody>
-         {% endif %}
-         {% if psycho_month %}
-          <thead>
-              <tr>
-                  <th scope="col" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Истекает срок псих.освидетельствования</th>
-              </tr>
-              <tr style="font-style: italic">
-                  <th style="font-weight: normal">Название документа</th>
-                  <th style="font-weight: normal">ФИО работника</th>
-                  <th style="font-weight: normal">Срок действия</th>
-              </tr>
-          </thead>
          <tbody>
-            {% for p in psycho_month %}
-                <tr style="background-color: #ffa50078">
-                    <td>Псих.освидетельствование</td>
-                    <td>{{p.employee}}</td>
-                    <td>{{p.date_end_psycho}}</td>
-                </tr>
-            {% endfor %}
+         {% for employee, psycho_month in set_subdivision_psycho_month.items %}
+            {% if employee and psycho_month %}
+                {% for p in psycho_month %}
+                    <tr style="background-color: #ffa50078">
+                        <td>Псих.освидетельствование</td>
+                        <td>{{p.employee}}</td>
+                        <td>{{p.date_end_psycho}}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+         {% endfor %}
          </tbody>
-         {% endif %}
      </table>
-    <div class="hiddenDesktop">
+<!--    Мобильная версия-->
+    <div class="hiddenDesktop" style="margin-bottom: 5rem;">
+        <div class="row" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Удостоверения</div>
         {% for employee, certificate in set_subdivision_certificate.items %}
             {% if employee and certificate %}
                 {% for c in certificate %}
@@ -158,6 +147,80 @@
                             <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
                                 Работник: {{c.employee}}
                             </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        <!-- Мед.заключения -->
+        <div class="row" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Мед. заключения</div>
+        {% if medicine %}
+            {% for m in medicine %}
+                <div class="row" style="background-color: #f506066e; margin-bottom: 0.25rem">
+                    <div class="col">
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            П. {{m.number_paragraph}}
+                        </div>
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            срок действия: {{m.date_end_paragraph}}
+                        </div>
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            {{m.medicine.employee}}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if medicine_month %}
+            {% for m in medicine_month %}
+                <div class="row" style="background-color: #ffa50078; margin-bottom: 0.25rem">
+                    <div class="col">
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            П. {{m.number_paragraph}}
+                        </div>
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            срок действия: {{m.date_end_paragraph}}
+                        </div>
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            {{m.medicine.employee}}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <!-- психиатрия -->
+        <div class="row" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Псих. освидетельствования</div>
+        {% for employee, psycho in set_subdivision_psycho.items %}
+            {% if employee and psycho %}
+                {% for p in psycho %}
+                    <div class="row" style="background-color: #f506066e; margin-bottom: 0.25rem">
+                        <div class="col">
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Псих.освидетельствование
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                {{p.employee}}
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                {{p.date_end_psycho}}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        {% for employee, psycho_month in set_subdivision_psycho_month.items %}
+            {% if employee and psycho_month %}
+                {% for p in psycho_month %}
+                    <div class="row" style="background-color: #ffa50078; margin-bottom: 0.25rem">
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            Псих.освидетельствование
+                        </div>
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            {{p.employee}}
+                        </div>
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            {{p.date_end_psycho}}
                         </div>
                     </div>
                 {% endfor %}

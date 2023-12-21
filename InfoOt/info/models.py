@@ -159,7 +159,8 @@ class Psycho(models.Model):
     date_finish_psycho = models.DateField(verbose_name='Дата прохождения освидетельствования')
     date_end_psycho = models.DateField(verbose_name='Срок действия освидетельствования')
     document_psycho = models.FileField(verbose_name='Скан заключения', null=True, blank=True)
-    employee = models.OneToOneField(Employee, on_delete=models.CASCADE, verbose_name='Работник')
+    # employee = models.OneToOneField(Employee, on_delete=models.CASCADE, verbose_name='Работник')
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Работник')
 
     def __str__(self):
         return 'Псих.освидетельствование' + ' ' + '{}'.format(self.employee)

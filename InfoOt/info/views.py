@@ -284,18 +284,20 @@ def time_out(request):
                 if datetime.date.today() < p.date_end_paragraph <= month_day:
                     medicine_month.append(p)
 
-    certificate = Certificate.objects.filter(date_end_certificate__lte=datetime.date.today())
-    certificate_month = Certificate.objects.filter(date_end_certificate__range=(datetime.date.today(), month))
+    set_subdivision_psycho = {
+        employee: employee.psycho_set.filter(date_end_psycho__lte=datetime.date.today())
+        for employee in Employee.objects.filter(subdivision=subdivision_current_user).prefetch_related('psycho_set')
+    }
+    set_subdivision_psycho_month = {
+        employee: employee.psycho_set.filter(date_end_psycho__range=(datetime.date.today(), month))
+        for employee in Employee.objects.filter(subdivision=subdivision_current_user).prefetch_related('psycho_set')
+    }
 
-    psycho = Psycho.objects.filter(date_end_psycho__lte=datetime.date.today())
-    psycho_month = Psycho.objects.filter(date_end_psycho__range=(datetime.date.today(), month))
     context = {
-        'certificate': certificate,
-        'certificate_month': certificate_month,
         'medicine': medicine,
         'medicine_month': medicine_month,
-        'psycho': psycho,
-        'psycho_month': psycho_month,
+        'set_subdivision_psycho_month': set_subdivision_psycho_month,
+        'set_subdivision_psycho': set_subdivision_psycho,
         'set_subdivision_certificate': set_subdivision_certificate,
         'set_subdivision_certificate_month': set_subdivision_certificate_month,
     }
