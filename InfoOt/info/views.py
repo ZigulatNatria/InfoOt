@@ -12,6 +12,9 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 import datetime
+"""Для экселя"""
+from django.http import HttpResponse
+import xlwt
 
 
 """Временно закрыто"""
@@ -428,6 +431,65 @@ class InstructionReferenceList(LoginRequiredMixin, DetailView):
             'instruction': instruction
         }
         return context
+
+
+"""Выгрузка exl"""
+def export_users_xls(request, employee_id):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="Employee.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Employee')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = [
+        'Фамилия',
+        'Имя',
+        'Отчество',
+        'дата рождения',
+        'Профессия',
+        'Подразделение',
+        'телефон',
+    ]
+    # columns = ['Название', 'Дата обучения', 'Срок действия', 'Работник', 'Удостоверение']
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    # rows = Employee.objects.all().values_list(
+    rows = Employee.objects.filter(id=employee_id).values_list(
+        'surname',
+        'name',
+        'patronym',
+        'birth_date',
+        'profession__name',
+        'subdivision__name',
+        'phone',
+    )
+    # rows = Certificate.objects.all().values_list(
+    #     'name_certificate',
+    #     'date_finish_certificate',
+    #     'date_end_certificate',
+    #     'employee__surname',
+    #     'certificate'
+    # )
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, str(row[col_num]), font_style)
+
+    wb.save(response)
+    return response
+
+
 
 
 """PDF пробный запуск"""

@@ -38,6 +38,7 @@
                             <a class="btn" href="{% url 'sawc_add_to' current_profile.pk %}" style="background-color: #B0C4DE">Добавить карту СОУТ</a>
                         {% endif %}
                     </p>
+                    <a href="{% url 'export_users_xls' current_profile.pk %}">Сохранить в Exel</a>
                 </div>
             </div>
             <div class="row hiddenMobile" style="margin-bottom: 5rem">
