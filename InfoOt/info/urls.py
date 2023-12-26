@@ -5,9 +5,8 @@ from .views import profile_employee, medicine,\
     MedicineParagraphAddView, EducationAddView, CertificateAddView, PsychoAddView, EmployeeView,\
     PsychoUpdateView, SawcAddView, SawcAddToEmployee, SawcListView, SawcDelete, SawcUpdateView, OrderListView, \
     OrderAddView, OrderUpdateView, OrderDeleteView, InstructionListView, InstructionCreateView, InstructionUpdateView,\
-    InstructionDeleteView, time_out, time_out_for_admin, add_familiarization_instruction, InstructionReferenceList, \
-    export_users_xls
-
+    InstructionDeleteView, time_out, time_out_for_admin, add_familiarization_instruction, InstructionReferenceList
+from .exel import export_users_xls
 
 urlpatterns = [
     path('', EmployeeView.as_view(), name='employee'),
@@ -56,5 +55,6 @@ urlpatterns = [
     # path('pdf2/', some_view, name='pdf2'),
     # path('pdf3/', index, name='pdf3'),
     #Exel
-    path(r'^export/xls/$/<int:employee_id>', export_users_xls, name='export_users_xls'),
+    # path(r'^export/xls/$/<int:employee_id>', export_users_xls, name='export_users_xls'),
+    path('export/xls/<int:employee_id>', export_users_xls, name='export_users_xls'),
 ]
