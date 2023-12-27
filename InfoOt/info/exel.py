@@ -1,11 +1,15 @@
 from .models import Employee, Passport, Medicine, MedicineParagraph, Psycho, Certificate
 from django.http import HttpResponse
 import xlwt
+from transliterate import translit, get_available_language_codes
 
 
 def export_users_xls(request, employee_id):
+    employee_name = Employee.objects.get(id=employee_id).surname
+    trans_name = translit(employee_name, language_code='ru', reversed=True)
+    file_name = f"{trans_name}.xls"
     response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="Employee.xls"'
+    response['Content-Disposition'] = f'attachment; filename={file_name}'
 
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet('Employee')
