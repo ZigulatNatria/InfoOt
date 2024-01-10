@@ -1,6 +1,7 @@
 import io
 from django.http import FileResponse
 from django.shortcuts import render
+from django.views.generic import CreateView
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase import pdfmetrics
@@ -18,17 +19,11 @@ c.drawString(50, 750, "Строка")
 c.save()
 
 
-def add_pdf(request):
-    form = PdfTestForm()
-    return render(request, 'pdf/test_pdf.html', {'form': form})
-
-
 def pdf(request):
     employ = Employee.objects.get(id=1)
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
-    form = PdfTestForm()
-    print(form)
+
     # Create the PDF object, using the buffer as its "file."
     p = canvas.Canvas(buffer)
     p.setFont("Arial", 12)
@@ -44,3 +39,18 @@ def pdf(request):
     # present the option to save the file.
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename="hello.pdf")
+
+
+def add_pdf(request):
+    form = PdfTestForm()
+    if request.method == 'POST':
+        increment = request.POST.get('text')
+        # document = pdf(request, increment)
+        document = pdf(request)
+        print(increment)
+    else:
+        increment = 0
+        document = None
+    return render(request, 'pdf/test_pdf.html', {'form': form, 'increment': increment})
+
+
