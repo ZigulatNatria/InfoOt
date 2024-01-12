@@ -10,6 +10,9 @@
             {{form.as_p}}
             <input class="btn btn-primary btn-sm" type="submit" value="Сохранить">
         </form>
+        {% if button_pdf %}
+            <a class="btn" href="{% url 'pdf' %}" style="background-color: #B0C4DE">Скачать</a>
+        {% endif %}
         {{ increment }}
     </body>
 </html>

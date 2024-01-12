@@ -26,10 +26,12 @@ def add_pdf(request):
         employee = request.POST.get('employee')
         request.session['data'] = increment
         request.session['employee'] = employee
+        button_pdf = True
     else:
         increment = 0
         document = None
-    return render(request, 'pdf/test_pdf.html', {'form': form, 'increment': increment})
+        button_pdf = False
+    return render(request, 'pdf/test_pdf.html', {'form': form, 'increment': increment, 'button_pdf': button_pdf})
 
 
 def pdf(request):

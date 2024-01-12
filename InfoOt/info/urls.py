@@ -53,7 +53,7 @@ urlpatterns = [
     path('ref_inst/<pk>', InstructionReferenceList.as_view(), name='ref_inst'),
     #PDF
     path('pdf/', pdf, name='pdf'),
-    path('pdf_form/', add_pdf, name='pdf'),
+    path('pdf_form/', add_pdf, name='pdf_form'),
     #Exel
     # path(r'^export/xls/$/<int:employee_id>', export_users_xls, name='export_users_xls'),
     path('export/xls/<int:employee_id>', export_users_xls, name='export_users_xls'),
