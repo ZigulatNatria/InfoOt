@@ -4,12 +4,10 @@ from .models import Employee, Medicine, MedicineParagraph
 import datetime
 
 
-
 class PdfTestForm(forms.Form):
     medicine_id = Medicine.objects.all().values('id')[::] # получаем все id мед.осмотров
     queryset_list = []
     for m_id in medicine_id:        # перебираем все параграфы полученных медосмотров
-        # print(m_id['id'])
         medicine_paragraph = MedicineParagraph.objects.filter(medicine=m_id['id']).values_list(
                 'number_paragraph',
                 'date_end_paragraph',
@@ -26,8 +24,10 @@ class PdfTestForm(forms.Form):
         except Exception:
             pass
 
+    empty_qs = Employee.objects.none()
     for i in queryset_list:
-        print(i[0])
+        new_qs = empty_qs.union(i)
+        empty_qs = new_qs
 
     text = forms.CharField(max_length=255)
-    employee = forms.ModelChoiceField(queryset=Employee.objects.all()) #TODO Переделать на множественный выбор
+    employee = forms.ModelMultipleChoiceField(queryset=empty_qs)

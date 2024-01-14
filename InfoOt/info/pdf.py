@@ -24,6 +24,8 @@ def add_pdf(request):
     if request.method == 'POST':
         increment = request.POST.get('text')
         employee = request.POST.get('employee')
+        # employee2 = form
+        # print(employee2)
         request.session['data'] = increment
         request.session['employee'] = employee
         button_pdf = True
@@ -45,7 +47,8 @@ def pdf(request):
     p.setFont("Arial", 12)
     # Draw things on the PDF. Here's where the PDF generation happens.
     # See the ReportLab documentation for the full list of functionality.
-    p.drawString(10, 800, f"{employ.surname} {employ.name} {employ.patronym} {increment}")
+    p.drawString(10, 800, f"{employ.surname} {employ.name} {employ.patronym}")
+    p.drawString(10, 790, f"{increment}")
 
     # Close the PDF object cleanly, and we're done.
     p.showPage()
