@@ -167,6 +167,14 @@ class CertificateAddForm(ModelForm):
         }
 
 
+class CertificateCheckForm(CertificateAddForm):
+    class Meta:
+        model = Certificate
+        fields = [
+            'application',
+        ]
+
+
 class EducationAddForm(ModelForm):
 
     class Meta:

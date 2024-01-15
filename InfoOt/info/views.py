@@ -5,7 +5,7 @@ from django.views.generic import ListView, UpdateView, CreateView, View, Templat
     DeleteView, DetailView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, \
     MedicineParagraphAddForm, PassportAddForm, MedicineAddForm, PsychoAddForm, \
-    SawcAddForm, SawcAddToEmployeeForm, OrderAddForm, InstructionFormAdd
+    SawcAddForm, SawcAddToEmployeeForm, OrderAddForm, InstructionFormAdd, CertificateCheckForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -13,13 +13,12 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 import datetime
 
-
 """Временно закрыто"""
-#для Celery
+# для Celery
 # from .tasks import certificate_created, send_test_email
 # from .service import send
 
-#для PDF
+# для PDF
 # import io
 # from django.http import FileResponse
 # from reportlab.pdfgen import canvas
@@ -54,6 +53,7 @@ class EmployeeAddView(LoginRequiredMixin, CreateView):
     template_name = 'create_employee.html'
     form_class = EmployeeAddForm
 
+
 @login_required
 def profile_employee(request, employee_id):
     education = Education.objects.filter(employee=employee_id)
@@ -65,9 +65,10 @@ def profile_employee(request, employee_id):
     current_profession = current_profile.profession
     instruction_profession = Instruction.objects.filter(profession=current_profession)
     instruction_employee = Instruction.objects.filter(employee=current_profile)
-        
+
     try:
-        medicine = Medicine.objects.get(employee=employee_id) #обращаемся к полю медицины через связанную модель Employee
+        medicine = Medicine.objects.get(
+            employee=employee_id)  # обращаемся к полю медицины через связанную модель Employee
         medicine_paragraph = MedicineParagraph.objects.filter(medicine=medicine.id)
     except Exception:
         medicine = []
@@ -96,7 +97,7 @@ def add_familiarization_instruction(request):
     return redirect(f'/auth/')
 
 
-#TODO доделать запрос на подписку (URL и жаба скрипт)
+# TODO доделать запрос на подписку (URL и жаба скрипт)
 @require_POST
 @login_required
 def user_follow(request):
@@ -144,7 +145,8 @@ class PassportUpdateView(LoginRequiredMixin, UpdateView):
 @login_required
 def medicine(request, medicine_id):
     medicine = Medicine.objects.get(id=medicine_id)
-    medicineParagraph = MedicineParagraph.objects.filter(medicine=medicine_id) #обращемся к полю параграф через связанную модель медицины
+    medicineParagraph = MedicineParagraph.objects.filter(
+        medicine=medicine_id)  # обращемся к полю параграф через связанную модель медицины
     context = {'medicineParagraph': medicineParagraph, 'medicine': medicine}
     return render(request, 'medicine.html', context)
 
@@ -195,6 +197,16 @@ class CertificateUpdateView(LoginRequiredMixin, UpdateView):
         return Certificate.objects.get(pk=id)
 
 
+class CertificateCheckView(LoginRequiredMixin, UpdateView):
+    template_name = 'create.html'
+    form_class = CertificateCheckForm
+    success_url = '/time_out_for_admin/'
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Certificate.objects.get(pk=id)
+
+
 class CertificateAddView(LoginRequiredMixin, CreateView):
     model = Certificate
     template_name = 'create_certificate.html'
@@ -202,12 +214,12 @@ class CertificateAddView(LoginRequiredMixin, CreateView):
 
 
 """Временно закрыто"""
-#Для Celery
-    # def form_valid(self, form):
-    #     form.save()
-    #     # send('ZigulatNatria@yandex.ru')
-    #     send_test_email.delay('ZigulatNatria@yandex.ru')
-    #     return super().form_valid(form)
+# Для Celery
+# def form_valid(self, form):
+#     form.save()
+#     # send('ZigulatNatria@yandex.ru')
+#     send_test_email.delay('ZigulatNatria@yandex.ru')
+#     return super().form_valid(form)
 
 
 """Психиатрия"""
@@ -263,8 +275,10 @@ def time_out(request):
     current_user = request.user
     subdivision_current_user = current_user.subdivision
     employee_in_subdivision = Employee.objects.filter(subdivision=subdivision_current_user)
-    set_subdivision_certificate = {employee: employee.certificate_set.filter(date_end_certificate__lte=datetime.date.today())
-                                   for employee in Employee.objects.filter(subdivision=subdivision_current_user).prefetch_related('certificate_set')}
+    set_subdivision_certificate = {
+        employee: employee.certificate_set.filter(date_end_certificate__lte=datetime.date.today())
+        for employee in
+        Employee.objects.filter(subdivision=subdivision_current_user).prefetch_related('certificate_set')}
 
     set_subdivision_certificate_month = {
         employee: employee.certificate_set.filter(date_end_certificate__range=(datetime.date.today(), month))
@@ -273,7 +287,7 @@ def time_out(request):
 
     medicine = []
     medicine_month = []
-    month_day = datetime.date.today()+datetime.timedelta(days=30)
+    month_day = datetime.date.today() + datetime.timedelta(days=30)
     for i in employee_in_subdivision:
         medicina = Medicine.objects.filter(employee=i.id)
         for z in medicina:
@@ -308,12 +322,21 @@ def time_out(request):
 def time_out_for_admin(request):
     month = datetime.date.today() + datetime.timedelta(days=30)
     current_user = request.user
+    month_day = datetime.date.today() + datetime.timedelta(days=31)
 
+    certificate_all = Certificate.objects.all()
     certificate = Certificate.objects.filter(date_end_certificate__lte=datetime.date.today())
     certificate_month = Certificate.objects.filter(date_end_certificate__range=(datetime.date.today(), month))
+    for i in certificate_all:
+        if i.date_end_certificate >= month_day and i.application == True:
+            Certificate.objects.filter(id=i.id).update(application=False)
 
+    medicine_all = MedicineParagraph.objects.all()   #TODO доделать сброс на деффолт
     medicine = MedicineParagraph.objects.filter(date_end_paragraph__lte=datetime.date.today())
     medicine_month = MedicineParagraph.objects.filter(date_end_paragraph__range=(datetime.date.today(), month))
+    # for i in certificate_all:
+    #     if i.date_end_certificate >= month_day and i.application == True:
+    #         Certificate.objects.filter(id=i.id).update(application=False)
 
     psycho = Psycho.objects.filter(date_end_psycho__lte=datetime.date.today())
     psycho_month = Psycho.objects.filter(date_end_psycho__range=(datetime.date.today(), month))

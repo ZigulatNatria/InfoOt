@@ -20,12 +20,27 @@
           </thead>
          <tbody>
             {% for c in certificate %}
-                <tr style="background-color: #f506066e">
-                    <td>{{c.name_certificate}}</td>
-                    <td>{{c.date_end_certificate}}</td>
-                    <td>{{c.employee}}</td>
-                    <td>{{c.employee.subdivision}}</td>
-                </tr>
+                {% if c.application == True %}
+                    <tr style="background-color:  #BDECB6">
+                        <td>{{c.name_certificate}}</td>
+                        <td>{{c.date_end_certificate}}</td>
+                        <td>{{c.employee}}</td>
+                        <td>{{c.employee.subdivision}}</td>
+                        <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                            в работе
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr style="background-color: #f506066e">
+                        <td>{{c.name_certificate}}</td>
+                        <td>{{c.date_end_certificate}}</td>
+                        <td>{{c.employee}}</td>
+                        <td>{{c.employee.subdivision}}</td>
+                        <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                            <a class="btn" href="{% url 'certificate_check' c.pk %}">-</a>
+                        </td>
+                    </tr>
+                {% endif %}
             {% endfor %}
          </tbody>
          {% endif %}
@@ -43,12 +58,27 @@
           </thead>
          <tbody>
             {% for c in certificate_month %}
-                <tr style="background-color: #ffa50078">
-                    <td>{{c.name_certificate}}</td>
-                    <td>{{c.date_end_certificate}}</td>
-                    <td>{{c.employee}}</td>
-                    <td>{{c.employee.subdivision}}</td>
-                </tr>
+                {% if c.application == True %}
+                    <tr style="background-color:  #BDECB6">
+                        <td>{{c.name_certificate}}</td>
+                        <td>{{c.date_end_certificate}}</td>
+                        <td>{{c.employee}}</td>
+                        <td>{{c.employee.subdivision}}</td>
+                        <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                            в работе
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr style="background-color: #ffa50078">
+                        <td>{{c.name_certificate}}</td>
+                        <td>{{c.date_end_certificate}}</td>
+                        <td>{{c.employee}}</td>
+                        <td>{{c.employee.subdivision}}</td>
+                        <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                            <a class="btn" href="{% url 'certificate_check' c.pk %}">-</a>
+                        </td>
+                    </tr>
+                {% endif %}
             {% endfor %}
          </tbody>
          {% endif %}

@@ -20,11 +20,25 @@
             {% for employee, certificate in set_subdivision_certificate.items %}
             {% if employee and certificate %}
                 {% for c in certificate %}
-                <tr style="background-color: #f506066e">
-                    <td>{{c.name_certificate}}</td>
-                    <td>{{c.date_end_certificate}}</td>
-                    <td>{{c.employee}}</td>
-                </tr>
+                    {% if c.application == True %}
+                        <tr style="background-color:  #BDECB6">
+                            <td>{{c.name_certificate}}</td>
+                            <td>{{c.date_end_certificate}}</td>
+                            <td>{{c.employee}}</td>
+                            <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                                в работе
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr style="background-color: #f506066e">
+                            <td>{{c.name_certificate}}</td>
+                            <td>{{c.date_end_certificate}}</td>
+                            <td>{{c.employee}}</td>
+                            <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                                -
+                            </td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 {% endif %}
             {% endfor %}
@@ -33,11 +47,25 @@
             {% if employee and certificate %}
          <tbody>
             {% for c in certificate %}
+                {% if c.application == True %}
+                    <tr style="background-color:  #BDECB6">
+                        <td>{{c.name_certificate}}</td>
+                        <td>{{c.date_end_certificate}}</td>
+                        <td>{{c.employee}}</td>
+                        <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                            в работе
+                        </td>
+                    </tr>
+                {% else %}
                 <tr style="background-color: #ffa50078">
                     <td>{{c.name_certificate}}</td>
                     <td>{{c.date_end_certificate}}</td>
                     <td>{{c.employee}}</td>
+                    <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                        -
+                    </td>
                 </tr>
+                {% endif %}
             {% endfor %}
          </tbody>
          {% endif %}

@@ -5,7 +5,7 @@ from .views import profile_employee, medicine,\
     MedicineParagraphAddView, EducationAddView, CertificateAddView, PsychoAddView, EmployeeView,\
     PsychoUpdateView, SawcAddView, SawcAddToEmployee, SawcListView, SawcDelete, SawcUpdateView, OrderListView, \
     OrderAddView, OrderUpdateView, OrderDeleteView, InstructionListView, InstructionCreateView, InstructionUpdateView,\
-    InstructionDeleteView, time_out, time_out_for_admin, add_familiarization_instruction, InstructionReferenceList
+    InstructionDeleteView, CertificateCheckView, time_out, time_out_for_admin, add_familiarization_instruction, InstructionReferenceList
 from .exel import export_users_xls
 from .pdf import pdf, add_pdf
 
@@ -22,6 +22,7 @@ urlpatterns = [
     #Редактирование
     path('employee_update/<pk>/', EmployeeUpdateView.as_view(), name='employee_update'),
     path('certificate_update/<pk>/', CertificateUpdateView.as_view(), name='certificate_update'),
+    path('status_update/<pk>', CertificateCheckView.as_view(), name='certificate_check'),
     path('education_update/<pk>/', EducationUpdateView.as_view(), name='education_update'),
     path('paragraph_update/<pk>/', MedicineParagraphUpdateView.as_view(), name='paragraph_update'),
     path('passport_update/<pk>/', PassportUpdateView.as_view(), name='passport_update'),
