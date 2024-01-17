@@ -22,15 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for subdivision, employee in all_employee_by_subdivision.items %}
-          {% if employee and subdivision %}
-            <tr>
-                <th colspan="3" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">
-                    {{ subdivision }}
-                </th>
-            </tr>
-          {% endif %}
-        {% for employ in employee %}
+        {% for employ in employees %}
         <tr>
             {% if employ.photo_employee %}
                 <th scope="row" style="width: 10%"><img src="{{MEDIA_URL}}{{employ.photo_employee.url}}" class="d-block w-100" style="" alt="..."></th>
@@ -46,15 +38,10 @@
           <td>{{employ.subdivision}}</td>
         </tr>
       {% endfor %}
-      {% endfor %}
       </tbody>
     </table>
     <div class="hiddenDesktop" style="margin-bottom: 5rem">
-        {% for subdivision, employee in all_employee_by_subdivision.items %}
-            {% if employee and subdivision %}
-                <div style="margin-bottom: 1rem; background: linear-gradient(to right, #B0C4DE, #ffffff);">{{ subdivision }}</div>
-            {% endif %}
-        {% for employ in employee %}
+        {% for employ in employees %}
         <a href="{% url 'profile_employee' employ.pk %}" style="text-decoration: none; color: #000000">
             <div class="row" style="margin-bottom: 0.25rem; border-bottom: 1px solid #C7D0CC; padding-bottom: 0.5rem;">
                 <div class="col" style="min-width: 20vw; max-width: 20vw;">
@@ -78,7 +65,6 @@
                 </div>
             </div>
         </a>
-        {% endfor %}
         {% endfor %}
     </div>
 </div>

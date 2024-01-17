@@ -5,7 +5,8 @@ from .views import profile_employee, medicine,\
     MedicineParagraphAddView, EducationAddView, CertificateAddView, PsychoAddView, EmployeeView,\
     PsychoUpdateView, SawcAddView, SawcAddToEmployee, SawcListView, SawcDelete, SawcUpdateView, OrderListView, \
     OrderAddView, OrderUpdateView, OrderDeleteView, InstructionListView, InstructionCreateView, InstructionUpdateView,\
-    InstructionDeleteView, CertificateCheckView, time_out, time_out_for_admin, add_familiarization_instruction, InstructionReferenceList
+    InstructionReferenceList, InstructionDeleteView, CertificateCheckView, time_out, time_out_for_admin, \
+    add_familiarization_instruction, search
 from .exel import export_users_xls
 from .pdf import pdf, add_pdf
 
@@ -58,4 +59,6 @@ urlpatterns = [
     #Exel
     # path(r'^export/xls/$/<int:employee_id>', export_users_xls, name='export_users_xls'),
     path('export/xls/<int:employee_id>', export_users_xls, name='export_users_xls'),
+    #Поиск
+    path('search/', search, name='search'),
 ]

@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.utils import timezone
 import datetime
 
@@ -451,6 +452,21 @@ class InstructionReferenceList(LoginRequiredMixin, DetailView):
             'instruction': instruction
         }
         return context
+
+
+"""Поиск по списку работников"""
+def search(request):
+    search_query = request.GET.get('search', '') # передаётся имя ввода (строка поиска)
+
+# если значение search_query существует (в строку поиска введён текст) ищем в нужных полях введённый текст
+    if search_query:
+        # Q(позволяет илспользовать "И", "ИЛИ")
+        employees = Employee.objects.filter(Q(surname__icontains=search_query) | Q(surname__icontains=search_query.capitalize())
+                                   | Q(surname__icontains=search_query.casefold()))
+    else:
+        employees = None
+    context = {'employees': employees}
+    return render(request, 'employee_search.html', context)
 
 
 """PDF пробный запуск"""

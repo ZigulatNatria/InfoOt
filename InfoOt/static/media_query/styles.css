@@ -20,4 +20,8 @@
   .hiddenDesktop {
         display: none !important;
   }
+
+  .searchEmployee {
+        max-width: 40vw !important;
+  }
 }
