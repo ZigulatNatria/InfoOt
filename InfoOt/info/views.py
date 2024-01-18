@@ -5,7 +5,8 @@ from django.views.generic import ListView, UpdateView, CreateView, View, Templat
     DeleteView, DetailView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, \
     MedicineParagraphAddForm, PassportAddForm, MedicineAddForm, PsychoAddForm, \
-    SawcAddForm, SawcAddToEmployeeForm, OrderAddForm, InstructionFormAdd, CertificateCheckForm
+    SawcAddForm, SawcAddToEmployeeForm, OrderAddForm, InstructionFormAdd, CertificateCheckForm, \
+    MedicineParagraphCheckForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -155,6 +156,16 @@ def medicine(request, medicine_id):
 class MedicineParagraphUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'create.html'
     form_class = MedicineParagraphAddForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return MedicineParagraph.objects.get(pk=id)
+
+
+class MedicineParagraphCheckView(LoginRequiredMixin, UpdateView):
+    template_name = 'create.html'
+    form_class = MedicineParagraphCheckForm
+    success_url = '/time_out_for_admin/'
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
@@ -332,13 +343,14 @@ def time_out_for_admin(request):
         if i.date_end_certificate >= month_day and i.application == True:
             Certificate.objects.filter(id=i.id).update(application=False)
 
-    medicine_all = MedicineParagraph.objects.all()   #TODO доделать сброс на деффолт
+    medicine_all = MedicineParagraph.objects.all()
     medicine = MedicineParagraph.objects.filter(date_end_paragraph__lte=datetime.date.today())
     medicine_month = MedicineParagraph.objects.filter(date_end_paragraph__range=(datetime.date.today(), month))
-    # for i in certificate_all:
-    #     if i.date_end_certificate >= month_day and i.application == True:
-    #         Certificate.objects.filter(id=i.id).update(application=False)
+    for i in medicine_all:
+        if i.date_end_paragraph >= month_day and i.application == True:
+            MedicineParagraph.objects.filter(id=i.id).update(application=False)
 
+    #TODO доделать статус по психиатрии
     psycho = Psycho.objects.filter(date_end_psycho__lte=datetime.date.today())
     psycho_month = Psycho.objects.filter(date_end_psycho__range=(datetime.date.today(), month))
     context = {

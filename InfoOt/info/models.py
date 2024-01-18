@@ -202,6 +202,7 @@ class MedicineParagraph(models.Model):
     date_finish_paragraph = models.DateField(verbose_name='Дата прохождения')
     date_end_paragraph = models.DateField(verbose_name='Срок действия')
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE, verbose_name='Мед.заключение')
+    application = models.BooleanField(verbose_name='заявка', default=False)
 
     def __str__(self):
         return 'Пункт' + ' ' + '{}'.format(self.number_paragraph) + ' ' + '{}'.format(self.medicine)

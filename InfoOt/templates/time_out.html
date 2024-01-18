@@ -96,12 +96,27 @@
           </thead>
          <tbody>
             {% for m in medicine %}
+                {% if m.application == True %}
+                    <tr style="background-color:  #BDECB6">
+                        <td>{{m.number_paragraph}}</td>
+                        <td>{{m.date_end_paragraph}}</td>
+                        <td>{{m.medicine.employee}}</td>
+                        <td>{{m.medicine.employee.subdivision}}</td>
+                        <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                            в работе
+                        </td>
+                    </tr>
+                {% else %}
                 <tr style="background-color: #f506066e">
                     <td>{{m.number_paragraph}}</td>
                     <td>{{m.date_end_paragraph}}</td>
                     <td>{{m.medicine.employee}}</td>
                     <td>{{m.medicine.employee.subdivision}}</td>
+                    <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                        <a class="btn" href="{% url 'medicine_check' m.pk %}">-</a>
+                    </td>
                 </tr>
+                {% endif %}
             {% endfor %}
          </tbody>
          {% endif %}
@@ -119,12 +134,27 @@
           </thead>
          <tbody>
             {% for m in medicine_month %}
-                <tr style="background-color: #ffa50078">
-                    <td>{{m.number_paragraph}}</td>
-                    <td>{{m.date_end_paragraph}}</td>
-                    <td>{{m.medicine.employee}}</td>
-                    <td>{{m.medicine.employee.subdivision}}</td>
-                </tr>
+                {% if m.application == True %}
+                    <tr style="background-color:  #BDECB6">
+                        <td>{{m.number_paragraph}}</td>
+                        <td>{{m.date_end_paragraph}}</td>
+                        <td>{{m.medicine.employee}}</td>
+                        <td>{{m.medicine.employee.subdivision}}</td>
+                        <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                            в работе
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr style="background-color: #ffa50078">
+                        <td>{{m.number_paragraph}}</td>
+                        <td>{{m.date_end_paragraph}}</td>
+                        <td>{{m.medicine.employee}}</td>
+                        <td>{{m.medicine.employee.subdivision}}</td>
+                        <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                            <a class="btn" href="{% url 'medicine_check' m.pk %}">-</a>
+                        </td>
+                    </tr>
+                {% endif %}
             {% endfor %}
          </tbody>
          {% endif %}

@@ -267,6 +267,14 @@ class MedicineParagraphAddForm(ModelForm):
         }
 
 
+class MedicineParagraphCheckForm(MedicineParagraphAddForm):
+    class Meta:
+        model = MedicineParagraph
+        fields = [
+            'application',
+        ]
+
+
 class PassportAddForm(ModelForm):
 
     class Meta:

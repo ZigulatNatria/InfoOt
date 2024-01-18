@@ -5,8 +5,8 @@ from .views import profile_employee, medicine,\
     MedicineParagraphAddView, EducationAddView, CertificateAddView, PsychoAddView, EmployeeView,\
     PsychoUpdateView, SawcAddView, SawcAddToEmployee, SawcListView, SawcDelete, SawcUpdateView, OrderListView, \
     OrderAddView, OrderUpdateView, OrderDeleteView, InstructionListView, InstructionCreateView, InstructionUpdateView,\
-    InstructionReferenceList, InstructionDeleteView, CertificateCheckView, time_out, time_out_for_admin, \
-    add_familiarization_instruction, search
+    InstructionReferenceList, InstructionDeleteView, CertificateCheckView, MedicineParagraphCheckView, time_out, \
+    time_out_for_admin, add_familiarization_instruction, search
 from .exel import export_users_xls
 from .pdf import pdf, add_pdf
 
@@ -26,6 +26,7 @@ urlpatterns = [
     path('status_update/<pk>', CertificateCheckView.as_view(), name='certificate_check'),
     path('education_update/<pk>/', EducationUpdateView.as_view(), name='education_update'),
     path('paragraph_update/<pk>/', MedicineParagraphUpdateView.as_view(), name='paragraph_update'),
+    path('paragraph_status_update/<pk>/', MedicineParagraphCheckView.as_view(), name='medicine_check'),
     path('passport_update/<pk>/', PassportUpdateView.as_view(), name='passport_update'),
     path('psycho_update/<pk>/', PsychoUpdateView.as_view(), name='psycho_update'),
     path('sawc_add_to/<pk>', SawcAddToEmployee.as_view(), name='sawc_add_to'),
