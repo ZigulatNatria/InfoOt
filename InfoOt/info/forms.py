@@ -372,6 +372,15 @@ class PsychoAddForm(ModelForm):
         }
 
 
+class PsychoCheckAddForm(PsychoAddForm):
+
+    class Meta:
+        model = Psycho
+        fields = [
+            'application',
+        ]
+
+
 class SawcAddForm(ModelForm):
 
     class Meta:

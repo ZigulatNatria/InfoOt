@@ -6,7 +6,7 @@ from django.views.generic import ListView, UpdateView, CreateView, View, Templat
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, \
     MedicineParagraphAddForm, PassportAddForm, MedicineAddForm, PsychoAddForm, \
     SawcAddForm, SawcAddToEmployeeForm, OrderAddForm, InstructionFormAdd, CertificateCheckForm, \
-    MedicineParagraphCheckForm
+    MedicineParagraphCheckForm, PsychoCheckAddForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -257,6 +257,16 @@ class PsychoUpdateView(LoginRequiredMixin, UpdateView):
         return Psycho.objects.get(pk=id)
 
 
+class PsychoCheckView(LoginRequiredMixin, UpdateView):
+    template_name = 'create_new.html'
+    form_class = PsychoCheckAddForm
+    success_url = '/time_out_for_admin/'
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Psycho.objects.get(pk=id)
+
+
 """Образование"""
 @login_required
 def education(request, employee_id):
@@ -350,9 +360,13 @@ def time_out_for_admin(request):
         if i.date_end_paragraph >= month_day and i.application == True:
             MedicineParagraph.objects.filter(id=i.id).update(application=False)
 
-    #TODO доделать статус по психиатрии
+    psycho_all = Psycho.objects.all()
     psycho = Psycho.objects.filter(date_end_psycho__lte=datetime.date.today())
     psycho_month = Psycho.objects.filter(date_end_psycho__range=(datetime.date.today(), month))
+    for i in psycho_all:
+        if i.date_end_psycho >= month_day and i.application == True:
+            Psycho.objects.filter(id=i.id).update(application=False)
+
     context = {
         'certificate': certificate,
         'certificate_month': certificate_month,

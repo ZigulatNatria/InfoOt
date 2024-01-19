@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     {% if admin_user %}
-        <table class="table">
+        <table class="table" style="margin-bottom: 7rem">
          {% if certificate %}
           <thead>
               <tr>
@@ -172,12 +172,27 @@
           </thead>
          <tbody>
             {% for p in psycho %}
-                <tr style="background-color: #f506066e">
-                    <td>Псих.освидетельствование</td>
-                    <td>{{p.employee}}</td>
-                    <td>{{p.employee.subdivision}}</td>
-                    <td>{{p.date_end_psycho}}</td>
-                </tr>
+                {% if p.application == True %}
+                        <tr style="background-color:  #BDECB6">
+                            <td>Псих.освидетельствование</td>
+                            <td>{{p.employee}}</td>
+                            <td>{{p.employee.subdivision}}</td>
+                            <td>{{p.date_end_psycho}}</td>
+                            <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                                в работе
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr style="background-color: #f506066e">
+                            <td>Псих.освидетельствование</td>
+                            <td>{{p.employee}}</td>
+                            <td>{{p.employee.subdivision}}</td>
+                            <td>{{p.date_end_psycho}}</td>
+                            <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                                <a class="btn" href="{% url 'psycho_check' p.pk %}">-</a>
+                            </td>
+                        </tr>
+                    {% endif %}
             {% endfor %}
          </tbody>
          {% endif %}
@@ -195,12 +210,27 @@
           </thead>
          <tbody>
             {% for p in psycho_month %}
-                <tr style="background-color: #ffa50078">
-                    <td>Псих.освидетельствование</td>
-                    <td>{{p.employee}}</td>
-                    <td>{{p.employee.subdivision}}</td>
-                    <td>{{p.date_end_psycho}}</td>
-                </tr>
+                {% if p.application == True %}
+                        <tr style="background-color:  #BDECB6">
+                            <td>Псих.освидетельствование</td>
+                            <td>{{p.employee}}</td>
+                            <td>{{p.employee.subdivision}}</td>
+                            <td>{{p.date_end_psycho}}</td>
+                            <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                                в работе
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr style="background-color: #ffa50078">
+                            <td>Псих.освидетельствование</td>
+                            <td>{{p.employee}}</td>
+                            <td>{{p.employee.subdivision}}</td>
+                            <td>{{p.date_end_psycho}}</td>
+                            <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                                <a class="btn" href="{% url 'psycho_check' p.pk %}">-</a>
+                            </td>
+                        </tr>
+                    {% endif %}
             {% endfor %}
          </tbody>
          {% endif %}

@@ -118,7 +118,7 @@
                         </td>
                     </tr>
                 {% else %}
-                    <tr style="background-color: #f506066e">
+                    <tr style="background-color: #ffa50078">
                         <td>{{m.number_paragraph}}</td>
                         <td>{{m.date_end_paragraph}}</td>
                         <td>{{m.medicine.employee}}</td>
@@ -144,11 +144,25 @@
          {% for employee, psycho in set_subdivision_psycho.items %}
             {% if employee and psycho %}
                 {% for p in psycho %}
-                    <tr style="background-color: #f506066e">
-                        <td>Псих.освидетельствование</td>
-                        <td>{{p.employee}}</td>
-                        <td>{{p.date_end_psycho}}</td>
-                    </tr>
+                    {% if p.application == True %}
+                        <tr style="background-color:  #BDECB6">
+                            <td>Псих.освидетельствование</td>
+                            <td>{{p.employee}}</td>
+                            <td>{{p.date_end_psycho}}</td>
+                            <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                                в работе
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr style="background-color: #f506066e">
+                            <td>Псих.освидетельствование</td>
+                            <td>{{p.employee}}</td>
+                            <td>{{p.date_end_psycho}}</td>
+                            <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                                -
+                            </td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             {% endif %}
          {% endfor %}
@@ -157,11 +171,25 @@
          {% for employee, psycho_month in set_subdivision_psycho_month.items %}
             {% if employee and psycho_month %}
                 {% for p in psycho_month %}
-                    <tr style="background-color: #ffa50078">
-                        <td>Псих.освидетельствование</td>
-                        <td>{{p.employee}}</td>
-                        <td>{{p.date_end_psycho}}</td>
-                    </tr>
+                    {% if p.application == True %}
+                        <tr style="background-color:  #BDECB6">
+                            <td>Псих.освидетельствование</td>
+                            <td>{{p.employee}}</td>
+                            <td>{{p.date_end_psycho}}</td>
+                            <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                                в работе
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr style="background-color: #ffa50078">
+                            <td>Псих.освидетельствование</td>
+                            <td>{{p.employee}}</td>
+                            <td>{{p.date_end_psycho}}</td>
+                            <td style="background-color: white; border-bottom: none; font-size: x-small;">
+                                -
+                            </td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             {% endif %}
          {% endfor %}

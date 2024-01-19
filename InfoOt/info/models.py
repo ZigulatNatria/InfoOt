@@ -162,6 +162,7 @@ class Psycho(models.Model):
     document_psycho = models.FileField(verbose_name='Скан заключения', null=True, blank=True)
     # employee = models.OneToOneField(Employee, on_delete=models.CASCADE, verbose_name='Работник')
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Работник')
+    application = models.BooleanField(verbose_name='заявка', default=False)
 
     def __str__(self):
         return 'Псих.освидетельствование' + ' ' + '{}'.format(self.employee)
