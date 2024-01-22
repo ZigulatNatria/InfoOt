@@ -19,11 +19,15 @@
                     <p>Структурное подразделение: {{current_profile.subdivision}}</p>
                     <p>дата рождения: {{current_profile.birth_date}}</p>
                     <p>телефон: {{current_profile.phone}}</p>
-                    <p><a href="{% url 'employee_update' current_profile.pk %}">Редактировать</a></p>
+                    {% if admin_user or hr_user %}
+                        <p><a href="{% url 'employee_update' current_profile.pk %}">Редактировать</a></p>
+                    {% endif %}
                      <!-- Кнопка-триггер модального окна -->
-                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-bottom: 5px; background-color: #B0C4DE">
-                      Паспортные данные
-                    </button>
+                    {% if admin_user or hr_user %}
+                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-bottom: 5px; background-color: #B0C4DE">
+                          Паспортные данные
+                        </button>
+                    {% endif %}
                     <!-- информация о СОУТ -->
                     <p>
                         {% if current_profile.sawc.all %}
@@ -35,7 +39,11 @@
                                 {% endif %}
                             {% endfor %}
                         {% else %}
-                            <a class="btn" href="{% url 'sawc_add_to' current_profile.pk %}" style="background-color: #B0C4DE">Добавить карту СОУТ</a>
+                            {% if admin_user %}
+                                <a class="btn" href="{% url 'sawc_add_to' current_profile.pk %}" style="background-color: #B0C4DE">Добавить карту СОУТ</a>
+                            {% else %}
+                                Карта СОУТ не добавлена
+                            {% endif %}
                         {% endif %}
                     </p>
                     <a href="{% url 'export_users_xls' current_profile.pk %}">Сохранить в Exel</a>
@@ -86,14 +94,20 @@
                                                 {% else %}
                                                     <td>-</td>
                                                 {% endif %}
-                                            <td><a href="{% url 'education_update' ed.pk %}"><img src="/static/ico/edit-48.png"></a></td>
+                                            {% if admin_user or hr_user %}
+                                                <td><a href="{% url 'education_update' ed.pk %}"><img src="/static/ico/edit-48.png"></a></td>
+                                            {% endif %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
                             </table>
-                            <a class="btn" href="{% url 'education_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить образование</a>
+                                {% if admin_user or hr_user %}
+                                    <a class="btn" href="{% url 'education_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить образование</a>
+                                {% endif %}
                             {% else %}
-                                <a class="btn" href="{% url 'education_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить образование</a>
+                                {% if admin_user or hr_user %}
+                                    <a class="btn" href="{% url 'education_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить образование</a>
+                                {% endif %}
                             {% endif %}
                         </div>
                         <!-- Вкладка медицинских осмотров -->
@@ -122,19 +136,25 @@
                                                 {% else %}
                                                     <td style="color: green">{{med.time}}</td>
                                                 {% endif %}
-                                                <td><a href="{% url 'paragraph_update' med.pk %}"><img src="/static/ico/edit-48.png"></a></td>
+                                                {% if admin_user %}
+                                                    <td><a href="{% url 'paragraph_update' med.pk %}"><img src="/static/ico/edit-48.png"></a></td>
+                                                {% endif %}
                                             </tr>
                                         {% endfor %}
                                      </tbody>
                                  </table>
-                                    <a class="btn" href="{% url 'paragraph_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить пункт мед.осмотра</a>
+                                    {% if admin_user %}
+                                        <a class="btn" href="{% url 'paragraph_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить пункт мед.осмотра</a>
+                                    {% endif %}
                                 {% if medicine.document_medicine %}
                                     <a href="{{medicine.document_medicine.url}}" download="{{medicine.document_medicine.url}}"><img src="/static/ico/download-48.png"></a>
                                     {% load static %}
                                         <a href="{% get_media_prefix %}{{medicine.document_medicine}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
                                 {% endif %}
                             {% else %}
-                                <a class="btn" href="{% url 'medicine_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить мед.заключение</a>
+                                {% if admin_user %}
+                                    <a class="btn" href="{% url 'medicine_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить мед.заключение</a>
+                                {% endif %}
                             {% endif %}
                         </div>
                         <!-- Вкладка удостоверений -->
@@ -181,14 +201,20 @@
                                         {% else %}
                                             <td style="color: green">{{c.time}}</td>
                                         {% endif %}
-                                        <td><a href="{% url 'certificate_update' c.pk %}"><img src="/static/ico/edit-48.png"></a></td>
+                                         {% if admin_user %}
+                                            <td><a href="{% url 'certificate_update' c.pk %}"><img src="/static/ico/edit-48.png"></a></td>
+                                         {% endif %}
                                      </tr>
                                  {% endfor %}
                                  </tbody>
                              </table>
-                             <a class="btn" href="{% url 'certificate_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить удостоверение</a>
+                                {% if admin_user %}
+                                    <a class="btn" href="{% url 'certificate_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить удостоверение</a>
+                                {% endif %}
                             {% else %}
-                                <a class="btn" href="{% url 'certificate_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить удостоверение</a>
+                                {% if admin_user %}
+                                    <a class="btn" href="{% url 'certificate_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить удостоверение</a>
+                                {% endif %}
                             {% endif %}
                         </div>
                         <!-- Вкладка психиатрического освидетельствования -->
@@ -224,14 +250,20 @@
                                                 {% else %}
                                                     <td>-</td>
                                                 {% endif %}
-                                            <td><a href="{% url 'psycho_update' psy.id %}"><img src="/static/ico/edit-48.png"></a></td>
+                                            {% if admin_user %}
+                                                <td><a href="{% url 'psycho_update' psy.id %}"><img src="/static/ico/edit-48.png"></a></td>
+                                            {% endif %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
                             </table>
-                            <a class="btn" href="{% url 'psycho_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить освидетельствование</a>
+                                {% if admin_user %}
+                                    <a class="btn" href="{% url 'psycho_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить освидетельствование</a>
+                                {% endif %}
                             {% else %}
-                                <a class="btn" href="{% url 'psycho_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить освидетельствование</a>
+                                {% if admin_user %}
+                                    <a class="btn" href="{% url 'psycho_add' %}" style="width: 20%; background-color: #B0C4DE">Добавить освидетельствование</a>
+                                {% endif %}
                             {% endif %}
                         </div>
                         <!-- Вкладка приказов -->
@@ -360,14 +392,20 @@
                                         {% else %}
                                             -
                                         {% endif %}
-                                        <div class="col">
-                                            <a href="{% url 'education_update' ed.pk %}"><img src="/static/ico/edit-48.png"></a>
-                                        </div>
+                                            {% if admin_user or hr_user %}
+                                                <div class="col">
+                                                    <a href="{% url 'education_update' ed.pk %}"><img src="/static/ico/edit-48.png"></a>
+                                                </div>
+                                            {% endif %}
                                     </div>
                                 {% endfor %}
-                                <a class="btn" href="{% url 'education_add' %}" style="background-color: #B0C4DE">Добавить образование</a>
+                                    {% if admin_user or hr_user %}
+                                        <a class="btn" href="{% url 'education_add' %}" style="background-color: #B0C4DE">Добавить образование</a>
+                                    {% endif %}
                             {% else %}
-                                <a class="btn" href="{% url 'education_add' %}" style="background-color: #B0C4DE">Добавить образование</a>
+                                 {% if admin_user or hr_user %}
+                                    <a class="btn" href="{% url 'education_add' %}" style="background-color: #B0C4DE">Добавить образование</a>
+                                 {% endif %}
                             {% endif %}
                          </div>
                      </div>
@@ -391,26 +429,43 @@
                         <div class="accordion-body">
                             {% if medicine %}
                                 {% for med in medicine_paragraph %}
-                                    <div class="row">
+                                    <div class="row" style="background-color: #FAEBD7;">
                                         п {{med.number_paragraph}}
                                         от {{med.date_finish_paragraph}}
                                     </div>
-                                    <div class="row">
+                                    <div class="row" style="margin-bottom: 0.5rem">
                                         до {{med.date_end_paragraph}}
-                                        дней {{med.time}}
+                                        <div class="col" style="white-space: nowrap">
+                                            Дней:
+                                        </div>
+                                        <div class="col">
+                                            {% if med.time < 0 %}
+                                                <span style="color: red">{{med.time}}</span>
+                                            {% elif med.time < 31 %}
+                                                <span style="color: orange">{{med.time}}</span>
+                                            {% else %}
+                                                <span style="color: green">{{med.time}}</span>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <a href="{% url 'paragraph_update' med.pk %}"><img src="/static/ico/edit-48.png"></a>
-                                    </div>
+                                    {% if admin_user %}
+                                        <div class="row">
+                                            <a href="{% url 'paragraph_update' med.pk %}"><img src="/static/ico/edit-48.png"></a>
+                                        </div>
+                                    {% endif %}
                                 {% endfor %}
-                                    <a class="btn" href="{% url 'paragraph_add' %}" style="background-color: #B0C4DE">Добавить пункт</a>
+                                    {% if admin_user %}
+                                        <a class="btn" href="{% url 'paragraph_add' %}" style="background-color: #B0C4DE">Добавить пункт</a>
+                                    {% endif %}
                                 {% if medicine.document_medicine %}
                                     <a href="{{medicine.document_medicine.url}}" download="{{medicine.document_medicine.url}}"><img src="/static/ico/download-48.png"></a>
                                     {% load static %}
                                         <a href="{% get_media_prefix %}{{medicine.document_medicine}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
                                 {% endif %}
                             {% else %}
-                                <a class="btn" href="{% url 'medicine_add' %}" style="background-color: #B0C4DE">Добавить мед.заключение</a>
+                                {% if admin_user %}
+                                    <a class="btn" href="{% url 'medicine_add' %}" style="background-color: #B0C4DE">Добавить мед.заключение</a>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>
@@ -482,14 +537,20 @@
                                                 <span style="color: green">{{c.time}}</span>
                                             {% endif %}
                                         </div>
-                                        <div class="col">
-                                            <a href="{% url 'certificate_update' c.pk %}"><img src="/static/ico/edit-48.png"></a>
-                                        </div>
+                                        {% if admin_user %}
+                                            <div class="col">
+                                                <a href="{% url 'certificate_update' c.pk %}"><img src="/static/ico/edit-48.png"></a>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 {% endfor %}
-                            <a class="btn" href="{% url 'certificate_add' %}" style="background-color: #B0C4DE">Добавить удостоверение</a>
+                                {% if admin_user %}
+                                    <a class="btn" href="{% url 'certificate_add' %}" style="background-color: #B0C4DE">Добавить удостоверение</a>
+                                {% endif %}
                             {% else %}
-                                <a class="btn" href="{% url 'certificate_add' %}" style="background-color: #B0C4DE">Добавить удостоверение</a>
+                                {% if admin_user %}
+                                    <a class="btn" href="{% url 'certificate_add' %}" style="background-color: #B0C4DE">Добавить удостоверение</a>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>
@@ -536,11 +597,17 @@
                                         {% else %}
                                             -
                                         {% endif %}
-                                    <a href="{% url 'psycho_update' psy.id %}"><img src="/static/ico/edit-48.png"></a>
+                                    {% if admin_user %}
+                                        <a href="{% url 'psycho_update' psy.id %}"><img src="/static/ico/edit-48.png"></a>
+                                    {% endif %}
                                 {% endfor %}
-                                <a class="btn" href="{% url 'psycho_add' %}" style="background-color: #B0C4DE">Добавить освидетельствование</a>
+                                {% if admin_user %}
+                                    <a class="btn" href="{% url 'psycho_add' %}" style="background-color: #B0C4DE">Добавить освидетельствование</a>
+                                {% endif %}
                             {% else %}
-                                <a class="btn" href="{% url 'psycho_add' %}" style="background-color: #B0C4DE">Добавить освидетельствование</a>
+                                {% if admin_user %}
+                                    <a class="btn" href="{% url 'psycho_add' %}" style="background-color: #B0C4DE">Добавить освидетельствование</a>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>

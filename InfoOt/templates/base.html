@@ -21,9 +21,11 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                      <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">Добавить работника</a>
-                      </li>
+                      {% if admin_user or hr_user %}
+                          <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">Добавить работника</a>
+                          </li>
+                      {% endif %}
                       {% if request.user.supervisor or admin_user %}
                           <li class="nav-item">
                               {% if admin_user %}
@@ -38,8 +40,10 @@
                             СОУТ
                           </a>
                           <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'sawc' %}">Список карт СОУТ</a></li>
-                            <li><a class="dropdown-item" href="{% url 'sawc_add' %}">Добавить карту СОУТ</a></li>
+                             <li><a class="dropdown-item" href="{% url 'sawc' %}">Список карт СОУТ</a></li>
+                             {% if admin_user %}
+                                <li><a class="dropdown-item" href="{% url 'sawc_add' %}">Добавить карту СОУТ</a></li>
+                             {% endif %}
                           </ul>
                         </li>
                       <li class="nav-item dropdown">
@@ -47,8 +51,10 @@
                             Приказы
                           </a>
                           <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'orders' %}">Список приказов</a></li>
-                            <li><a class="dropdown-item" href="{% url 'order_add' %}">Добавить приказ</a></li>
+                              <li><a class="dropdown-item" href="{% url 'orders' %}">Список приказов</a></li>
+                              {% if admin_user %}
+                                <li><a class="dropdown-item" href="{% url 'order_add' %}">Добавить приказ</a></li>
+                              {% endif %}
                           </ul>
                       </li>
                       <li class="nav-item dropdown">
@@ -56,12 +62,14 @@
                             Инструкции ОТ
                           </a>
                           <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'instructions' %}">Список инструкций ОТ</a></li>
-                            <li><a class="dropdown-item" href="{% url 'instruction_add' %}">Добавить инструкцию</a></li>
+                              <li><a class="dropdown-item" href="{% url 'instructions' %}">Список инструкций ОТ</a></li>
+                              {% if admin_user %}
+                                <li><a class="dropdown-item" href="{% url 'instruction_add' %}">Добавить инструкцию</a></li>
+                              {% endif %}
                           </ul>
                       </li>
                   </ul>
-                  <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="justify-content: end">
+                  <ul class="navbar-nav me mb-2 mb-lg-0" style="justify-content: end">
                       <li class="nav-item">
                          <a class="nav-link active" aria-current="page" href="/auth/"> {{ user.surname }} {{ user.name }} </a>
                       </li>

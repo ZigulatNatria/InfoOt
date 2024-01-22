@@ -24,7 +24,7 @@
                     <tr style="background-color:  #BDECB6">
                         <td>{{c.name_certificate}}</td>
                         <td>{{c.date_end_certificate}}</td>
-                        <td>{{c.employee}}</td>
+                        <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
                         <td>{{c.employee.subdivision}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             в работе
@@ -34,7 +34,7 @@
                     <tr style="background-color: #f506066e">
                         <td>{{c.name_certificate}}</td>
                         <td>{{c.date_end_certificate}}</td>
-                        <td>{{c.employee}}</td>
+                        <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
                         <td>{{c.employee.subdivision}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             <a class="btn" href="{% url 'certificate_check' c.pk %}">-</a>
@@ -62,7 +62,7 @@
                     <tr style="background-color:  #BDECB6">
                         <td>{{c.name_certificate}}</td>
                         <td>{{c.date_end_certificate}}</td>
-                        <td>{{c.employee}}</td>
+                        <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
                         <td>{{c.employee.subdivision}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             в работе
@@ -72,7 +72,7 @@
                     <tr style="background-color: #ffa50078">
                         <td>{{c.name_certificate}}</td>
                         <td>{{c.date_end_certificate}}</td>
-                        <td>{{c.employee}}</td>
+                        <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
                         <td>{{c.employee.subdivision}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             <a class="btn" href="{% url 'certificate_check' c.pk %}">-</a>
@@ -100,7 +100,7 @@
                     <tr style="background-color:  #BDECB6">
                         <td>{{m.number_paragraph}}</td>
                         <td>{{m.date_end_paragraph}}</td>
-                        <td>{{m.medicine.employee}}</td>
+                        <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
                         <td>{{m.medicine.employee.subdivision}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             в работе
@@ -110,7 +110,7 @@
                 <tr style="background-color: #f506066e">
                     <td>{{m.number_paragraph}}</td>
                     <td>{{m.date_end_paragraph}}</td>
-                    <td>{{m.medicine.employee}}</td>
+                    <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
                     <td>{{m.medicine.employee.subdivision}}</td>
                     <td style="background-color: white; border-bottom: none; font-size: x-small;">
                         <a class="btn" href="{% url 'medicine_check' m.pk %}">-</a>
@@ -138,7 +138,7 @@
                     <tr style="background-color:  #BDECB6">
                         <td>{{m.number_paragraph}}</td>
                         <td>{{m.date_end_paragraph}}</td>
-                        <td>{{m.medicine.employee}}</td>
+                        <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
                         <td>{{m.medicine.employee.subdivision}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             в работе
@@ -148,7 +148,7 @@
                     <tr style="background-color: #ffa50078">
                         <td>{{m.number_paragraph}}</td>
                         <td>{{m.date_end_paragraph}}</td>
-                        <td>{{m.medicine.employee}}</td>
+                        <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
                         <td>{{m.medicine.employee.subdivision}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             <a class="btn" href="{% url 'medicine_check' m.pk %}">-</a>
@@ -175,7 +175,7 @@
                 {% if p.application == True %}
                         <tr style="background-color:  #BDECB6">
                             <td>Псих.освидетельствование</td>
-                            <td>{{p.employee}}</td>
+                            <td><a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a></td>
                             <td>{{p.employee.subdivision}}</td>
                             <td>{{p.date_end_psycho}}</td>
                             <td style="background-color: white; border-bottom: none; font-size: x-small;">
@@ -185,7 +185,7 @@
                     {% else %}
                         <tr style="background-color: #f506066e">
                             <td>Псих.освидетельствование</td>
-                            <td>{{p.employee}}</td>
+                            <td><a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a></td>
                             <td>{{p.employee.subdivision}}</td>
                             <td>{{p.date_end_psycho}}</td>
                             <td style="background-color: white; border-bottom: none; font-size: x-small;">
@@ -213,7 +213,7 @@
                 {% if p.application == True %}
                         <tr style="background-color:  #BDECB6">
                             <td>Псих.освидетельствование</td>
-                            <td>{{p.employee}}</td>
+                            <td><a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a></td>
                             <td>{{p.employee.subdivision}}</td>
                             <td>{{p.date_end_psycho}}</td>
                             <td style="background-color: white; border-bottom: none; font-size: x-small;">
@@ -223,7 +223,7 @@
                     {% else %}
                         <tr style="background-color: #ffa50078">
                             <td>Псих.освидетельствование</td>
-                            <td>{{p.employee}}</td>
+                            <td><a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a></td>
                             <td>{{p.employee.subdivision}}</td>
                             <td>{{p.date_end_psycho}}</td>
                             <td style="background-color: white; border-bottom: none; font-size: x-small;">
