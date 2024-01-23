@@ -104,7 +104,7 @@
                                      <tbody>
                                         {% for med in view.medicine_paragraph %}
                                             <tr>
-                                                <td>{{med.number_paragraph}}</td>
+                                                <td>{{med.number_paragraph_list}}</td>
                                                 <td>{{med.date_finish_paragraph}}</td>
                                                 <td>{{med.date_end_paragraph}}</td>
                                                 <td>{{med.time}}</td>
@@ -394,7 +394,7 @@
                             {% if view.medicine %}
                                 {% for med in view.medicine_paragraph %}
                                     <div class="row" style="background-color: #FAEBD7;">
-                                        п {{med.number_paragraph}}
+                                        п {{med.number_paragraph_list}}
                                         от {{med.date_finish_paragraph}}
                                     </div>
                                     <div class="row" style="margin-bottom: 0.5rem">

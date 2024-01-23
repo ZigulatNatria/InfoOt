@@ -226,16 +226,24 @@ class MedicineParagraphAddForm(ModelForm):
     class Meta:
         model = MedicineParagraph
         fields = [
-            'number_paragraph',
+            'number_paragraph_list',
             'date_finish_paragraph',
             'date_end_paragraph',
             'medicine'
         ]
 
         widgets = {
-            'number_paragraph': forms.TextInput(
+            # 'number_paragraph': forms.TextInput(
+            #     attrs={
+            #         "class": "form-control",
+            #         "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+            #         "placeholder": 'Номер пункта',
+            #     }
+            # ),
+
+            'number_paragraph_list': forms.Select(
                 attrs={
-                    "class": "form-control",
+                    "class": "form-select",
                     "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
                     "placeholder": 'Номер пункта',
                 }

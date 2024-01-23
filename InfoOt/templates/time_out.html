@@ -98,7 +98,7 @@
             {% for m in medicine %}
                 {% if m.application == True %}
                     <tr style="background-color:  #BDECB6">
-                        <td>{{m.number_paragraph}}</td>
+                        <td>{{m.number_paragraph_list}}</td>
                         <td>{{m.date_end_paragraph}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
                         <td>{{m.medicine.employee.subdivision}}</td>
@@ -108,7 +108,7 @@
                     </tr>
                 {% else %}
                 <tr style="background-color: #f506066e">
-                    <td>{{m.number_paragraph}}</td>
+                    <td>{{m.number_paragraph_list}}</td>
                     <td>{{m.date_end_paragraph}}</td>
                     <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
                     <td>{{m.medicine.employee.subdivision}}</td>
@@ -136,7 +136,7 @@
             {% for m in medicine_month %}
                 {% if m.application == True %}
                     <tr style="background-color:  #BDECB6">
-                        <td>{{m.number_paragraph}}</td>
+                        <td>{{m.number_paragraph_list}}</td>
                         <td>{{m.date_end_paragraph}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
                         <td>{{m.medicine.employee.subdivision}}</td>
@@ -146,7 +146,7 @@
                     </tr>
                 {% else %}
                     <tr style="background-color: #ffa50078">
-                        <td>{{m.number_paragraph}}</td>
+                        <td>{{m.number_paragraph_list}}</td>
                         <td>{{m.date_end_paragraph}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
                         <td>{{m.medicine.employee.subdivision}}</td>

@@ -79,7 +79,7 @@ def export_users_xls(request, employee_id):
 
     medicine_id = Medicine.objects.filter(employee=employee_id).values('id')[0]['id']
     medicine_paragraph = MedicineParagraph.objects.filter(medicine=medicine_id).values_list(
-        'number_paragraph',
+        'number_paragraph_list__number_paragraph',
         'date_finish_paragraph',
         'date_end_paragraph',
     )
