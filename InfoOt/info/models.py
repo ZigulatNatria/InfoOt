@@ -197,6 +197,9 @@ class Medicine(models.Model):
         return f'/{self.employee.id}'
 
 
+
+
+
 class MedicineParagraph(models.Model):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
     number_paragraph = models.CharField(max_length=10, verbose_name='Пункт мед.осмотра')
