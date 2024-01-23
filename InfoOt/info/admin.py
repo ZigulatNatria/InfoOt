@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Employee, Medicine, Psycho, Passport, Education, Certificate, MedicineParagraph, Subdivision, \
-    Profession, Sawc, Order, Instruction, FamiliarizationInstruction
+    Profession, Sawc, Order, Instruction, FamiliarizationInstruction, MedicineParagraphList
 
 # Register your models here.
 admin.site.register(Employee)
@@ -16,3 +16,4 @@ admin.site.register(Sawc)
 admin.site.register(Order)
 admin.site.register(Instruction)
 admin.site.register(FamiliarizationInstruction)
+admin.site.register(MedicineParagraphList)

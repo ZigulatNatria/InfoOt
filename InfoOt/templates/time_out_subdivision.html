@@ -85,7 +85,7 @@
             {% for m in medicine %}
                 {% if m.application == True %}
                     <tr style="background-color:  #BDECB6">
-                        <td>{{m.number_paragraph}}</td>
+                        <td>{{m.number_paragraph_list}}</td>
                         <td>{{m.date_end_paragraph}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
@@ -94,7 +94,7 @@
                     </tr>
                 {% else %}
                     <tr style="background-color: #f506066e">
-                        <td>{{m.number_paragraph}}</td>
+                        <td>{{m.number_paragraph_list}}</td>
                         <td>{{m.date_end_paragraph}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
@@ -119,7 +119,7 @@
                     </tr>
                 {% else %}
                     <tr style="background-color: #ffa50078">
-                        <td>{{m.number_paragraph}}</td>
+                        <td>{{m.number_paragraph_list}}</td>
                         <td>{{m.date_end_paragraph}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
@@ -243,7 +243,7 @@
                 <div class="row" style="background-color: #f506066e; margin-bottom: 0.25rem">
                     <div class="col">
                         <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
-                            П. {{m.number_paragraph}}
+                            П. {{m.number_paragraph_list}}
                         </div>
                         <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
                             срок действия: {{m.date_end_paragraph}}
@@ -260,7 +260,7 @@
                 <div class="row" style="background-color: #ffa50078; margin-bottom: 0.25rem">
                     <div class="col">
                         <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
-                            П. {{m.number_paragraph}}
+                            П. {{m.number_paragraph_list}}
                         </div>
                         <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
                             срок действия: {{m.date_end_paragraph}}
@@ -297,14 +297,16 @@
             {% if employee and psycho_month %}
                 {% for p in psycho_month %}
                     <div class="row" style="background-color: #ffa50078; margin-bottom: 0.25rem">
-                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
-                            Псих.освидетельствование
-                        </div>
-                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
-                            <a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a>
-                        </div>
-                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
-                            {{p.date_end_psycho}}
+                        <div class="col">
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Псих.освидетельствование
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                <a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a>
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                {{p.date_end_psycho}}
+                            </div>
                         </div>
                     </div>
                 {% endfor %}

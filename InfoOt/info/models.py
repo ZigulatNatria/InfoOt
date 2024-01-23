@@ -197,16 +197,27 @@ class Medicine(models.Model):
         return f'/{self.employee.id}'
 
 
+class MedicineParagraphList(models.Model):
+    number_paragraph = models.CharField(max_length=10, unique=True, verbose_name='Пункт мед.осмотра')
+
+    def __str__(self):
+        return self.number_paragraph
+
+    class Meta:
+        verbose_name_plural = 'списки пунктов мед.осмотра'
+        verbose_name = 'список пункта мед.осмотра'
+
+
 class MedicineParagraph(models.Model):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
-    number_paragraph = models.CharField(max_length=10, verbose_name='Пункт мед.осмотра')
+    number_paragraph_list = models.ForeignKey(MedicineParagraphList, on_delete=models.CASCADE, verbose_name='Пункт мед.осмотра')
     date_finish_paragraph = models.DateField(verbose_name='Дата прохождения')
     date_end_paragraph = models.DateField(verbose_name='Срок действия')
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE, verbose_name='Мед.заключение')
     application = models.BooleanField(verbose_name='заявка', default=False)
 
     def __str__(self):
-        return 'Пункт' + ' ' + '{}'.format(self.number_paragraph) + ' ' + '{}'.format(self.medicine)
+        return 'Пункт' + ' ' + '{}'.format(self.number_paragraph_list) + ' ' + '{}'.format(self.medicine)
 
     # расчитываем колличество дней до окончания срока действия, берём дату окончания из модели и вычитаем текущую дату
     def time(self):
