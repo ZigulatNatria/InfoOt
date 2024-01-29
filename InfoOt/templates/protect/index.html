@@ -139,7 +139,7 @@
                                  <tbody>
                                  {% for c in view.certificate %}
                                      <tr>
-                                        <td>{{c.name_certificate}}</td>
+                                        <td>{{c.name_certificate_list}}</td>
                                         <td>{{c.date_finish_certificate}}</td>
                                         <td>{{c.date_end_certificate}}</td>
                                         {% if c.certificate %}
@@ -444,7 +444,7 @@
                             {% if view.certificate %}
                                 {% for c in view.certificate %}
                                     <div class="row" style="background-color: #FAEBD7;">
-                                        {{c.name_certificate}}
+                                        {{c.name_certificate_list}}
                                     </div>
                                     <div class="row">
                                         от {{c.date_finish_certificate}}

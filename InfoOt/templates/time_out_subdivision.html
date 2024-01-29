@@ -22,7 +22,7 @@
                 {% for c in certificate %}
                     {% if c.application == True %}
                         <tr style="background-color:  #BDECB6">
-                            <td>{{c.name_certificate}}</td>
+                            <td>{{c.name_certificate_list}}</td>
                             <td>{{c.date_end_certificate}}</td>
                             <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
                             <td style="background-color: white; border-bottom: none; font-size: x-small;">
@@ -31,7 +31,7 @@
                         </tr>
                     {% else %}
                         <tr style="background-color: #f506066e">
-                            <td>{{c.name_certificate}}</td>
+                            <td>{{c.name_certificate_list}}</td>
                             <td>{{c.date_end_certificate}}</td>
                             <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
                             <td style="background-color: white; border-bottom: none; font-size: x-small;">
@@ -49,7 +49,7 @@
             {% for c in certificate %}
                 {% if c.application == True %}
                     <tr style="background-color:  #BDECB6">
-                        <td>{{c.name_certificate}}</td>
+                        <td>{{c.name_certificate_list}}</td>
                         <td>{{c.date_end_certificate}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
@@ -58,7 +58,7 @@
                     </tr>
                 {% else %}
                 <tr style="background-color: #ffa50078">
-                    <td>{{c.name_certificate}}</td>
+                    <td>{{c.name_certificate_list}}</td>
                     <td>{{c.date_end_certificate}}</td>
                     <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a>
                     <td style="background-color: white; border-bottom: none; font-size: x-small;">
@@ -204,7 +204,7 @@
                     <div class="row" style="background-color: #f506066e; margin-bottom: 0.25rem">
                         <div class="col">
                             <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
-                                {{c.name_certificate}}
+                                {{c.name_certificate_list}}
                             </div>
                             <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
                                 Срок действия: {{c.date_end_certificate}}
@@ -223,7 +223,7 @@
                     <div class="row" style="background-color: #ffa50078; margin-bottom: 0.25rem">
                         <div class="col">
                             <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
-                                {{c.name_certificate}}
+                                {{c.name_certificate_list}}
                             </div>
                             <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
                                 Срок действия: {{c.date_end_certificate}}

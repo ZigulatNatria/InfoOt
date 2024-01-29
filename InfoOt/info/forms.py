@@ -6,15 +6,10 @@ from .models import Employee, Certificate, Education, MedicineParagraph, Passpor
 
 
 class EmployeeAddForm(ModelForm):
-    # name = forms.CharField(max_length=100,
-    #                        label='Правообладатель фильма',
-    #                        widget=forms.TextInput
-    #                        (attrs={'placeholder': 'не более 100 символов '})
-    #                        )
 
     class Meta:
         model = Employee
-        # fields = ('__all__')
+
         fields = [
             'username',
             'surname',
@@ -108,7 +103,7 @@ class CertificateAddForm(ModelForm):
     class Meta:
         model = Certificate
         fields = [
-            'name_certificate',
+            'name_certificate_list',
             'date_finish_certificate',
             'date_end_certificate',
             'certificate',
@@ -117,9 +112,17 @@ class CertificateAddForm(ModelForm):
         ]
 
         widgets = {
-            'name_certificate': forms.TextInput(
+            # 'name_certificate': forms.TextInput(
+            #     attrs={
+            #         "class": "form-control",
+            #         "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+            #         "placeholder": 'Название обучения',
+            #     }
+            # ),
+
+            'name_certificate_list': forms.Select(
                 attrs={
-                    "class": "form-control",
+                    "class": "form-select",
                     "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
                     "placeholder": 'Название обучения',
                 }
@@ -233,13 +236,6 @@ class MedicineParagraphAddForm(ModelForm):
         ]
 
         widgets = {
-            # 'number_paragraph': forms.TextInput(
-            #     attrs={
-            #         "class": "form-control",
-            #         "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
-            #         "placeholder": 'Номер пункта',
-            #     }
-            # ),
 
             'number_paragraph_list': forms.Select(
                 attrs={

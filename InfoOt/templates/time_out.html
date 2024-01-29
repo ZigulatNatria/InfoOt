@@ -22,7 +22,7 @@
             {% for c in certificate %}
                 {% if c.application == True %}
                     <tr style="background-color:  #BDECB6">
-                        <td>{{c.name_certificate}}</td>
+                        <td>{{c.name_certificate_list}}</td>
                         <td>{{c.date_end_certificate}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
                         <td>{{c.employee.subdivision}}</td>
@@ -32,7 +32,7 @@
                     </tr>
                 {% else %}
                     <tr style="background-color: #f506066e">
-                        <td>{{c.name_certificate}}</td>
+                        <td>{{c.name_certificate_list}}</td>
                         <td>{{c.date_end_certificate}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
                         <td>{{c.employee.subdivision}}</td>
@@ -60,7 +60,7 @@
             {% for c in certificate_month %}
                 {% if c.application == True %}
                     <tr style="background-color:  #BDECB6">
-                        <td>{{c.name_certificate}}</td>
+                        <td>{{c.name_certificate_list}}</td>
                         <td>{{c.date_end_certificate}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
                         <td>{{c.employee.subdivision}}</td>
@@ -70,7 +70,7 @@
                     </tr>
                 {% else %}
                     <tr style="background-color: #ffa50078">
-                        <td>{{c.name_certificate}}</td>
+                        <td>{{c.name_certificate_list}}</td>
                         <td>{{c.date_end_certificate}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
                         <td>{{c.employee.subdivision}}</td>

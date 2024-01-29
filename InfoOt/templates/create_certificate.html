@@ -8,7 +8,7 @@
             <div class="col formMobile" style="min-width: 30vw; max-width: 30vw;">
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div style="margin-bottom: 0.25rem">{{ form.name_certificate }}</div>
+                    <div style="margin-bottom: 0.25rem">{{ form.name_certificate_list }}</div>
                     <div style="margin-bottom: 0.25rem">{{ form.date_finish_certificate }}</div>
                     <div style="margin-bottom: 1rem">{{ form.date_end_certificate }}</div>
                     <div style="margin-bottom: 0.25rem">{{ form.certificate.label_tag }}</div>

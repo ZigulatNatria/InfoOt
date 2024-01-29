@@ -130,9 +130,21 @@ class Education(models.Model):
         return f'/{self.employee.id}'
 
 
+class CertificateNameList(models.Model):
+    name_certificate = models.CharField(verbose_name='Название обучения', max_length=200, unique=True)
+
+    class Meta:
+        verbose_name_plural = 'Название обучения'
+        verbose_name = 'Названия обучений'
+        ordering = ['name_certificate']
+
+    def __str__(self):
+        return self.name_certificate
+
+
 class Certificate(models.Model):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) #TODO не хочет работать с функциями view допинать по возможности
-    name_certificate = models.TextField(verbose_name='Название обучения')
+    name_certificate_list = models.ForeignKey(CertificateNameList, on_delete=models.CASCADE, verbose_name='Название обучения')
     date_finish_certificate = models.DateField(verbose_name='Дата получения удостоверения')
     date_end_certificate = models.DateField(verbose_name='Срок окончания действия удостоверения')
     certificate = models.FileField(verbose_name='Скан удостоверения', upload_to='media', null=True, blank=True)
@@ -141,7 +153,7 @@ class Certificate(models.Model):
     application = models.BooleanField(verbose_name='заявка', default=False)
 
     def __str__(self):
-        return 'Удостоверение ' + ' ' + '{}'.format(self.name_certificate) + ' ' + '{}'.format(self.employee)
+        return 'Удостоверение ' + ' ' + '{}'.format(self.name_certificate_list) + ' ' + '{}'.format(self.employee)
 
     class Meta:
         verbose_name_plural = 'Удостоверения'
@@ -195,7 +207,6 @@ class Medicine(models.Model):
 
     def get_absolute_url(self):
         return f'/{self.employee.id}'
-
 
 
 class MedicineParagraphList(models.Model):
