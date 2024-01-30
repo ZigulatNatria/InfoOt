@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.utils import timezone
 import datetime
+from django.core.cache import cache
 
 """Временно закрыто"""
 # для Celery
@@ -42,8 +43,9 @@ class EmployeeView(LoginRequiredMixin, TemplateView):
 
 
 class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'create_employee.html'
+    template_name = 'update_employee.html'
     form_class = EmployeeAddForm
+    context_object_name = 'employ'
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
@@ -67,6 +69,12 @@ def profile_employee(request, employee_id):
     current_profession = current_profile.profession
     instruction_profession = Instruction.objects.filter(profession=current_profession)
     instruction_employee = Instruction.objects.filter(employee=current_profile)
+    """Кусок для складывания id пользователя в кэш"""
+    # url_id = request.path.replace('/', '')
+    # url_my = int(url_id)
+    # cache.set('employ_id', url_my, 60 * 2)
+    # print(cache.get('employ_id'))
+    # print(request)
 
     try:
         medicine = Medicine.objects.get(
@@ -203,6 +211,7 @@ def certificate(request, employee_id):
 class CertificateUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'create_certificate.html'
     form_class = CertificateAddForm
+    context_object_name = 'certificate'
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')

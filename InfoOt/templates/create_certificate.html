@@ -6,6 +6,7 @@
     <div class="container">
         <div class="row" style="justify-content: center; margin-top: 2rem;">
             <div class="col formMobile" style="min-width: 30vw; max-width: 30vw;">
+                <h4>{{certificate.employee.surname}} {{certificate.employee.name}} {{certificate.employee.patronym}}</h4>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div style="margin-bottom: 0.25rem">{{ form.name_certificate_list }}</div>
@@ -15,7 +16,11 @@
                     <div style="margin-bottom: 1rem">{{ form.certificate }}</div>
                     <div style="margin-bottom: 0.25rem">{{ form.protocol.label_tag }}</div>
                     <div style="margin-bottom: 0.25rem">{{ form.protocol }}</div>
-                    <div style="margin-bottom: 0.25rem">{{ form.employee }}</div>
+                    {% if not certificate.employee %}
+                        <div style="margin-bottom: 0.25rem">{{ form.employee }}</div>
+                    {% else %}
+                        <div style="margin-bottom: 0.25rem; display: none">{{ form.employee }}</div>
+                    {% endif %}
                     <input class="btn" type="submit" value="Сохранить" style="background-color: #B0C4DE">
                 </form>
             </div>

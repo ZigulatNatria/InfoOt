@@ -23,9 +23,9 @@ def add_pdf(request):
     form = PdfTestForm()
     if request.method == 'POST':
         increment = request.POST.get('text')
-        employee = request.POST.get('employee')
+        employee = request.POST.getlist('employee')
         # employee2 = form
-        # print(employee2)
+        print(employee)
         request.session['data'] = increment
         request.session['employee'] = employee
         button_pdf = True
@@ -38,7 +38,9 @@ def add_pdf(request):
 
 def pdf(request):
     increment = request.session.get('data', None)
-    employ = Employee.objects.get(id=request.session.get('employee', None))
+    print(request.session.get('employee', None))
+    employ = Employee.objects.get(id=1)
+    # employ = Employee.objects.get(id=request.session.get('employee', None))
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
 

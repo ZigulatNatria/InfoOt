@@ -9,7 +9,7 @@ class PdfTestForm(forms.Form):
     queryset_list = []
     for m_id in medicine_id:        # перебираем все параграфы полученных медосмотров
         medicine_paragraph = MedicineParagraph.objects.filter(medicine=m_id['id']).values_list(
-                'number_paragraph_list',
+                'number_paragraph_list__number_paragraph',
                 'date_end_paragraph',
         )
         paragraph = dict(medicine_paragraph)      # преобразуем кортеж в словарь

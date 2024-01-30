@@ -4,7 +4,7 @@
 <body>
 {% block content %}
 <div class="container">
-    <form class="d-flex searchEmployee" role="search" action="{% url 'search' %}">
+    <form class="d-flex searchEmployee" role="search" action="{% url 'search' %}" style="margin-top: 1rem; margin-bottom: 1rem">
        <input class="form-control me-2" type="search" placeholder="Поиск по фамилии" aria-label="Поиск" name="search">
        <button class="btn" type="submit" style="margin-right: 5px; background-color: #B0C4DE">
            Поиск
