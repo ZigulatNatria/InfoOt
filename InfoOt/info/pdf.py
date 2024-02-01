@@ -1,4 +1,6 @@
 import io
+
+from django.db.models import Q
 from django.http import FileResponse
 from django.shortcuts import render
 from django.views.generic import CreateView
@@ -24,8 +26,6 @@ def add_pdf(request):
     if request.method == 'POST':
         increment = request.POST.get('text')
         employee = request.POST.getlist('employee')
-        # employee2 = form
-        print(employee)
         request.session['data'] = increment
         request.session['employee'] = employee
         button_pdf = True
@@ -38,9 +38,17 @@ def add_pdf(request):
 
 def pdf(request):
     increment = request.session.get('data', None)
-    print(request.session.get('employee', None))
-    employ = Employee.objects.get(id=1)
-    # employ = Employee.objects.get(id=request.session.get('employee', None))
+    employee = request.session.get('employee', None)
+
+    queryset_employs_list = []
+    for i in employee:
+        queryset_employs_list.append(Employee.objects.filter(id=int(i)))
+
+    employs = Employee.objects.none()
+    for i in queryset_employs_list:
+        new_qs = employs.union(i)
+        employs = new_qs
+
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
 
@@ -49,8 +57,12 @@ def pdf(request):
     p.setFont("Arial", 12)
     # Draw things on the PDF. Here's where the PDF generation happens.
     # See the ReportLab documentation for the full list of functionality.
-    p.drawString(10, 800, f"{employ.surname} {employ.name} {employ.patronym}")
-    p.drawString(10, 790, f"{increment}")
+    string = 0
+    for employ in employs:
+        p.drawString(10, 800-string, f"{employ.surname} {employ.name} {employ.patronym}")
+        string += 15
+
+    p.drawString(10, 790-string, f"{increment}")
 
     # Close the PDF object cleanly, and we're done.
     p.showPage()
