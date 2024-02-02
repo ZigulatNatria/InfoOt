@@ -1,44 +1,54 @@
 from django import forms
 
-from .models import Employee, Medicine, MedicineParagraph
+from .models import Employee, Medicine, MedicineParagraph, Certificate, MedicineParagraphList
 import datetime
+from django.db.models import Q
 
 
-def employ_list():
-    medicine_id = Medicine.objects.all().values('id')[::]  # получаем все id мед.осмотров
-    queryset_list = []
-    for m_id in medicine_id:  # перебираем все параграфы полученных медосмотров
-        medicine_paragraph = MedicineParagraph.objects.filter(medicine=m_id['id']).values_list(
-            'number_paragraph_list__number_paragraph',
-            'date_end_paragraph',
-        )
-        paragraph = dict(medicine_paragraph)  # преобразуем кортеж в словарь
-        try:
-            month_day = datetime.date.today() + datetime.timedelta(days=15)  # вычисляем 15 дней от текущей даты
-            if paragraph['6.1'] >= month_day:  # если срок параграфа 6.1 не менее 15 дней
-                medicine_paragraph.values()  # то получаем все значения нужного параграфа
-                id_medicine_filtered = medicine_paragraph.values('medicine_id')[0][
-                    'medicine_id']  # забираем id заключений т.к. в коллекции содержится пункт 6.1 берём любой(первый) элемент коллекции и забираем id заключения
-                id_employee_filtered = Medicine.objects.filter(id=id_medicine_filtered).values('employee_id')[0][
-                    'employee_id']  # забираем id работиков
-                Employee.objects.filter(id=id_employee_filtered)
-                queryset_list.append(Employee.objects.filter(id=id_employee_filtered))
-        except Exception:
-            pass
+def employ_list_medicine(name_paragraph: str, days: int) -> set:
+    """
+    Функция выбирает нужные мед.осмотры с датой (текущий день + <нужное кол-во дней>)
+    функция возвращает множество из id работников с подходящими мед.осмотрами
+    """
+    month_day = datetime.date.today() + datetime.timedelta(days=days)  # вычисляем 15 дней от текущей даты
+    list_id = []
 
-    empty_qs = Employee.objects.none()
-    for i in queryset_list:
-        new_qs = empty_qs.union(i)
-        empty_qs = new_qs
+    id_name_paragraph_list = MedicineParagraphList.objects.get(number_paragraph=name_paragraph).id
+    employ_id = MedicineParagraph.objects.filter(Q(number_paragraph_list=id_name_paragraph_list) &
+                                                  Q(date_end_paragraph__gt=month_day)).values('medicine__employee')
+    for i in employ_id:
+        list_id.append(i['medicine__employee'])
 
-    return empty_qs
+    return set(list_id)      #преобразуем полученный список id во множество
+
+
+def employ_list_certificate(certificate_name: str, days: int) -> set:
+    """
+    Функция выбирает нужные удостоверения с датой (текущий день + <нужное кол-во дней>)
+    функция возвращает множество из id работников с подходящими удостоверениями
+    """
+    month_day = datetime.date.today() + datetime.timedelta(days=days)  # вычисляем 15 дней от текущей даты
+    list_id = []
+
+    certificates = Certificate.objects.filter(Q(name_certificate_list__name_certificate=certificate_name) &
+                                              Q(date_end_certificate__gt=month_day)).values('employee')
+    for i in certificates:
+        list_id.append(i['employee'])
+    return set(list_id)          #преобразуем полученный список id во множество
+
+
+def employ_list_height():
+    """производим пересечение множеств id, функция возвращает кверисет"""
+    employs_id = employ_list_certificate('Высота 2 группа', 15) & employ_list_medicine('6.1', 15)
+    employs = Employee.objects.filter(id__in=employs_id)   #фильтрация по id
+    return employs
 
 
 class PdfTestForm(forms.Form):
     text = forms.CharField(max_length=255)
-    employee = forms.ModelMultipleChoiceField(queryset=employ_list())
+    employee = forms.ModelMultipleChoiceField(queryset=employ_list_height())
     """конструктор для обновления формы"""
     def __init__(self, *args, **kwargs):
         super(PdfTestForm, self).__init__(*args, **kwargs)
-        self.fields['employee'] = forms.ModelMultipleChoiceField(queryset=employ_list())
+        self.fields['employee'] = forms.ModelMultipleChoiceField(queryset=employ_list_height())
 
