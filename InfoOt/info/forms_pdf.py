@@ -12,14 +12,17 @@ def employ_list_medicine(name_paragraph: str, days: int) -> set:
     """
     month_day = datetime.date.today() + datetime.timedelta(days=days)  # вычисляем 15 дней от текущей даты
     list_id = []
+    try:
+        id_name_paragraph_list = MedicineParagraphList.objects.get(number_paragraph=name_paragraph).id
+        employ_id = MedicineParagraph.objects.filter(Q(number_paragraph_list=id_name_paragraph_list) &
+                                                     Q(date_end_paragraph__gt=month_day)).values('medicine__employee')
+        for i in employ_id:
+            list_id.append(i['medicine__employee'])
 
-    id_name_paragraph_list = MedicineParagraphList.objects.get(number_paragraph=name_paragraph).id
-    employ_id = MedicineParagraph.objects.filter(Q(number_paragraph_list=id_name_paragraph_list) &
-                                                  Q(date_end_paragraph__gt=month_day)).values('medicine__employee')
-    for i in employ_id:
-        list_id.append(i['medicine__employee'])
-
-    return set(list_id)      #преобразуем полученный список id во множество
+        return set(list_id)      #преобразуем полученный список id во множество
+    except BaseException:
+        print('Отсутствует соответсвующий пункт мед.осмотра в базе')
+        return set({})
 
 
 def employ_list_certificate(certificate_name: str, days: int) -> set:
@@ -29,26 +32,39 @@ def employ_list_certificate(certificate_name: str, days: int) -> set:
     """
     month_day = datetime.date.today() + datetime.timedelta(days=days)  # вычисляем 15 дней от текущей даты
     list_id = []
+    try:
+        certificates = Certificate.objects.filter(Q(name_certificate_list__name_certificate=certificate_name) &
+                                                  Q(date_end_certificate__gt=month_day)).values('employee')
+        for i in certificates:
+            list_id.append(i['employee'])
+        return set(list_id)          #преобразуем полученный список id во множество
+    except BaseException:
+        print('Отсутствует соответсвующее обучение в базе')
+        return set({})
 
-    certificates = Certificate.objects.filter(Q(name_certificate_list__name_certificate=certificate_name) &
-                                              Q(date_end_certificate__gt=month_day)).values('employee')
-    for i in certificates:
-        list_id.append(i['employee'])
-    return set(list_id)          #преобразуем полученный список id во множество
 
-
-def employ_list_height():
+def employ_list_height(employ_certificate: set, employ_medicine: set):
     """производим пересечение множеств id, функция возвращает кверисет"""
-    employs_id = employ_list_certificate('Высота 2 группа', 15) & employ_list_medicine('6.1', 15)
+    employs_id = employ_certificate & employ_medicine
     employs = Employee.objects.filter(id__in=employs_id)   #фильтрация по id
     return employs
 
 
 class PdfTestForm(forms.Form):
     text = forms.CharField(max_length=255)
-    employee = forms.ModelMultipleChoiceField(queryset=employ_list_height())
     """конструктор для обновления формы"""
     def __init__(self, *args, **kwargs):
         super(PdfTestForm, self).__init__(*args, **kwargs)
-        self.fields['employee'] = forms.ModelMultipleChoiceField(queryset=employ_list_height())
+        self.fields['employee'] = forms.ModelMultipleChoiceField(
+            queryset=employ_list_height(
+                employ_list_certificate('Высота 2 группа', 15),
+                employ_list_medicine('6.1', 15)
+            )
+        )
+        self.fields['employee_supervisor'] = forms.ModelMultipleChoiceField(
+            queryset=employ_list_height(
+                employ_list_certificate('Высота 3 группа', 15),
+                employ_list_medicine('6.2', 15)
+            )
+        )
 

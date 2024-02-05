@@ -26,8 +26,10 @@ def add_pdf(request):
     if request.method == 'POST':
         increment = request.POST.get('text')
         employee = request.POST.getlist('employee')
+        employee_supervisor = request.POST.getlist('employee_supervisor')
         request.session['data'] = increment
         request.session['employee'] = employee
+        request.session['employee_supervisor'] = employee_supervisor
         button_pdf = True
     else:
         increment = 0
@@ -40,14 +42,7 @@ def pdf(request):
     increment = request.session.get('data', None)
     employee = request.session.get('employee', None)
 
-    queryset_employs_list = []
-    for i in employee:
-        queryset_employs_list.append(Employee.objects.filter(id=int(i)))
-
-    employs = Employee.objects.none()
-    for i in queryset_employs_list:
-        new_qs = employs.union(i)
-        employs = new_qs
+    employs = Employee.objects.filter(id__in=employee)
 
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
