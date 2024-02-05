@@ -41,8 +41,10 @@ def add_pdf(request):
 def pdf(request):
     increment = request.session.get('data', None)
     employee = request.session.get('employee', None)
+    employee_supervisor = request.session.get('employee_supervisor', None)
 
     employs = Employee.objects.filter(id__in=employee)
+    employs_supervisors = Employee.objects.filter(id__in=employee_supervisor)
 
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
@@ -53,11 +55,16 @@ def pdf(request):
     # Draw things on the PDF. Here's where the PDF generation happens.
     # See the ReportLab documentation for the full list of functionality.
     string = 0
+    p.drawString(10, 800, "Допущенные до производства работ работники")
     for employ in employs:
-        p.drawString(10, 800-string, f"{employ.surname} {employ.name} {employ.patronym}")
+        p.drawString(10, 785-string, f"{employ.surname} {employ.name} {employ.patronym}")
         string += 15
 
-    p.drawString(10, 790-string, f"{increment}")
+    for e_s in employs_supervisors:
+        p.drawString(150, 785-string, f"{e_s.surname} {e_s.name} {e_s.patronym}")
+        string += 15
+
+    p.drawString(10, 780-string, f"{increment}")
 
     # Close the PDF object cleanly, and we're done.
     p.showPage()
