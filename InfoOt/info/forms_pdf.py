@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Employee, Medicine, MedicineParagraph, Certificate, MedicineParagraphList
+from .models import Employee, SafeSystems, MedicineParagraph, Certificate, MedicineParagraphList
 import datetime
 from django.db.models import Q
 
@@ -52,6 +52,7 @@ def employ_list_height(employ_certificate: set, employ_medicine: set):
 
 class PdfTestForm(forms.Form):
     text = forms.CharField(max_length=255)
+    contents_of_work = forms.CharField(max_length=255)
     """конструктор для обновления формы"""
     def __init__(self, *args, **kwargs):
         super(PdfTestForm, self).__init__(*args, **kwargs)
@@ -66,5 +67,8 @@ class PdfTestForm(forms.Form):
                 employ_list_certificate('Высота 3 группа', 15),
                 employ_list_medicine('6.2', 15)
             )
+        )
+        self.fields['safe_systems'] = forms.ModelMultipleChoiceField(
+            queryset=SafeSystems.objects.all()
         )
 

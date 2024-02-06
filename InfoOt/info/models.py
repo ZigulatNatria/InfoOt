@@ -299,3 +299,14 @@ class FamiliarizationInstruction(models.Model):
     def __str__(self):
         return f'{self.user} ознакомлен с {self.instruction}'
 
+
+class SafeSystems(models.Model):
+    name = models.CharField(verbose_name='элемент системы', max_length=300, unique=True)
+
+    class Meta:
+        verbose_name = 'страховочная система'
+        verbose_name_plural = 'страховочные системы'
+
+    def __str__(self):
+        return self.name
+
