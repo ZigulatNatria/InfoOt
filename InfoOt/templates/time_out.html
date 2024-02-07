@@ -25,7 +25,7 @@
                         <td>{{c.name_certificate_list}}</td>
                         <td>{{c.date_end_certificate}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
-                        <td>{{c.employee.subdivision}}</td>
+                        <td>{{c.employee.department}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             в работе
                         </td>
@@ -35,7 +35,7 @@
                         <td>{{c.name_certificate_list}}</td>
                         <td>{{c.date_end_certificate}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
-                        <td>{{c.employee.subdivision}}</td>
+                        <td>{{c.employee.department}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             <a class="btn" href="{% url 'certificate_check' c.pk %}">-</a>
                         </td>
@@ -63,7 +63,7 @@
                         <td>{{c.name_certificate_list}}</td>
                         <td>{{c.date_end_certificate}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
-                        <td>{{c.employee.subdivision}}</td>
+                        <td>{{c.employee.department}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             в работе
                         </td>
@@ -73,7 +73,7 @@
                         <td>{{c.name_certificate_list}}</td>
                         <td>{{c.date_end_certificate}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a></td>
-                        <td>{{c.employee.subdivision}}</td>
+                        <td>{{c.employee.department}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             <a class="btn" href="{% url 'certificate_check' c.pk %}">-</a>
                         </td>
@@ -101,7 +101,7 @@
                         <td>{{m.number_paragraph_list}}</td>
                         <td>{{m.date_end_paragraph}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
-                        <td>{{m.medicine.employee.subdivision}}</td>
+                        <td>{{m.medicine.employee.department}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             в работе
                         </td>
@@ -111,7 +111,7 @@
                     <td>{{m.number_paragraph_list}}</td>
                     <td>{{m.date_end_paragraph}}</td>
                     <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
-                    <td>{{m.medicine.employee.subdivision}}</td>
+                    <td>{{m.medicine.employee.department}}</td>
                     <td style="background-color: white; border-bottom: none; font-size: x-small;">
                         <a class="btn" href="{% url 'medicine_check' m.pk %}">-</a>
                     </td>
@@ -139,7 +139,7 @@
                         <td>{{m.number_paragraph_list}}</td>
                         <td>{{m.date_end_paragraph}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
-                        <td>{{m.medicine.employee.subdivision}}</td>
+                        <td>{{m.medicine.employee.department}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             в работе
                         </td>
@@ -149,7 +149,7 @@
                         <td>{{m.number_paragraph_list}}</td>
                         <td>{{m.date_end_paragraph}}</td>
                         <td><a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a></td>
-                        <td>{{m.medicine.employee.subdivision}}</td>
+                        <td>{{m.medicine.employee.department}}</td>
                         <td style="background-color: white; border-bottom: none; font-size: x-small;">
                             <a class="btn" href="{% url 'medicine_check' m.pk %}">-</a>
                         </td>
@@ -176,7 +176,7 @@
                         <tr style="background-color:  #BDECB6">
                             <td>Псих.освидетельствование</td>
                             <td><a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a></td>
-                            <td>{{p.employee.subdivision}}</td>
+                            <td>{{p.employee.department}}</td>
                             <td>{{p.date_end_psycho}}</td>
                             <td style="background-color: white; border-bottom: none; font-size: x-small;">
                                 в работе
@@ -186,7 +186,7 @@
                         <tr style="background-color: #f506066e">
                             <td>Псих.освидетельствование</td>
                             <td><a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a></td>
-                            <td>{{p.employee.subdivision}}</td>
+                            <td>{{p.employee.department}}</td>
                             <td>{{p.date_end_psycho}}</td>
                             <td style="background-color: white; border-bottom: none; font-size: x-small;">
                                 <a class="btn" href="{% url 'psycho_check' p.pk %}">-</a>
@@ -214,7 +214,7 @@
                         <tr style="background-color:  #BDECB6">
                             <td>Псих.освидетельствование</td>
                             <td><a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a></td>
-                            <td>{{p.employee.subdivision}}</td>
+                            <td>{{p.employee.department}}</td>
                             <td>{{p.date_end_psycho}}</td>
                             <td style="background-color: white; border-bottom: none; font-size: x-small;">
                                 в работе
@@ -224,7 +224,7 @@
                         <tr style="background-color: #ffa50078">
                             <td>Псих.освидетельствование</td>
                             <td><a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a></td>
-                            <td>{{p.employee.subdivision}}</td>
+                            <td>{{p.employee.department}}</td>
                             <td>{{p.date_end_psycho}}</td>
                             <td style="background-color: white; border-bottom: none; font-size: x-small;">
                                 <a class="btn" href="{% url 'psycho_check' p.pk %}">-</a>
