@@ -21,6 +21,17 @@ class Subdivision(models.Model):
         return f'/{self.id}'
 
 
+class Department(models.Model):
+    name = models.CharField(max_length=150, verbose_name='отдел')
+
+    class Meta:
+        verbose_name = 'отдел'
+        verbose_name_plural = 'отделы'
+
+    def __str__(self):
+        return self.name
+
+
 class Profession(models.Model):
     name = models.CharField(max_length=150, verbose_name='Профессия')
 
@@ -64,6 +75,7 @@ class Employee(AbstractUser):
     birth_date = models.DateField(verbose_name='Дата рождения', null=True, blank=True)
     phone = models.BigIntegerField(verbose_name='Телефон', null=True, blank=True)
     subdivision = models.ForeignKey(Subdivision, verbose_name='Подразделение', on_delete=models.CASCADE, null=True, blank=True)
+    department = models.ForeignKey(Department, verbose_name='отдел', on_delete=models.CASCADE, null=True, blank=True)
     photo_employee = models.ImageField(verbose_name='Фото работника', null=True, blank=True)
     # profession = models.ManyToManyField(Profession, verbose_name='Профессия', blank=True)
     profession = models.ForeignKey(Profession, verbose_name='Профессия', on_delete=models.CASCADE, null=True, blank=True)
@@ -89,6 +101,7 @@ class Employee(AbstractUser):
     class Meta:
         verbose_name_plural = 'Работники'
         verbose_name = 'Работник'
+        ordering = ['department']
 
 
 class Passport(models.Model):

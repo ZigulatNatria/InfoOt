@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Employee, Passport, Education, Certificate, Psycho, Medicine, \
-    MedicineParagraph, Subdivision, Sawc, Order, Instruction, FamiliarizationInstruction
+    MedicineParagraph, Subdivision, Sawc, Order, Instruction, FamiliarizationInstruction, Department
 from django.views.generic import ListView, UpdateView, CreateView, View, TemplateView, \
     DeleteView, DetailView
 from .forms import EmployeeAddForm, CertificateAddForm, EducationAddForm, \
@@ -38,6 +38,9 @@ class EmployeeView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         set_subdivision_employee = {subdivision: subdivision.employee_set.all()
                                     for subdivision in Subdivision.objects.all().prefetch_related('employee_set')}
+        set_department_employee = {department: department.employee_set.all()
+                                    for department in Department.objects.all().prefetch_related('employee_set')}
+
         context['all_employee_by_subdivision'] = set_subdivision_employee
         return context
 

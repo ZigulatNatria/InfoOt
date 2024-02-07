@@ -18,6 +18,7 @@ class EmployeeAddForm(ModelForm):
             'birth_date',
             'phone',
             'subdivision',
+            'department',
             'photo_employee',
             'profession',
             'supervisor',
@@ -88,11 +89,19 @@ class EmployeeAddForm(ModelForm):
                 }
             ),
 
+            'department': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Отдел',
+                }
+            ),
+
             'profession': forms.Select(
                 attrs={
                     "class": "form-select",
                     "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
-                    "placeholder": 'Подразделение',
+                    "placeholder": 'Профессия',
                 }
             ),
         }
