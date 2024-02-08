@@ -10,6 +10,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from .models import Employee, SafeSystems
 from .forms_pdf import PdfTestForm
+import datetime
 
 
 pdfmetrics.registerFont(TTFont('Arial', 'arial.ttf'))
@@ -49,6 +50,12 @@ def pdf(request):
     employee = request.session.get('employee', None)
     employee_supervisor = request.session.get('employee_supervisor', None)
 
+    current_date = datetime.datetime.today()
+    date_end = current_date + datetime.timedelta(days=15)
+    format_day_moth_year = '%d.%m.%Y'
+    current_date_format = current_date.strftime(format_day_moth_year)
+    date_end_format = date_end.strftime(format_day_moth_year)
+
     employs = Employee.objects.filter(id__in=employee)
     safe_systems = SafeSystems.objects.filter(id__in=safe_systems)
     employs_supervisors = Employee.objects.get(id=employee_supervisor)
@@ -68,8 +75,8 @@ def pdf(request):
     p.drawString(180, 760, 'На производство работ на высоте')
     p.drawString(5, 740, f'1. Место выполнения работ: {increment}')
     p.drawString(5, 720, f'2. Содержание работ: {contents}')
-    p.drawString(5, 700, f'3. Выдан: ТУТ БУДЕТ ДАТА')
-    p.drawString(380, 700, f'Действителен до: ТУТ БУДЕТ ДАТА')
+    p.drawString(5, 700, f'3. Выдан: {current_date_format}')
+    p.drawString(380, 700, f'Действителен до: {date_end_format}')
     p.drawString(380, 680, f'Продлён до: _______')
     p.drawString(5, 660, f'4. Ответственный руководитель работ:        '
                          f'{employs_supervisors.profession.name}          '
