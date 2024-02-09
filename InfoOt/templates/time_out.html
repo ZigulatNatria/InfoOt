@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     {% if admin_user %}
-        <table class="table" style="margin-bottom: 7rem">
+        <table class="table hiddenMobile" style="margin-bottom: 7rem">
          {% if certificate %}
           <thead>
               <tr>
@@ -235,6 +235,116 @@
          </tbody>
          {% endif %}
      </table>
+    <!--    Мобильная версия-->
+    <div class="hiddenDesktop" style="margin-bottom: 5rem;">
+        <div class="row" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Удостоверения</div>
+            {% if certificate %}
+                {% for c in certificate %}
+                    <div class="row" style="background-color: #f506066e; margin-bottom: 0.25rem">
+                        <div class="col">
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                {{c.name_certificate_list}}
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Срок действия: {{c.date_end_certificate}}
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Работник: <a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if certificate %}
+                {% for c in certificate %}
+                    <div class="row" style="background-color: #ffa50078; margin-bottom: 0.25rem">
+                        <div class="col">
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                {{c.name_certificate_list}}
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Срок действия: {{c.date_end_certificate}}
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Работник: <a class="nav-link" href="{% url 'profile_employee' c.employee.pk %}">{{c.employee}}</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        <!-- Мед.заключения -->
+        <div class="row" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Мед. заключения</div>
+        {% if medicine %}
+            {% for m in medicine %}
+                <div class="row" style="background-color: #f506066e; margin-bottom: 0.25rem">
+                    <div class="col">
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            П. {{m.number_paragraph_list}}
+                        </div>
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            срок действия: {{m.date_end_paragraph}}
+                        </div>
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            <a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if medicine_month %}
+            {% for m in medicine_month %}
+                <div class="row" style="background-color: #ffa50078; margin-bottom: 0.25rem">
+                    <div class="col">
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            П. {{m.number_paragraph_list}}
+                        </div>
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            срок действия: {{m.date_end_paragraph}}
+                        </div>
+                        <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                            <a class="nav-link" href="{% url 'profile_employee' m.medicine.employee.pk %}">{{m.medicine.employee}}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <!-- психиатрия -->
+        <div class="row" style="background: linear-gradient(to right, #B0C4DE, #ffffff)">Псих. освидетельствования</div>
+            {% if psycho %}
+                {% for p in psycho %}
+                    <div class="row" style="background-color: #f506066e; margin-bottom: 0.25rem">
+                        <div class="col">
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Псих.освидетельствование
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                <a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a>
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                {{p.date_end_psycho}}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if psycho_month %}
+                {% for p in psycho_month %}
+                    <div class="row" style="background-color: #ffa50078; margin-bottom: 0.25rem">
+                        <div class="col">
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                Псих.освидетельствование
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                <a class="nav-link" href="{% url 'profile_employee' p.employee.pk %}">{{p.employee}}</a>
+                            </div>
+                            <div class="row" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);">
+                                {{p.date_end_psycho}}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+    </div>
     {% endif %}
 </div>
 {% endblock content %}
