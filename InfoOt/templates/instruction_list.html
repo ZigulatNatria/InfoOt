@@ -26,8 +26,11 @@
                      {% load static %}
                      <a href="{% get_media_prefix %}{{instruction.file}}" target ="_blank"><img src="/static/ico/look-48.png"></a>
                      <a href="{{instruction.file.url}}" download="{{instruction.file.url}}"><img src="/static/ico/download-48.png"></a>
-                     <a href="{% url 'instruction_update' instruction.id %}"><img src="/static/ico/edit-48.png"></a>
-                     <a href="{% url 'instruction_delete' instruction.id %}"><img src="/static/ico/delete-48.png"></a>
+                     <a href="{% url 'ref_inst' instruction.id %}"><img src="/static/ico/list.png"></a>
+                     {% if admin_user or hr_user %}
+                         <a href="{% url 'instruction_update' instruction.id %}"><img src="/static/ico/edit-48.png"></a>
+                         <a href="{% url 'instruction_delete' instruction.id %}"><img src="/static/ico/delete-48.png"></a>
+                     {% endif %}
                  {% endif %}
              </td>
            </tr>
