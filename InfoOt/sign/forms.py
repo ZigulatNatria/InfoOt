@@ -17,6 +17,7 @@ class UserAddForm(UserCreationForm):
             'birth_date',
             'phone',
             'subdivision',
+            'department',
             'photo_employee',
             'profession',
             'supervisor',
@@ -86,6 +87,14 @@ class UserAddForm(UserCreationForm):
                     "class": "form-select",
                     "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
                     "placeholder": 'Подразделение',
+                }
+            ),
+
+            'department': forms.Select(
+                attrs={
+                    "class": "form-select",
+                    "style": "border-left: 0; border-top: 0; border-right: 0; padding-left: 0; border-radius: 0",
+                    "placeholder": 'Отдел',
                 }
             ),
 
