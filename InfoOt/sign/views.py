@@ -5,9 +5,10 @@ from .forms import UserAddForm
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
+
 class UserAddView(PermissionRequiredMixin, CreateView):
     permission_required = (
-        'info.employee.add_employee',
+        'info.add_employee',
     )
     model = Employee
     template_name = 'create.html'
